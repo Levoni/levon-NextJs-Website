@@ -164,7 +164,7 @@ export default function PersonalStatistics(props:any) {
                 <div style={{flex:'1'}}>
                     <DataTable data={getDataTable()}></DataTable>
                 </div>
-                <div style={{flex:'1', display:'flex', justifyContent:'center'}}>
+                <div className="chart-width" style={{flex:'1', display:'flex', justifyContent:'center'}}>
                   <Bar options={chartOptions} data={getChartData()}></Bar>
                 </div>
             </div>

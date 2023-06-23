@@ -17,7 +17,7 @@ export default function PageGuessWrapper(props:any) {
         {name:'Current Range', value:minigameSession.currentRange}
     ]
     return (
-        <div style={{padding:'50px', paddingTop:'0px', display:'flex', flex:'1', justifyContent:'space-around', flexFlow:'wrap'}}>
+        <div className="body-padding" style={{paddingTop:'0px', display:'flex', flex:'1', gap:'25px', justifyContent:'space-around', flexFlow:'wrap'}}>
             <div style={{display:'flex', flex:'1', flexDirection:'column', justifyContent:'space-around'}}>
                 <div style={{flex:'3'}}>
                     <Guesser

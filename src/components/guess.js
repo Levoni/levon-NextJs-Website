@@ -103,11 +103,11 @@ export default function Guesser(props) {
                 <div style={{paddingRight:'10px'}}>Guess</div>
                 <button onClick={regen} className="small-button">Regenerate</button>
                 <div style={{flex:'1'}} className="body-text">
-                    <Collapse maxHeight='6rem' title="Generation Options">
+                    <Collapse maxHeight='8rem' title="Generation Options">
                         <div>min</div>
-                        <input type="number" value={minigameObject.min} onChange={handleMinInput} />
+                        <input className="allow-shrink-grow" type="number" value={minigameObject.min} onChange={handleMinInput} />
                         <div>max</div>
-                        <input type="number" value={minigameObject.max} onChange={handleMaxInput}/>
+                        <input className="allow-shrink-grow" type="number" value={minigameObject.max} onChange={handleMaxInput}/>
                     </Collapse>
                 </div>
             </div> : <div style={{paddingBottom:'10px'}}>Guess</div>} 

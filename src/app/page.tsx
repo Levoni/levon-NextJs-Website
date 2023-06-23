@@ -22,7 +22,7 @@ export default async function GuessPage() {
     return (
         <div style={{display:'flex', flexDirection:'column', flex:'1'}}>
             <Header userName={user['name']}></Header>
-            <div style={{display:'flex', flex:'1', padding:'50px', gap:'25px', flexFlow:'wrap'}}>
+            <div className='body-padding' style={{display:'flex', flex:'1', gap:'25px', flexFlow:'wrap'}}>
                <div style={{ gap:'25px', flex:'3', display:'flex', flexFlow:'row wrap', justifyContent:'space-around'}}>
                    <Link href='/game/dailyGuess'><div className='activity-card'>Daily Guess</div></Link>
                    <Link href='/game/guess'><div className='activity-card'>Number Guess Minigame</div></Link>

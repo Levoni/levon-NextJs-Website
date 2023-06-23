@@ -139,28 +139,28 @@ export default function PagePickerWrapper(props:any) {
     }
 
     return (
-        <div style={{flex:'1'}}>
-        <div style={{display:'flex'}}>
-            <div style={{paddingRight:'10px'}}>Search Games</div>
-            <button onClick={GetUsersGames}>search</button>
+        <div style={{flex:'1', gap:'25px'}}>
+            <div style={{display:'flex'}}>
+                <div style={{paddingRight:'10px'}}>Search Games</div>
+                <button onClick={GetUsersGames}>search</button>
+            </div>
+            <div style={{paddingTop:'10px', paddingBottom:'10px'}}>
+                <Collapse maxHeight='15rem' title={'Search Options'}>
+                    <div>User(s)</div>
+                    <MultiSelect handleMultiSelectChange={handleUserMultiSelectChange} options={props.initialUsers.map((element:any) => {return {text: element.name, selected:false}})}></MultiSelect>
+                    <div>Game</div>
+                    <MultiSelect handleMultiSelectChange={handleGameMultiSelectChange}  options={props.initialGames.map((element:any) => {return {text: element.name, selected:false}})}></MultiSelect>
+                    <div>Genre</div>
+                    <MultiSelect handleMultiSelectChange={handleGenreMultiSelectChange}  options={props.initialGenres.map((element:any) => {return {text: element, selected:false}})}></MultiSelect>
+                    <div>Player count</div>
+                    <input onChange={handlePlayerCountChange} />
+                    <div className='row'>
+                        <div>Installed:</div>
+                        <input onChange={handleInstalledChange} type='checkbox'/>
+                    </div>
+                </Collapse>
+            </div>
+            <GameResults randomGameCallback={handleRandomGameCallback} games={games}></GameResults>
         </div>
-        <div style={{paddingTop:'10px', paddingBottom:'10px'}}>
-            <Collapse maxHeight='12rem' title={'Search Options'}>
-                <div>User(s)</div>
-                <MultiSelect handleMultiSelectChange={handleUserMultiSelectChange} options={props.initialUsers.map((element:any) => {return {text: element.name, selected:false}})}></MultiSelect>
-                <div>Game</div>
-                <MultiSelect handleMultiSelectChange={handleGameMultiSelectChange}  options={props.initialGames.map((element:any) => {return {text: element.name, selected:false}})}></MultiSelect>
-                <div>Genre</div>
-                <MultiSelect handleMultiSelectChange={handleGenreMultiSelectChange}  options={props.initialGenres.map((element:any) => {return {text: element, selected:false}})}></MultiSelect>
-                <div>Player count</div>
-                <input onChange={handlePlayerCountChange} />
-                <div className='row'>
-                    <div>Installed:</div>
-                    <input onChange={handleInstalledChange} type='checkbox'/>
-                </div>
-            </Collapse>
-        </div>
-        <GameResults randomGameCallback={handleRandomGameCallback} games={games}></GameResults>
-    </div>
     )
 }

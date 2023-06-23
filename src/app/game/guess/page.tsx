@@ -12,7 +12,7 @@ export default async function GuessPage() {
     return (
         <div style={{display:'flex', flexDirection:'column',flex:'1'}}>
             <Header userName={user['name']}></Header>
-            <div style={{display:'flex',padding: '50px',paddingBottom:'25px', flexFlow:'wrap'}}>
+            <div className='body-padding' style={{display:'flex',paddingBottom:'25px', flexFlow:'wrap'}}>
                 <div style={{flex:'1'}}>
                     <div className='header'>Guess the Number</div>
                     <div style={{paddingBottom:'10px'}}>A random number is generated and then you can guess as many times

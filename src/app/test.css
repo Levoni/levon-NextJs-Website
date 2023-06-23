@@ -7,6 +7,10 @@
   font-size: 1rem;
 }
 
+.small-text {
+  font-size: .75rem;
+}
+
 .card-header {
   font-size: 1.5rem;
   padding-bottom: 20px;
@@ -48,16 +52,21 @@ input:focus {
 
 input.big-input {
   height: 50px;
-  font-size: 20px;
+  font-size: 1rem;
 }
 
 input.small-input {
   height: 25px;
-  font-size: 20px;
+  font-size: 1rem;
 }
 
 input.big-checkbox {
   width: 1.5rem;
+}
+
+input.allow-shrink-grow {
+  width: 0px;
+  min-width: -webkit-fill-available;
 }
 
 button {
@@ -235,6 +244,32 @@ i.cheveron.open {
   transition-duration: .5s;
 }
 
+.login-card {
+  border-radius:5px;
+  background-color:#111415;
+  display:flex;
+  flex:.33;
+  flex-direction:column;
+  min-width:500px;
+  min-height:500px;
+  height:50%;
+  align-self:center;
+  padding:25px;
+  border:1px solid #222526;
+}
+
+.stat-card {
+  flex:1;
+  flex-direction:column;
+  display:flex;
+  min-Width:5rem;
+  max-width:20rem;
+  padding:20px;
+}
+
+.body-padding {
+  padding: 50px;
+}
 
 /* Mobile */
 @media (max-width: 500px) {
@@ -245,5 +280,31 @@ i.cheveron.open {
   .activity-card {
     width: 150px;
     height: 100px;
+  }
+
+  .login-card {
+    min-width:300px;
+    min-height:400px;
+  }
+  
+  .body-padding {
+    padding: 20px;
+  }
+
+  .stat-card {
+    min-width:inherit;
+    max-width:inherit;
+  }
+
+  .input-label-medium {
+    width: 50px;
+  }
+
+  .multiselect {
+    width: auto;
+  }
+
+  .chart-width {
+    max-width: 250px;
   }
 }

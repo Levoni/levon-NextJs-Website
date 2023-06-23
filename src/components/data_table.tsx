@@ -3,18 +3,18 @@ export default function DataTable(props:any) {
 //Title
 
 return (
-    <div>
+    <div className="small-text" style={{overflowX:'scroll'}}>
         {props.title && <div className="card-header">{props.title}</div>}
         <div className="row" style={{justifyContent:'space-around'}}>
             {props.data && props.data.header.map((header:any) => {
                 return(
                     <div key={header.value} style={{display:'flex',flexDirection:'column', whiteSpace:'nowrap'}}>
-                        <div  className="row">
+                        <div style={{height:'30px'}}  className="row">
                             {header.text.toString()}
                         </div>
                         {props.data.values.map((value:any, index:Number) => {
                             return(
-                                <div key={index.toString()} style={{height: '50px', alignSelf:'center'}}>
+                                <div key={index.toString()} style={{height: '20px', alignSelf:'center'}}>
                                     {value[header.value]}
                                 </div>
                             )

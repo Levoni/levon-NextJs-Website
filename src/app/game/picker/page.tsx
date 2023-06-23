@@ -29,13 +29,13 @@ export default async function GamePage() {
     return (
         <div style={{display:'flex',flexDirection:'column', flex:'1'}}>
             <Header userName={user.name}></Header>
-                <div style={{flex:'1', display:'flex', padding:'50px', flexFlow:'wrap'}}>
+                <div className='body-padding' style={{flex:'1', display:'flex', flexFlow:'wrap', gap: '25px'}}>
                     <PagePickerWrapper initialUsers={initialUsers}
                         initialGames={initialGames}
                         initialGenres={initialGenres}>
                     </PagePickerWrapper>
                     <div style={{flex:'1', display:'flex', flexDirection:'column', alignItems:'center'}}>
-                        <div style={{flex:'1', width:'20rem', display:'flex', flexDirection:'column', justifyContent:'space-around'}}>
+                        <div style={{flex:'1', width:'20rem', display:'flex', flexDirection:'column', justifyContent:'space-around', gap:'25px'}}>
                             <div style={{flex:'1', display:'flex', maxHeight:'175px'}}>
                                 <InfoColumn title='Gmae Info' info={createStatObject()}></InfoColumn>
                             </div>

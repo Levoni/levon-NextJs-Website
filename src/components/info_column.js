@@ -1,7 +1,7 @@
 export default function infoColumn(props) {
 
     return(
-        <div className="card" style={{flex:'1', flexDirection:'column', display:'flex', minWidth: '5rem', maxWidth:'20rem', padding:'20px'}}>
+        <div className="card stat-card">
             <div style={{alignSelf:'center'}} >{props.title}</div>
             <div style={{display:'flex', flex:'1', flexDirection:'column', gap:'10px', alignItems:'center', justifyContent:'space-around', minHeight:'50px'}}>
                 {props.info.map((item,index) => {

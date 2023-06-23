@@ -48,7 +48,7 @@ export default async function GuessPage() {
     return (
         <div style={{display:'flex',flexDirection:'column', flex:'1'}}>
             <Header userName={user['name']}></Header>
-            <div style={{padding:'50px', paddingBottom:'25px', display:'flex', flexFlow:'wrap'}}>
+            <div className='body-padding' style={{paddingBottom:'25px', display:'flex', flexFlow:'wrap'}}>
                 <div style={{flex:'1'}}>
                     <div className='header'>Daily Guess</div>
                     <div>
@@ -59,7 +59,7 @@ export default async function GuessPage() {
                 </div>
                 <div className='hide-on-mobile' style={{flex:'1'}}></div>
             </div>
-            <div style={{padding:'50px', paddingTop:'0px', display:'flex',flex:'1',justifyContent:'space-around', flexFlow:'wrap'}}>
+            <div className='body-padding' style={{paddingTop:'0px', gap:'25px', display:'flex',flex:'1',justifyContent:'space-around', flexFlow:'wrap'}}>
                 <div style={{flex:'1', display:'flex', flexDirection:'column', justifyContent:'flex-start', gap:'50px'}}>
                     <div style={{flex:'1'}}>
                         <Guesser 
