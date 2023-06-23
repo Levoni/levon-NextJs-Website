@@ -1,95 +1,38 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import Header from '../components/header'
+import InfoColumn from '../components/info_column'
+import User from '../data/user'
+import { cookies } from 'next/headers'
+import Link from 'next/link'
+import { retriveUser } from '@/components/service_fetch'
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+
+export default async function GuessPage() {  
+    const cookieStore = cookies()
+    const token = cookieStore.get('loginToken')?.value
+    var user:User = await retriveUser(token);
+
+    var tempInfo: Array<object> = [
+        {name:'Name', value:user.name},
+        {name:'Points', value:user.points},
+        {name:'Daily Wins', value:user.correct_guesses},
+        {name:'Daily Guesses', value:user.guesses},
+        {name:'Last Daily Guesses UTC', value:user.last_daily_guess},
+    ]
+
+    return (
+        <div style={{display:'flex', flexDirection:'column', flex:'1'}}>
+            <Header userName={user['name']}></Header>
+            <div style={{display:'flex', flex:'1', padding:'50px', gap:'25px', flexFlow:'wrap'}}>
+               <div style={{ gap:'25px', flex:'3', display:'flex', flexFlow:'row wrap', justifyContent:'space-around'}}>
+                   <Link href='/game/dailyGuess'><div className='activity-card'>Daily Guess</div></Link>
+                   <Link href='/game/guess'><div className='activity-card'>Number Guess Minigame</div></Link>
+                   <Link href='/game/picker'><div className='activity-card'>Game List</div></Link>
+                   <Link href='/social/daily'><div className='activity-card'>Daily Result</div></Link>
+               </div>
+               <div style={{display:'flex', flex:'1', justifyContent:'space-around'}}>
+                  <InfoColumn title='User Info' info={tempInfo}></InfoColumn>
+               </div>
+            </div>
         </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+    )
 }

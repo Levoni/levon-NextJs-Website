@@ -1,0 +1,249 @@
+.header {
+  font-size: 2rem;
+  padding-bottom: 25px;
+}
+
+.body-text {
+  font-size: 1rem;
+}
+
+.card-header {
+  font-size: 1.5rem;
+  padding-bottom: 20px;
+}
+
+.text-hover {
+  color: mintcream;
+}
+
+.text-hover:hover {
+  color: blue;
+}
+
+.header-bar a {
+  color:white;
+  text-decoration: none;
+}
+.header-bar a:hover {
+  color: blue;
+}
+
+input {
+  background-color: rgb(34, 37, 38);
+  box-shadow: none;
+  border: 1px solid #222526;
+  border-radius: 10px;
+  color: white;
+  accent-color: #3EB489;
+}
+
+input:disabled {
+  background-color: rgb(16, 17, 18);
+}
+
+input:focus {
+  outline: none;
+  border: 2px solid #2d3436;
+}
+
+input.big-input {
+  height: 50px;
+  font-size: 20px;
+}
+
+input.small-input {
+  height: 25px;
+  font-size: 20px;
+}
+
+input.big-checkbox {
+  width: 1.5rem;
+}
+
+button {
+  background-color: #3EB489;
+  box-shadow: none;
+  border: 1px solid #222526;
+  border-radius: 10px;
+}
+
+button:hover {
+  background-color: #49b88f;
+  cursor: pointer;
+}
+
+button:active {
+  background-color: #2c8263;
+}
+
+button:disabled {
+  background-color: #2c8263;
+}
+
+button.big-button {
+  height: 50px;
+}
+
+button.small-button {
+  height: 25px;
+}
+
+.activity-card {
+  box-shadow: 0px 0px 10px 0px #222526;
+  width: 300px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+  cursor: pointer;
+  transition-duration: .2s
+}
+
+.activity-card:hover {
+  scale: 1.1;
+  transition-duration: .2s
+}
+
+.card {
+  border: 2px solid #2d3436;
+  padding: 10px;
+}
+
+.virtical-div-list > div {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.virtical-div-list > div.card-header {
+  padding-bottom: 20px;
+}
+
+.input-label-medium {
+  width: 150px;
+}
+
+.row {
+  display: flex;
+}
+
+.row > div {
+  padding-right: 10px;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.column > div {
+   padding-top: 5px;
+   padding-bottom: 5px;
+}
+
+/* MultiSelect area */
+.multiselect {
+  width: 300px;
+  position: relative;
+}
+
+.multiselect-popup {
+  background-color:  rgb(34, 37, 38);
+  color: white;
+  border: 1px solid #2d3436;
+  max-height: 500px;
+  overflow-y: auto;
+  z-index: 5;
+}
+
+.multiselect-input {
+  border-radius: 10px;
+  justify-content: space-between;
+  background-color: rgb(34, 37, 38);
+}
+
+.multiselect:focus-within .multiselect-input {
+  outline: 2px solid #2d3436;
+}
+
+.multiselect:hover .multiselect-input {
+  outline: 2px solid #2d3436;
+}
+
+.multiselect-input input {
+  flex: 1;
+  background: none;
+  outline: none;
+  border: none;
+}
+
+.multiselect .multiselect-popup {
+  display: none;
+  border-radius: 5px;
+}
+
+.multiselect:focus-within .multiselect-popup{
+  display:block;
+  flex-direction: column;
+  position: fixed;
+  width: 500px;
+  z-index: 1;
+}
+
+.multiselect .multiselect-popup:hover {
+  display:block;
+  flex-direction: column;
+  position: fixed;
+  width: 500px;
+  z-index: 1;
+}
+
+/* Collapse CSS */
+i {
+  display: inline-block;
+  font-style: normal;
+  position: relative;
+}
+
+i.cheveron {
+    width: 0.2em;
+    height: 0.2em;
+    border-right: 0.2em solid white;
+    border-top: 0.2em solid white;
+    transform: rotate(45deg);
+    transition-duration: .2s;
+}
+
+i.cheveron.open {
+  transform: rotate(135deg);
+  transition-duration: .2s;
+}
+
+.collapse-header {
+  align-items: center;
+  padding: 10px;
+  display: flex;
+  border: 1px solid #222526
+}
+
+.collapse-body {
+  overflow: hidden;
+  transition-duration: .5s;
+}
+
+.collapse-body.open {
+  transition-duration: .5s;
+}
+
+
+/* Mobile */
+@media (max-width: 500px) {
+  .hide-on-mobile {
+    display: none;
+  }
+
+  .activity-card {
+    width: 150px;
+    height: 100px;
+  }
+}
