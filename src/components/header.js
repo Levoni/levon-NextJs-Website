@@ -17,6 +17,8 @@ export default function Header(props) {
                 <div className="text-hover" style={{cursor:'pointer'}}><Link href={'/game/picker'}>Game List</Link></div>
                 <div style={{alignSelf:'center', borderRight:"1px solid black", marginLeft:'5px', marginRight:'5px', height:'75%'}}></div>
                 <div className="text-hover" style={{cursor:'pointer'}}><Link href={'/social/daily'}>Daily Result</Link></div>
+                <div style={{alignSelf:'center', borderRight:"1px solid black", marginLeft:'5px', marginRight:'5px', height:'75%'}}></div>
+                <div className="text-hover" style={{cursor:'pointer'}}><Link href={'/tools/requests'}>Requests</Link></div>
             </div>
             <div style={{display:'flex', alignItems:'center', justifyContent:'flex-end', flex:'.2'}}>
                 <div style={{alignSelf:'center', borderRight:"1px solid black", marginLeft:'5px', marginRight:'5px', height:'75%'}}></div>

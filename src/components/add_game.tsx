@@ -51,7 +51,7 @@ export default function AddGame(props:any) {
             <div>Manage Game</div>
             <div className="row">
                 <div>Game: </div>
-                <select onChange={handleGameListChange}>
+                <select style={{maxWidth:'max-content'}} className="select-fill" onChange={handleGameListChange}>
                     {props.gameList && props.gameList.map((element:any,index:any) => {
                         return <option key={index}  value={element.name}>{element.name}</option>
                     })}

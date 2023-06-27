@@ -3,7 +3,7 @@ export default function DataTable(props:any) {
 //Title
 
 return (
-    <div className="small-text" style={{overflowX:'scroll'}}>
+    <div className="small-text" style={{overflowX:'auto'}}>
         {props.title && <div className="card-header">{props.title}</div>}
         <div className="row" style={{justifyContent:'space-around'}}>
             {props.data && props.data.header.map((header:any) => {

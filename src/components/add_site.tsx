@@ -45,7 +45,7 @@ export default function AddSite(props:any) {
     }
 
     return  (
-     <div className="virtical-div-list card">
+     <div style={{flex:'1'}} className="virtical-div-list card">
         <div>Add Site</div>
         <div className="row">
           <div className="input-label-medium">Name: </div>

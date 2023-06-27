@@ -35,7 +35,7 @@ export default async function GamePage() {
                         initialGenres={initialGenres}>
                     </PagePickerWrapper>
                     <div style={{flex:'1', display:'flex', flexDirection:'column', alignItems:'center'}}>
-                        <div style={{flex:'1', width:'20rem', display:'flex', flexDirection:'column', justifyContent:'space-around', gap:'25px'}}>
+                        <div style={{flex:'1', maxWidth:'20rem', display:'flex', flexDirection:'column', justifyContent:'space-around', gap:'25px'}}>
                             <div style={{flex:'1', display:'flex', maxHeight:'175px'}}>
                                 <InfoColumn title='Gmae Info' info={createStatObject()}></InfoColumn>
                             </div>

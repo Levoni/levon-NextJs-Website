@@ -28,6 +28,7 @@ export default async function GuessPage() {
                    <Link href='/game/guess'><div className='activity-card'>Number Guess Minigame</div></Link>
                    <Link href='/game/picker'><div className='activity-card'>Game List</div></Link>
                    <Link href='/social/daily'><div className='activity-card'>Daily Result</div></Link>
+                   <Link href='/tools/requests'><div className='activity-card'>Requests</div></Link>
                </div>
                <div style={{display:'flex', flex:'1', justifyContent:'space-around'}}>
                   <InfoColumn title='User Info' info={tempInfo}></InfoColumn>

@@ -59,7 +59,7 @@ export default function Login() {
                 </div>
                 <div style={{display:'flex', justifyContent:'center', flexDirection:'column', flex:'1'}}>
                     <div style={{paddingBottom:'10px'}}>Password</div>
-                    <input className="big-input" id="password" name="password" type="text"/>
+                    <input className="big-input" id="password" name="password" type="password"/>
                 </div>
                 <button className="big-button" >Login</button>
                 <div className="body-text" style={{paddingTop:'10px', display:'flex', flex:'.5',flexDirection:'row'}}>

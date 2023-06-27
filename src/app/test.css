@@ -270,6 +270,9 @@ i.cheveron.open {
 .body-padding {
   padding: 50px;
 }
+.select-fill {
+  width: 100%;
+}
 
 /* Mobile */
 @media (max-width: 500px) {

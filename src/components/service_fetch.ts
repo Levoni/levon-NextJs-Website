@@ -130,6 +130,38 @@ export async function GetSite(token:any) {
     }
   }
 
-  export async function LogoutMethod() {
-    redirect('/login')
-  }
+  export async function retriveRequest(token: any,userName:any) {
+    const data = await fetch(process.env.API_URL + '/request/' + userName,{
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        mode: 'cors'
+    })
+    if(data.status  == 200) {
+        const request = await data.json();
+        return request
+    } else {
+        return []
+    }
+}
+
+export async function retriveRequestMessages(token: any,id:any) {
+    const data = await fetch(process.env.API_URL + '/request_messages/' + id,{
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        },
+        mode: 'cors'
+    })
+    if(data.status  == 200) {
+        const request = await data.json();
+        return request
+    } else {
+        return []
+    }
+}

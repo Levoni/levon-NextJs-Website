@@ -16,8 +16,8 @@ export default async function SocialDaily() {
   return (
       <div style={{flex:'1', display:'flex', flexDirection:'column'}}>
         <Header userName={user.name}></Header>
-        <div className="body-padding" style={{display:'flex', justifyContent:'space-around',flex:'1', flexWrap:'wrap'}}>
-          <div className=" column" style={{flex:'1', justifyContent:'flex-start'}}>
+        <div className="body-padding" style={{display:'flex', justifyContent:'space-around',flex:'1', gap:'25px', flexWrap:'wrap'}}>
+          <div className=" column" style={{flex:'1', justifyContent:'flex-start', gap:'25px'}}>
             <div>
               <div className="header">Daily Quiz Leaderboards</div>
               <div style={{paddingTop:'25px', paddingBottom:'10px'}}>This page is for users to view daily quiz results. 
@@ -25,17 +25,17 @@ export default async function SocialDaily() {
                 Users can also view their personal result history.</div>
               <div style={{paddingBottom:'50px'}}>Note: When adding results, please use date of the quiz not the date you are submitting it on.</div>
             </div>
-            <div style={{marginBottom:'50px'}}>
+            <div>
               <AddDailyResult initialSites={initialSites}></AddDailyResult>
             </div>
             <div>
               <PersonalStatistics user={user} sites={initialSites}></PersonalStatistics>
             </div>
           </div>
-          <div className="column" style={{flex:'1', display:'flex', flexDirection:'column', alignItems:'center'}}>
-            <div style={{width:'80%', display:'flex', flex:'1', flexDirection:'column', justifyContent:'flex-start'}}>
+          <div className="column" style={{flex:'1', display:'flex', flexDirection:'column'}}>
+            <div style={{display:'flex', flex:'1', flexDirection:'column', gap:'25px', justifyContent:'flex-start'}}>
               <Leaderboard sites={initialSites}></Leaderboard>
-              {user.is_admin ? <div style={{width:'20rem', display:'flex', alignSelf:'center', justifyContent:'center', marginTop:'50px'}}>
+              {user.is_admin ? <div style={{display:'flex', justifyContent:'center'}}>
                 <AddSite></AddSite>
               </div> : ''}
             </div>
