@@ -3,7 +3,6 @@ import User from '@/data/user';
 import InfoColumn from '@/components/info_column';
 import AddGame from '@/components/add_game'
 import CreateGame from '@/components/create_game'
-import GameSearch from '@/data/game_search';
 import Game from '@/data/game';
 import { cookies } from 'next/headers';
 import { GetOrderedUsers, retriveUser, GetOrderedGames } from '@/components/service_fetch';

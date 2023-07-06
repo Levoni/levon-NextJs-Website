@@ -32,6 +32,11 @@
   color: blue;
 }
 
+textarea {
+  background-color: rgb(34, 37, 38);
+  color: white;
+}
+
 input {
   background-color: rgb(34, 37, 38);
   box-shadow: none;
