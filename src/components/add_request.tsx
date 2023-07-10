@@ -1,6 +1,7 @@
 'use client';
 import { useState } from "react"
 import { sendAddRequest } from "./service_fetch";
+import Request from "@/data/request";
 
 export default function AddRequest(props:any) {
     const [request,setRequest] = useState({type:'plex',message:'', user_name:props.user.name})
@@ -24,7 +25,10 @@ export default function AddRequest(props:any) {
         let result = await sendAddRequest(props.token,{...request})
         setStatus(result.responseMessage)
         if(result.success && props.submitRequestCallback) {
-            props.submitRequestCallback()
+            console.log(result)
+            let newRequest = new Request(result.responseObject.id,request.type, request.message,request.user_name, new Date(), false)
+            console.log(newRequest)
+            props.submitRequestCallback(newRequest)
         }
     }
 

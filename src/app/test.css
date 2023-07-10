@@ -32,6 +32,27 @@
   color: blue;
 }
 
+.header-bar-item:hover .header-bar-item-options   {
+  display:flex;
+}
+
+.header-bar-item-options {
+  display:none;
+  flex-direction: column;
+}
+
+.header-bar-item-options:hover {
+  display:flex;
+}
+
+.header-bar-divider {
+  align-self:center;
+  border-right:1px solid black;
+  margin-left:5px;
+  margin-right:5px;
+  height:75%
+}
+
 textarea {
   background-color: rgb(34, 37, 38);
   color: white;

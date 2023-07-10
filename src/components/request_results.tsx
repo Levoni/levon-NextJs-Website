@@ -53,7 +53,7 @@ export default function RequestResults(props:any) {
                                 <div>Request Id: {props.item.id}</div>
                                 <div>Request User: {props.item.user_name}</div>
                                 <div>Request type: {props.item.type}</div>
-                                <div>Request Date: {props.item.created_date}</div>
+                                <div>Request Date: {props.item.created_date.toString()}</div>
                             </div>
                             <div className="row">
                                 <div>Request message: {props.item.message}</div>

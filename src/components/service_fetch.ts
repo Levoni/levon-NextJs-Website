@@ -230,6 +230,10 @@ export async function SendDeleteListItem(token:any, itemId:number) {
     return await sendPost('/listItem/delete',token,{id:itemId});
 }
 
+export async function SendUserSocialupdate(token:any, isPublic:boolean) {
+    return await sendPost('/user/update/social', token, {public:isPublic})
+}
+
 export async function sendGet(url:string,token:any, routeParam:string = '', queryString:string = '') {
     const data = await fetch(process.env.API_URL + url + routeParam + queryString,{
         method: 'GET',
