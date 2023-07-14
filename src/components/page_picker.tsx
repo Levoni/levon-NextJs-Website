@@ -49,7 +49,7 @@ export default function PagePickerWrapper(props:any) {
                 if(a.game_name.toLowerCase() > b.game_name.toLowerCase()) return 1
                 return 0
             })
-            setGames(filteredContent)
+            setGames(orderedContent)
         } else {
             setGames([])
         }

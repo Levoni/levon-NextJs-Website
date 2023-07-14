@@ -1,7 +1,6 @@
 import Header from "@/components/header";
 import PageUserWrapper from "@/components/page_user";
 import { retriveUser } from "@/components/service_fetch";
-import SocialSettings from "@/components/social_settings";
 import User from "@/data/user";
 import { cookies } from "next/headers";
 

@@ -44,7 +44,11 @@ export default function Leaderboard(props:any) {
     })
     if(data.status == 200) {
       const content = await data.json()
-      setLeaderboardResults(content)
+      setLeaderboardResults(content.sort((a:UserSiteLink, b:UserSiteLink) => {
+        if(a.guess_count < b.guess_count) return -1
+        if(a.guess_count > b.guess_count) return 1
+        return 0
+    }))
     } else {
       const content = await data.json()
       setLeaderboardResults([])

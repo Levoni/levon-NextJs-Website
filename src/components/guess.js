@@ -46,6 +46,7 @@ export default function Guesser(props) {
                 ...pastGuesses,
                 {guess:guess, result: content.Message}
             ])
+            setGuess('')
         }
     }
 
@@ -67,6 +68,7 @@ export default function Guesser(props) {
                 {guess:guess, result: 'Too High'}
             ])
         ]
+        setGuess('')
     }
 
     const handleMinInput = event => {
@@ -92,7 +94,7 @@ export default function Guesser(props) {
             number: Math.floor(Math.random() * (minigameObject.max - minigameObject.min)) + minigameObject.min
         })
         setState(0)
-        setGuess('0')
+        setGuess('')
         setPastGuesses([])
     } 
 

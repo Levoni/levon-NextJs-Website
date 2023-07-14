@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 
 export default function UserAuth(props: any) {
     var [status, setStatus] = useState(0)
-    var [user, setUser] = useState(new User('',0,0,0,'', false))
+    var [user, setUser] = useState(new User('',0,0,0,'', false,false))
     const router = useRouter()
     
 
@@ -22,7 +22,7 @@ export default function UserAuth(props: any) {
                 retriveUser(token)
             }
         }
-    },[])
+    })
 
     const retriveUser = async (token: String) => {
         const data = await fetch(process.env.API_URL + '/user',{

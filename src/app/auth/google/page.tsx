@@ -56,7 +56,7 @@ export default function GoogleAuth() {
                 })
             })
         }
-    },[])
+    })
 
     if(status == 'loading')
         return <div>Authenticating...</div>

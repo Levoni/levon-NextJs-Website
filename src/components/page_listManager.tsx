@@ -58,7 +58,7 @@ export default function PageListManagerWrapper(props:any) {
     }
 
     return (
-        <div className="row" style={{gap:'25px', flex:'1'}}>
+        <div className="row" style={{gap:'25px', flex:'1', flexFlow:'wrap'}}>
             <div className="column" style={{flex:'1',gap:'25px'}}>
                 <AddList lists={lists} AddListCallback={handleAddListCallback} user={props.user} users={props.users} token={props.token}></AddList>
                 <div style={{borderBottom:'5px solid #2d3436'}} className="header">Lists:</div>

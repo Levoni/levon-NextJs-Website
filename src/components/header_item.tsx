@@ -6,9 +6,9 @@ export default function HeaderItem(props:any) {
         <div className="header-bar-item" style={{position:'relative'}}>
             <div>{props.title}</div>
             <div className="header-bar-item-options card" style={{backgroundColor:'#222526', zIndex:'1', position:'absolute', whiteSpace:'nowrap'}}>
-                {props.items && props.items.map((item:any)=> {
+                {props.items && props.items.map((item:any, index:number)=> {
                     return (
-                        <Link href={item.link}>{item.name}</Link>
+                        <Link key={index} href={item.link}>{item.name}</Link>
                     )
                 })}
             </div>

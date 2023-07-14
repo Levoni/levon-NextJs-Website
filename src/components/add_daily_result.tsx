@@ -93,17 +93,6 @@ export default function AddDailyResult(props:any) {
 
     const getResetTimeForSite = () => {
         let site = currentSite
-        // if(userSiteLink.daily_site_name == '' ||
-        //    !props.initialSites || 
-        //    props.initialSites.findIndex((item:any) => {return item.name == userSiteLink.daily_site_name}) == -1) {
-        //     return ''
-        // } else {
-        //     let localTimeHourOffset = (new Date().getTimezoneOffset()/60)
-        //     let resetTimeUTC = props.initialSites.find((item:any) => {return item.name == userSiteLink.daily_site_name}).reset_time
-        //     var localResetTime = resetTimeUTC - localTimeHourOffset
-        //     localResetTime = localResetTime > 0 ? localResetTime : localResetTime + 24
-        //     return localResetTime.toString().padStart(2,'0') + ':00'
-        // }
         let localTimeHourOffset = (new Date().getTimezoneOffset()/60)
         let resetTimeUTC:any = site.reset_time
         var localResetTime = resetTimeUTC - localTimeHourOffset

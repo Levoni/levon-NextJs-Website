@@ -52,30 +52,19 @@ export default function PersonalStatistics(props:any) {
     //const [statusMessage, setStatusMessaage] = useState('')
   
     useEffect(()=>{
-      if(filterOptions.site == '' && props.sites && props.sites.length > 0) {
+      if(filterOptions.site == '' && props.sites && props.sites.length > 0 && filterOptions.userName == '' && props.user) {
         let NextFilterOptions = {
-          ...filterOptions,
+          userName:props.user.name,
           site:props.sites[0].name
         }
         setFilterOptions(NextFilterOptions)
+        console.log(NextFilterOptions)
         if(NextFilterOptions.site && NextFilterOptions.userName) {
             getResults(getQueryParams(NextFilterOptions))
+            ChartJS.getChart('test')?.update()
         }
       }
-    }, [props.sites])
-
-    useEffect(()=> {
-        if(filterOptions.userName == '' && props.user) {
-            let NextFilterOptions = {
-                ...filterOptions,
-                userName:props.user.name
-              }
-            setFilterOptions(NextFilterOptions)
-            if(NextFilterOptions.site && NextFilterOptions.userName) {
-                getResults(getQueryParams(NextFilterOptions))
-            }
-        }
-    }, [props.user])
+    }, [props.sites, props.user])
 
     const getResults = async (queryString:String = '') => {
         let qString = queryString ? queryString : getQueryParams(filterOptions)
