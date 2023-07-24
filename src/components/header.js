@@ -11,7 +11,7 @@ export default function Header(props) {
             <div style={{display:'flex',flex:'1',alignItems:'center', flexDirection:'row'}}>
                 <div className="text-hover" style={{cursor:'pointer', }}><Link href={'/'}>{userName}</Link></div>
                 <div className='header-bar-divider'></div>
-                <HeaderItem title={'Game'} items={[{name:'Daily Guess', link:'/game/dailyGuess'},{name:'Guess',link:'/game/guess'}]}></HeaderItem>
+                <HeaderItem title={'Game'} items={[{name:'Daily Guess', link:'/game/dailyGuess'},{name:'Guess',link:'/game/guess'},{name:'TicTacToe',link:'/game/ticTacToe'}]}></HeaderItem>
                 <div className='header-bar-divider'></div>
                 <HeaderItem title={'Social'} items={[{name:'Game Picker', link:'/social/picker'},{name:'Daily Quiz Result',link:'/social/daily'}]}></HeaderItem>
                 <div className='header-bar-divider'></div>

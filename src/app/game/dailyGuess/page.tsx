@@ -67,6 +67,7 @@ export default async function GuessPage() {
                          number='0'
                          key='dailyGuess'
                          previousGuess={guessData.guessInfo}
+                         lastGuessDate={user.last_daily_guess}
                          token={token}>
                         </Guesser>
                     </div>
