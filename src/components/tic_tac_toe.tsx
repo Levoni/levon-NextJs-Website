@@ -18,7 +18,7 @@ export default function TicTacToe(props:any) {
     },[wss,gameState])
 
     async function connectSocket(joinPin:string) {
-        wss.current = new WebSocket('ws://localhost:8080')
+        wss.current = new WebSocket(process.env.SOCKET_URL!!)
         wss.current.onopen = (event:any) => {
             console.log('connection with ws made')
             setGameState(prevState => {return {
