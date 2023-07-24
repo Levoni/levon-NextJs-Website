@@ -96,6 +96,23 @@ export default function Guesser(props) {
         setPastGuesses([])
     } 
 
+    const getGuessAvailableText = () => {
+        if(!props.lastGuessDate) {
+            return null
+        }
+        var guessDate= new Date(props.lastGuessDate +'z')
+        var currentDate = new Date()
+        if(guessDate.getUTCDate() == currentDate.getUTCDate() &&
+        guessDate.getUTCMonth() == currentDate.getUTCMonth()) {
+            let tomorrow = new Date()
+            tomorrow.setUTCHours(0,0,0,0)
+            tomorrow.setUTCDate(tomorrow.getUTCDate() + 1)
+            return `Guess Available at ${tomorrow.toLocaleString()}`
+        } else {
+            return 'Guess Available'
+        }
+    }
+
     return(
         <div style={{fontSize:'2rem'}}>
             {props.type == 'Minigame' ? 
@@ -116,6 +133,7 @@ export default function Guesser(props) {
                 {props.type == 'Minigame' ? <button disabled={state == 1 || guess == ''} className="big-button" onClick={handleMinigameSubmitClick}>Send Guess</button>
                 : <button disabled={guess == ''} className="big-button" onClick={handleDailySubmitClick}>Send Guess</button>
                 }
+                <div style={{paddingLeft: '10px'}} className="body-text">{getGuessAvailableText()}</div>
             </div>
             <div style={{marginTop:'10px', minHeight:'200px',maxHeight:'500px', border:'1px solid #2d3436', overflowY:'scroll'}}>
                 {pastGuesses && pastGuesses.slice(0).reverse().map((item, index) => {

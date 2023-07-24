@@ -26,6 +26,7 @@ export default async function GuessPage() {
                <div style={{ gap:'25px', flex:'3', display:'flex', flexFlow:'row wrap', justifyContent:'space-around'}}>
                    <Link href='/game/dailyGuess'><div className='activity-card'>Daily Guess</div></Link>
                    <Link href='/game/guess'><div className='activity-card'>Number Guess Minigame</div></Link>
+                   <Link href='/game/ticTacToe'><div className='activity-card'>Tic-Tac-Toe</div></Link>
                    <Link href='/social/picker'><div className='activity-card'>Game List</div></Link>
                    <Link href='/social/daily'><div className='activity-card'>Daily Result</div></Link>
                    <Link href='/tools/listManager'><div className='activity-card'>List Manager</div></Link>

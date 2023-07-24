@@ -300,6 +300,35 @@ i.cheveron.open {
   width: 100%;
 }
 
+/* .tic-tac-toe-board {
+  margin: 500px;
+} */
+
+.tic-tac-toe-board > div {
+  padding: 0px;
+  align-items: center;
+  justify-content: center;
+}
+
+.tic-tac-toe-board div div {
+  padding: 5px;
+  width: 75px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tic-tac-toe-board.started div div:hover {
+  background-color: gray;
+  cursor: pointer;
+}
+
+textarea {
+  width: 400px;
+  height: 200px;
+}
+
 /* Mobile */
 @media (max-width: 500px) {
   .hide-on-mobile {
@@ -335,5 +364,10 @@ i.cheveron.open {
 
   .chart-width {
     max-width: 250px;
+  }
+
+  textarea {
+    width: 200px;
+    height: 100px;
   }
 }
