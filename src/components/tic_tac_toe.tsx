@@ -11,11 +11,7 @@ export default function PageStratego(props:any) {
     const [player,setPlayer] = useState(0)
 
     useEffect(() => {
-        // if(wss.current != null) {
-        //     wss.current.onmessage = (e) => {handleRecieveMessage(e)}
-        // }
         handleRecieveCallback = handleRecieveMessage
-
         document.getElementById('textArea')!!.scrollTop = document.getElementById('textArea')!!.scrollHeight 
     },[gameState])
     

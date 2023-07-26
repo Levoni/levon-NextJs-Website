@@ -324,6 +324,17 @@ i.cheveron.open {
   cursor: pointer;
 }
 
+.stratego-board > div {
+  padding: 0px;
+}
+
+.stratego-board div div {
+  width: 50px;
+  height: 50px;
+  padding: 0px;
+  border: 1px solid white
+}
+
 textarea {
   width: 400px;
   height: 200px;
