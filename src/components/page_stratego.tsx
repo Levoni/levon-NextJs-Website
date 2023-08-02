@@ -29,10 +29,16 @@ export default function PageStratego(props:any) {
     const createGraveyard = () => {
         let graveyard = []
         for(let i = 0;i < 1; i++) {
+            graveyard.push({owner:1,power:12})
+            graveyard.push({owner:2,power:12})
             graveyard.push({owner:1,power:10})
             graveyard.push({owner:2,power:10})
             graveyard.push({owner:1,power:9})
             graveyard.push({owner:2,power:9})
+        }
+        for(let i = 0;i < 6; i++) {
+            graveyard.push({owner:1,power:11})
+            graveyard.push({owner:2,power:11})
         }
         for(let i = 0;i < 2; i++) {
             graveyard.push({owner:1,power:8})
@@ -68,6 +74,7 @@ export default function PageStratego(props:any) {
     const [gameState, setGameState] = useState(new StrategoGame('','',[],0,createStratigoBasicBoard(),createGraveyard(),'stopped',''))
     const [clientMessage, setClientMessage]= useState('')
     const [message, setMessage] = useState('')
+    const [focusedPiece,setFocusedPiece] = useState<any>(null)
     const [player,setPlayer] = useState(0)
 
     useEffect(() => {
@@ -85,23 +92,26 @@ export default function PageStratego(props:any) {
         } else if(object.action == 'start') {
             setGameState((prevState)=>{return {
                 ...prevState,
-                state:'started',
+                state:'placing',
                 board: createStratigoBasicBoard(),
-                current_Turn: object.startPlayer
+                current_Turn: 0
             }})
-        } else if(object.action == 'placeMark') {
-            setGameState((prevState)=>{return {
+        } else if(object.action == 'piecePlaced') {
+            console.log('recieved place piece')
+            setGameState((prevState)=>{
+                let board = prevState.board
+                let pieceIndex = prevState.graveyard.findIndex((element)=>{return element.owner == object.player && element.power == object.power})
+                let piece = prevState.graveyard.splice(pieceIndex,1)[0]
+                board[object.x][object.y].piece = piece
+                return {
                 ...prevState,
-                current_Turn: gameState.current_Turn == 1 ? 2 : 1,
-                board: {
-                    ...gameState.board,
-                    [object.place]:object.player
-                }
+                board: board
             }})
+            console.log()
         } else if(object.action == 'connection') {
             setGameState((prevState)=>{return {
                 ...prevState,
-                messages: [...gameState.messages, 'You have joined Game: ' + object.pin],
+                messages: [...gameState.messages, 'You have joined Game: ' + object.pin + ' as player ' + object.player],
                 type:object.type,
                 game_id: object.pin
             }})
@@ -128,8 +138,29 @@ export default function PageStratego(props:any) {
     }
 
     const handleBoxCLick = (x:number,y:number) => {
-        if(gameState.state == 'started'  && gameState.current_Turn == player) {
-            setClientMessage(`{"action":"place","player":"${player}","location":"${location}"}`)
+        if(gameState.state == 'placing') {
+            if(focusedPiece != null) {
+                if(player == 1 && x < 4) {
+                    setClientMessage(`{"action":"place","player":"${focusedPiece.owner}","power":"${focusedPiece.power}","x":"${x}","y":"${y}"}`)
+                    setFocusedPiece(null)
+                } else if(player == 2 && x > 5) {
+                    setClientMessage(`{"action":"place","player":"${focusedPiece.owner}","power":"${focusedPiece.power}","x":"${x}","y":"${y}"}`)
+                    setFocusedPiece(null)
+                }
+            }
+        } else if(gameState.state == 'started') {
+
+        }
+        // if(gameState.state == 'started'  && gameState.current_Turn == player) {
+        //     setClientMessage(`{"action":"place","player":"${player}","location":"${location}"}`)
+        // }
+    }
+
+    const handleGraveyardClick = (piece:any) => {
+        if(piece.owner == player)
+        {
+            setFocusedPiece(piece)
+            console.log(piece)
         }
     }
 
@@ -139,10 +170,10 @@ export default function PageStratego(props:any) {
 
     const getStrategoSymbol = (data:any) => {
         if(data) {
-            if(data.piece.owner != player) {
-                return data.piece.owner + '0'
+            if(data.owner != player) {
+                return data.owner + '0'
             } else {
-                return data.piece.owner + data.piece.power
+                return data.owner + '' +data.power
             }
         }
     }
@@ -153,7 +184,7 @@ export default function PageStratego(props:any) {
     return (
     <div className="body-padding row" style={{flexWrap:'wrap'}}>
         <div className="column" style={{flex:'1'}}>
-            <WebSocketConnection nextMessage={clientMessage} recieveCallback={handleRecieveCallback} type='ttt' user={props.user} ></WebSocketConnection>
+            <WebSocketConnection nextMessage={clientMessage} recieveCallback={handleRecieveCallback} type='stratego' user={props.user} ></WebSocketConnection>
             <div>Chat</div>
             <div>
                 <textarea className="body-text"  id="textArea"  value={gameState.messages.join('\r\n')} disabled={true}></textarea>
@@ -164,12 +195,22 @@ export default function PageStratego(props:any) {
                 <button onClick={handleSendMessage}>Send</button>
             </div>
             <div>
-                <button onClick={handleStart} disabled={gameState.state == 'started' || player != 2}>Start</button>
+            {/* disabled={gameState.state == 'started' || player != 2} */}
+                <button onClick={handleStart} >Start</button> 
             </div>
-            <div className="stratego-graveyard"></div>
+            {(gameState.state == 'placing' || gameState.state == 'start') &&<div>
+                <div>{gameState.state == 'placing' ? 'Place Pieces' : 'Graveyard'}</div>
+                <div style={{display:'flex',flexWrap:'wrap'}} className="stratego-graveyard">
+                    {gameState && gameState.graveyard.map((element,index) => {
+                        return (
+                            <div onClick={() => {handleGraveyardClick(element)}} key={index} style={{display:'flex', alignItems:'center', justifyContent:'center', width:'50px',height:'50px'}}>{getStrategoSymbol(element)}</div>
+                        )
+                    })}
+                </div>
+            </div>}
         </div>
         <div style={{flex:'1'}}>
-            <div>Your symbol is: {getStrategoSymbol(player)}</div>
+            <div>Your color is: {getStrategoSymbol(player)}</div>
             <div className={getStrategoClass()}>
                 <div className="row">
                     <div onClick={() => {handleBoxCLick(0,0)}}>{getStrategoSymbol(gameState.board[0][0].piece)}</div>

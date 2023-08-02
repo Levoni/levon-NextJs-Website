@@ -11,6 +11,7 @@ export default function WebSocketConnection(props:any) {
 
     useEffect(() => {
         if(wss.current!= null && props.nextMessage != lastMessage) {
+            console.log(props.nextMessage)
             setLastMessage(props.nextMessage)
             wss.current!!.send(props.nextMessage)
         }
