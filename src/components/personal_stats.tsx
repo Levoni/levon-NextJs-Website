@@ -80,10 +80,10 @@ export default function PersonalStatistics(props:any) {
         if(data.status == 200) {
           const content = await data.json()
           let orderedContent = content.sort((a:UserSiteLink, b:UserSiteLink) => {
-            if(a.site_day_date < b.site_day_date) return -1
-            if(a.site_day_date < b.site_day_date) return 1
+            if(a.site_day_date > b.site_day_date) return -1
+            if(a.site_day_date > b.site_day_date) return 1
             else return 0
-          })
+          }).slice(0,7)
           setResults(orderedContent)
         } else {
           const content = await data.json()

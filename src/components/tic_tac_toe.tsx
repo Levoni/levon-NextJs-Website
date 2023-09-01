@@ -1,35 +1,24 @@
 'use client';
 
 import TicTacToeGame from "@/data/tic_tac_toe";
-import {  useEffect, useMemo, useRef, useState } from "react";
-import WebSocketConnection from "./websocket_connection";
+import {  useEffect, useState } from "react";
 
-export default function PageStratego(props:any) {
+export default function TicTacToe(props:any) {
     const [gameState, setGameState] = useState(new TicTacToeGame('','',[],0,{},'stopped'))
-    const [clientMessage, setClientMessage]= useState('')
-    const [message, setMessage] = useState('')
     const [player,setPlayer] = useState(0)
 
     useEffect(() => {
-        handleRecieveCallback = handleRecieveMessage
-        document.getElementById('textArea')!!.scrollTop = document.getElementById('textArea')!!.scrollHeight 
-    },[gameState])
+        handleRecieveMessage(props.lastMessage)
+    },[props.lastMessage])
     
     const handleRecieveMessage = (message:MessageEvent<any>) => {
+        if(message == null) {
+            return
+        }
         let object = JSON.parse(message.data)
-        if(object.action == 'message') {
-            setGameState((prevState)=>{return {
-                ...prevState,
-                messages: [...gameState.messages, object.message]
-            }})
-        } else if(object.action == 'start') {
-            setGameState((prevState)=>{return {
-                ...prevState,
-                state:'started',
-                board: {},
-                current_Turn: object.startPlayer
-            }})
-        } else if(object.action == 'placeMark') {
+        console.log('new Message Recieved. GameState as follows:')
+        console.log(gameState)
+        if(object.action == 'placeMark') {
             setGameState((prevState)=>{return {
                 ...prevState,
                 current_Turn: gameState.current_Turn == 1 ? 2 : 1,
@@ -51,25 +40,32 @@ export default function PageStratego(props:any) {
                 ...prevState,
                 state:'stopped'
             }})
+        } else if(object.action == 'sync') {
+            setGameState((prevState) => {
+                return {
+                    game_id:object.room.pin,
+                    type: object.room.type,
+                    messages: prevState.messages,
+                    current_Turn: object.room.currentPlayer,
+                    board: object.room.board,
+                    state: object.room.state
+                }
+            })
+        } else if (object.action == 'start') {
+            setGameState((prevState) => {
+                return {
+                    ...prevState,
+                    current_Turn: object.startPlayer,
+                    board: {},
+                    state: 'started'
+                }
+            })
         }
-    }
-
-    const handlemessageChange = (e:any) => {
-        setMessage(e.target.value)
-    }
-
-    const handleSendMessage = () => {
-            setClientMessage(`{"action":"message","message":"${message}"}`)
-            setMessage('')
-    }
-
-    const handleStart = () => {
-        setClientMessage(`{"action":"start"}`)
     }
 
     const handleBoxCLick = (location:string) => {
         if(gameState.state == 'started'  && gameState.current_Turn == player) {
-            setClientMessage(`{"action":"place","player":"${player}","location":"${location}"}`)
+            props.SendMessageCallback(`{"action":"place","player":"${player}","location":"${location}"}`)
         }
     }
 
@@ -87,25 +83,10 @@ export default function PageStratego(props:any) {
         }
     }
     //Do this so useEffect can refresh the method so we get the latest State for the GaseState
-    let handleRecieveCallback = handleRecieveMessage
+    // let handleRecieveCallback = handleRecieveMessage
 
     return (
-    <div className="body-padding row" style={{flexWrap:'wrap'}}>
-        <div className="column" style={{flex:'1'}}>
-            <WebSocketConnection nextMessage={clientMessage} recieveCallback={handleRecieveCallback} type='ttt' user={props.user} ></WebSocketConnection>
-            <div>Chat</div>
-            <div>
-                <textarea className="body-text"  id="textArea"  value={gameState.messages.join('\r\n')} disabled={true}></textarea>
-            </div>
-            <div>
-                <div>Message:</div>
-                <input value={message} onChange={handlemessageChange}/>
-                <button onClick={handleSendMessage}>Send</button>
-            </div>
-            <div>
-            <button onClick={handleStart} disabled={gameState.state == 'started' || player != 2}>Start</button>
-            </div>
-        </div>
+    <div style={{flexWrap:'wrap'}}>
         <div style={{flex:'1'}}>
             <div>Your symbol is: {getTicTacToeSymbol(player)}</div>
             <div className={getTicTacToeClass()}>

@@ -340,6 +340,33 @@ textarea {
   height: 200px;
 }
 
+.flip {
+  transform:scaleX(0);
+  transition-duration: 1s;
+  transition-property:all;
+  transform: rotate3d(0,1,0, 360deg);
+}
+
+.flip-setup {
+  transition-property:all;
+  transition-duration: 1s;
+}
+
+.focused {
+  background-color: white !important;
+  background-image: none !important;
+}
+
+.last-move {
+  background-color: #FFFF00 !important;
+  background-image: none !important;
+}
+
+.last-move-to {
+  background-color: #fdfd96 !important;
+  background-image: none !important;
+}
+
 /* Mobile */
 @media (max-width: 500px) {
   .hide-on-mobile {

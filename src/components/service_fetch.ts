@@ -86,7 +86,7 @@ export async function GetSite(token:any) {
     }
   }
 
-  export async function GetOrderedUsers(token:any) {
+export async function GetOrderedUsers(token:any) {
     const data = await fetch(process.env.API_URL + '/users',{
         method: 'GET',
         headers: {
@@ -107,9 +107,9 @@ export async function GetSite(token:any) {
     } else {
         return []
     }
-  }
+}
 
-  export async function GetOrderedGames(token:any) {
+export async function GetOrderedGames(token:any) {
     const data = await fetch(process.env.API_URL + '/game',{
         method: 'GET',
         headers: {
@@ -130,7 +130,7 @@ export async function GetSite(token:any) {
     } else {
         return []
     }
-  }
+}
 
   export async function retriveAllRequest(token: any, closed:any = null) {
     console.log(closed)
@@ -198,6 +198,10 @@ export async function GetListQuickView(token:any,id:number) {
     return await sendGet('/list/quickview', token,`/${id}`,'')
 }
 
+export async function GetTotGames(token:any, userName: string) {
+    return await sendGet('/totGame/overview',token,`/${userName}`)
+}
+
 export async function sendAddRequestMessage(token:any, body:any) {
     return await sendPost('/requestMessage/add', token,body)
 }
@@ -232,6 +236,18 @@ export async function SendDeleteListItem(token:any, itemId:number) {
 
 export async function SendUserSocialupdate(token:any, isPublic:boolean) {
     return await sendPost('/user/update/social', token, {public:isPublic})
+}
+
+export async function SendAddTotGame(token:any, type:string,challangedUser:string,CreatorUser:string) {
+    return await sendPost('/totGame/add', token, {type:type,challangedUser:challangedUser,CreatorUser:CreatorUser})
+}
+
+export async function SendAcceptTotGame(token:any, totId:number,userName:string) {
+    return await sendPost('/totGame/accept', token, {tot_id:totId,userName:userName})
+}
+
+export async function SendDeleteTotGame(token:any, id:number) {
+    return await sendPost(`/totGame/accept/${id}`, token, {})
 }
 
 export async function sendGet(url:string,token:any, routeParam:string = '', queryString:string = '') {

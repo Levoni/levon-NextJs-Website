@@ -26,6 +26,7 @@ export default function PageListWrapper(props:any) {
                     new ListItem(result.responseObject.id,list?.id,addName,1)
                 ]
             })
+            setAddName('')
         }
     }
     const handleAddNameChange = async (e:any) => {

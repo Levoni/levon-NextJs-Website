@@ -1,5 +1,5 @@
 export default class User {
-    name: String
+    name: string
     guesses: Number
     correct_guesses: Number
     points: Number
@@ -7,7 +7,7 @@ export default class User {
     is_admin: Boolean
     public: boolean
 
-    constructor(userName: String, userGuesses: Number, userCorrectGuesses: Number, userPoints: Number, userLastDailyGuess: String, isAdmin:Boolean, isPublic:boolean ) {
+    constructor(userName: string, userGuesses: Number, userCorrectGuesses: Number, userPoints: Number, userLastDailyGuess: String, isAdmin:Boolean, isPublic:boolean ) {
         this.name = userName
         this.guesses = userGuesses
         this.correct_guesses = userCorrectGuesses

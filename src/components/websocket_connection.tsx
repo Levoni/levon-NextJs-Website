@@ -45,6 +45,8 @@ export default function WebSocketConnection(props:any) {
     const handleJoin = () => {
         if(connectionStatus == 0) {
             connectSocket(joinPin)
+        } else {
+            wss.current?.send(`{"action":"sync"}`)
         }
     }
 
@@ -52,7 +54,7 @@ export default function WebSocketConnection(props:any) {
         <div className="row">
             <div>Room Id:</div>
             <input disabled={connectionStatus != 0} value={joinPin} onChange={handlePinChange}/>
-            <button onClick={handleJoin} disabled={connectionStatus == 1}>Join</button>
+            <button onClick={handleJoin}>{connectionStatus == 1 ? 'Sync' : 'Join'}</button>
         </div>
     )
 }
