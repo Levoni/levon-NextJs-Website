@@ -4,6 +4,7 @@ import Collapse from "./collapse"
 import UserSiteLink from "@/data/user_site_link";
 import DataTable from "./data_table";
 import DailySite from "@/data/daily_site";
+import { GetOriganizedMultiUserResultData, GetOriganizedResultData } from "@/helper/datatable_helper";
 
 export default function Leaderboard(props:any) {
   const GetMMDDYYYY = (date:Date) => {
@@ -14,7 +15,7 @@ export default function Leaderboard(props:any) {
     return dateString
   } 
 
-  const [filterOptions, setFilterOptions] = useState({'date':GetMMDDYYYY(new Date()), 'site':''})
+  const [filterOptions, setFilterOptions] = useState({'date':GetMMDDYYYY(new Date()), 'site':'','span':'daily'})
   const [leaderboardResults, setLeaderboardResults] = useState<Array<UserSiteLink>>([])
   //const [statusMessage, setStatusMessaage] = useState('')
 
@@ -61,7 +62,7 @@ export default function Leaderboard(props:any) {
       date:e.target.value
     }
     setFilterOptions(nextFilterOptions)
-    getResults(`?date=${nextFilterOptions.date}&site=${nextFilterOptions.site}`)
+    getResults(`?date=${nextFilterOptions.date}&site=${nextFilterOptions.site}&span=${filterOptions.span}&spanDuration=1`)
   }
 
   const setSite = (e:any) => {
@@ -74,22 +75,37 @@ export default function Leaderboard(props:any) {
   }
 
   const getQueryParams = (object:any) => {
-    return `?date=${object.date}&site=${object.site}`
+    return `?date=${object.date}&site=${object.site}&span=${object.span}&spanDuration=1`
+  }
+
+  const setSpan = (e:any) => {
+    let nextFilterOptions = {
+      ...filterOptions,
+      span:e.target.value
+    }
+    setFilterOptions(nextFilterOptions)
+    getResults(getQueryParams(nextFilterOptions))
   }
 
   const createDataFromResults = () => {
-    return {
-      header:[{text:'User Name',value:'user_name'},
-      {text:'Site',value:'daily_site_name'},
-      {text:'Date',value:'site_day_date'},
-      {text:'Guess Count',value:'guess_count'},
-      {text:'Got Correct',value:'correct'}],
-      values:leaderboardResults.map((element) => {
-        return {
-          ...element,
-          correct: element.correct ? 'Yes':'No'
-        }
-      })
+    if(filterOptions.span == 'daily') {
+      return {
+        header:[{text:'User Name',value:'user_name'},
+        {text:'Site',value:'daily_site_name'},
+        {text:'Date',value:'site_day_date'},
+        {text:'Guess Count',value:'guess_count'},
+        {text:'Got Correct',value:'correct'}],
+        values:GetOriganizedMultiUserResultData(leaderboardResults,filterOptions.span,new Date(filterOptions.date + 'Z'))
+      }
+    } else {
+      return {
+        header:[{text:'User Name',value:'user_name'},
+        {text:'Site',value:'daily_site_name'},
+        {text:'Date Range',value:'date_range'},
+        {text:'Average Count',value:'guess_average'},
+        {text:'Correct %',value:'correct_percent'}],
+        values:GetOriganizedMultiUserResultData(leaderboardResults,filterOptions.span,new Date(filterOptions.date + 'Z'))
+      }
     }
   }
 
@@ -108,6 +124,13 @@ export default function Leaderboard(props:any) {
                 return (<option key={site.name.toString()} value={site.name.toString()}>{site.name}</option>)
               })}
             </select>
+            <div style={{paddingLeft:'10px'}}>Span:</div>
+              <select onChange={setSpan}>
+                <option value="daily">Daily</option>
+                <option value="weekly">Weekly</option>
+                <option value="monthly">Monthly</option>
+                <option value="yearly">Yearly</option>
+              </select>
           </div>
           <div className="row">
             <div>Date</div>
