@@ -48,7 +48,7 @@ export default function PersonalStatistics(props:any) {
     //     return dateString
     //   } 
 
-    const [filterOptions, setFilterOptions] = useState({'userName':'', 'site':'','span':'daily'})
+    const [filterOptions, setFilterOptions] = useState({'userName':'', 'site':'','span':'daily','spanDuration':7})
     const [results, setResults] = useState<Array<UserSiteLink>>([])
     //const [statusMessage, setStatusMessaage] = useState('')
   
@@ -57,7 +57,8 @@ export default function PersonalStatistics(props:any) {
         let NextFilterOptions = {
           userName:props.user.name,
           site:props.sites[0].name,
-          span:filterOptions.span
+          span:filterOptions.span,
+          spanDuration:7
         }
         setFilterOptions(NextFilterOptions)
         console.log(NextFilterOptions)
@@ -94,7 +95,7 @@ export default function PersonalStatistics(props:any) {
     }
 
     const getQueryParams = (object:any) => {
-      return `?userName=${object.userName}&site=${object.site}&span=${object.span}&spanDuration=7`
+      return `?userName=${object.userName}&site=${object.site}&span=${object.span}&spanDuration=${object.spanDuration}`
     }
 
     const setSite = (e:any) => {
