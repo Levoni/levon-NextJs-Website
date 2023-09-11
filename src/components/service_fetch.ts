@@ -239,7 +239,7 @@ export async function SendUserSocialupdate(token:any, isPublic:boolean) {
 }
 
 export async function SendAddTotGame(token:any, type:string,challangedUser:string,CreatorUser:string) {
-    return await sendPost('/totGame/add', token, {type:type,challangedUser:challangedUser,CreatorUser:CreatorUser})
+    return await sendPost('/totGame/add', token, {type:type,challangedUser:challangedUser,creatorUser:CreatorUser})
 }
 
 export async function SendAcceptTotGame(token:any, totId:number,userName:string) {
@@ -247,7 +247,7 @@ export async function SendAcceptTotGame(token:any, totId:number,userName:string)
 }
 
 export async function SendDeleteTotGame(token:any, id:number) {
-    return await sendPost(`/totGame/accept/${id}`, token, {})
+    return await sendPost(`/totGame/delete/${id}`, token, {})
 }
 
 export async function sendGet(url:string,token:any, routeParam:string = '', queryString:string = '') {

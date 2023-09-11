@@ -7,26 +7,43 @@ export default function TotGameOverview(props:any) {
 
     const handleDeleteClick = (e:any) => {
         e.stopPropagation();
-        if(props.DeleteListCallback) {
-            props.DeleteGameCallback(props.item.id)
+        if(props.DeleteGameCallback) {
+            console.log('delete callback')
+            props.DeleteGameCallback(props.item.tot_id)
         }
     }
 
-    const handleSelectClick = () => {
-        if(props.selectListCallback) {
-            props.selectGameCallback(props.item.id)
+    const handleSelectClick = (e:any) => {
+        e.stopPropagation();
+        if(props.selectGameCallback) {
+            console.log('accept callback')
+            props.selectGameCallback(props.item.tot_id)
         }
     }
 
-    const handleAcceptClick = () => {
-        if(props.selectListCallback) {
-            props.acceptGameCallback()
+    const handleAcceptClick = (e:any) => {
+        e.stopPropagation();
+        if(props.acceptGameCallback) {
+            props.acceptGameCallback(props.item.tot_id)
         }
     }
 
     const handleDetailsClick = (e:any) => {
         e.stopPropagation();
         // router.push(`/future Game Page/list?id=${props.item.id}`)
+    }
+
+    const getAcceptDeleteButton = () => {
+        if(props.item.status != 'accepted') {
+            if(!props.item.accepted) {
+                return <button className="small-button" onClick={handleAcceptClick}>Accept</button>
+            } else {
+                if(props.item.is_creator) {
+                    return <button className="small-button" onClick={handleDeleteClick}>Delete</button>
+                }
+            }
+        }
+        return null
     }
 
     return (
@@ -36,9 +53,7 @@ export default function TotGameOverview(props:any) {
                     <div>{props.item.type}</div>
                     <button onClick={handleDetailsClick} className="small-button">Details</button>
                 </div>
-                {props.item.accepted == 'pending' && <button className="small-button" onClick={handleAcceptClick}>Accept</button>}
-                {props.item.accepted != 'pending' && <button className="small-button" onClick={handleDeleteClick}>Delete</button>}
-                
+                {getAcceptDeleteButton()}    
             </div>
             <div className="row">
                 <div>Players: {props.item.users}</div>

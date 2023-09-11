@@ -15,16 +15,21 @@ export default function PageTotGameWrapper(props:any) {
 
 
     const HandleDelete = async (id:number) => {
-        await SendDeleteTotGame(props.token,id)
+        if(id) {
+            await SendDeleteTotGame(props.token,id)
+        }
     }
 
     const HandleAccept = async (id:number) => {
-        await SendAcceptTotGame(props.token,id,props.user.name)
+        if(id) {
+            await SendAcceptTotGame(props.token,id,props.user.name)
+        }
     }
 
     const HandleAdd = async (addData:any) => {
-        console.log('sent add tot game')
-        await SendAddTotGame(props.token,addData.type,addData.challagedUser,addData.creatorUser)
+        if(addData.user_names && addData.user_names.length > 0) {
+            await SendAddTotGame(props.token,addData.type, addData.user_names[0],props.user.name)
+        }
     }
 
 

@@ -10,6 +10,7 @@ export default async function TOTGamePage() {
     var user:User = await retriveUser(token);
     var users:Array<User> = await GetOrderedUsers(token)
     let originalTotGames = await GetTotGames(token,user.name)
+    console.log(originalTotGames)
 
     return (
         <div style={{display:'flex',flexDirection:'column', flex:'1'}}>
