@@ -1,7 +1,6 @@
 import Header from "@/components/header";
 import PageClubhouseWrapper from "@/components/page_clubhouse_games";
-import PageTotGameWrapper from "@/components/page_tot_game";
-import { GetOrderedUsers, retriveUser } from "@/components/service_fetch";
+import { retriveUser } from "@/components/service_fetch";
 import User from "@/data/user";
 import { cookies } from "next/headers";
 

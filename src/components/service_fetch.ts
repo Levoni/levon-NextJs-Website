@@ -198,8 +198,12 @@ export async function GetListQuickView(token:any,id:number) {
     return await sendGet('/list/quickview', token,`/${id}`,'')
 }
 
-export async function GetTotGames(token:any, userName: string) {
+export async function GetTotGameOverview(token:any, userName: string) {
     return await sendGet('/totGame/overview',token,`/${userName}`)
+}
+
+export async function GetTotGame(token:any, id: number) {
+    return await sendGet('/totGame/game',token,`/${id}`)
 }
 
 export async function sendAddRequestMessage(token:any, body:any) {
