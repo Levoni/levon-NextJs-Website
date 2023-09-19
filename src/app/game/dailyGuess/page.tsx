@@ -47,7 +47,7 @@ export default async function GuessPage() {
 
     return (
         <div style={{display:'flex',flexDirection:'column', flex:'1'}}>
-            <Header userName={user['name']}></Header>
+            <Header token={token} userName={user['name']}></Header>
             <div className='body-padding' style={{paddingBottom:'25px', display:'flex', flexFlow:'wrap'}}>
                 <div style={{flex:'1'}}>
                     <div className='header'>Daily Guess</div>

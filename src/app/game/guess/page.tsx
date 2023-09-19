@@ -11,7 +11,7 @@ export default async function GuessPage() {
 
     return (
         <div style={{display:'flex', flexDirection:'column',flex:'1'}}>
-            <Header userName={user['name']}></Header>
+            <Header token={token} userName={user['name']}></Header>
             <div className='body-padding' style={{display:'flex',paddingBottom:'25px', flexFlow:'wrap'}}>
                 <div style={{flex:'1'}}>
                     <div className='header'>Guess the Number</div>

@@ -61,7 +61,6 @@ export default function PersonalStatistics(props:any) {
           spanDuration:7
         }
         setFilterOptions(NextFilterOptions)
-        console.log(NextFilterOptions)
         if(NextFilterOptions.site && NextFilterOptions.userName) {
             getResults(getQueryParams(NextFilterOptions))
             ChartJS.getChart('test')?.update()

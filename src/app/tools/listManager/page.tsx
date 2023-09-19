@@ -19,7 +19,7 @@ export default async function ListManagerPage() {
     
     return(
         <div style={{flex:'1', display:'flex', flexDirection:'column'}}>
-            <Header userName={user.name}></Header>
+            <Header token={token} userName={user.name}></Header>
             <div className='body-padding column' style={{paddingBottom:'0px', gap:'25px'}}>
                 <div style={{display:'flex',paddingBottom:'25px', flexFlow:'wrap'}}>
                     <div style={{flex:'1'}}>

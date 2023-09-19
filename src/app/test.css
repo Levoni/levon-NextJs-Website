@@ -367,6 +367,31 @@ textarea {
   background-image: none !important;
 }
 
+/* Notifications */
+.notification-menu {
+  cursor:inherit;
+}
+
+.notification-menu:hover {
+  color: inherit;
+}
+
+
+.notification-menu .notification {
+  border-bottom: 1px solid #2d3436;
+  padding-bottom: 5px;
+  cursor: pointer;
+  padding-top: 5px;
+}
+
+.notification-menu .notification:hover {
+  background-color: #2d3436;
+  color: inherit;
+}
+.notification-menu .notification:last-child {
+  border-bottom: none;
+}
+
 /* Mobile */
 @media (max-width: 500px) {
   .hide-on-mobile {

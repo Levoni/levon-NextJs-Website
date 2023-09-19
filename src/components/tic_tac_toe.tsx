@@ -4,14 +4,22 @@ import TicTacToeGame from "@/data/tic_tac_toe";
 import {  useEffect, useState } from "react";
 
 export default function TicTacToe(props:any) {
-    const [gameState, setGameState] = useState(new TicTacToeGame('','',[],0,{},'stopped'))
-    const [player,setPlayer] = useState(0)
+    const [gameState, setGameState] = useState<TicTacToeGame>(props.initialState != null ? props.initialState : new TicTacToeGame('','',[],0,{},'stopped'))
+    const [player,setPlayer] = useState(props.playerNum != null ? props.playerNum : 0)
 
     useEffect(() => {
         handleRecieveMessage(props.lastMessage)
     },[props.lastMessage])
+
+    // useEffect(() => {
+    //     console.log('player num effect')
+    //     if(props.playerNum != null) {
+    //         console.log('props player num: ' + props.playerNum)
+    //         setPlayer(props.playerNum)
+    //     }
+    // },[props.playerNum])
     
-    const handleRecieveMessage = (message:MessageEvent<any>) => {
+    const handleRecieveMessage = (message:any) => {
         if(message == null) {
             return
         }

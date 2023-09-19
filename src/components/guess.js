@@ -7,6 +7,7 @@ export default function Guesser(props) {
     var [pastGuesses, setPastGuesses] = useState([])
     var [guess, setGuess] = useState('')
     const [state, setState] = useState(0)
+    const [lastGuessDate,setLastGuessDate] = useState(props.lastGuessDate)
     var [minigameObject, setMinigameObject] = useState({number:Math.floor(Math.random() * 100), min:0, max:100})
 
     useEffect(() => {
@@ -46,6 +47,7 @@ export default function Guesser(props) {
                 ...pastGuesses,
                 {guess:guess, result: content.Message}
             ])
+            setLastGuessDate(new Date())
             setGuess('')
         }
     }
@@ -99,10 +101,10 @@ export default function Guesser(props) {
     } 
 
     const getGuessAvailableText = () => {
-        if(!props.lastGuessDate) {
+        if(!lastGuessDate) {
             return null
         }
-        var guessDate= new Date(props.lastGuessDate +'z')
+        var guessDate= new Date(lastGuessDate +'z')
         var currentDate = new Date()
         if(guessDate.getUTCDate() == currentDate.getUTCDate() &&
         guessDate.getUTCMonth() == currentDate.getUTCMonth()) {

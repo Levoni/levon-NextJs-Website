@@ -27,7 +27,7 @@ export default async function GamePage() {
 
     return (
         <div style={{display:'flex',flexDirection:'column', flex:'1'}}>
-            <Header userName={user.name}></Header>
+            <Header token={token} userName={user.name}></Header>
                 <div className='body-padding' style={{flex:'1', display:'flex', flexFlow:'wrap', gap: '25px'}}>
                     <PagePickerWrapper initialUsers={initialUsers}
                         initialGames={initialGames}

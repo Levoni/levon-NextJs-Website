@@ -15,7 +15,7 @@ export default async function SocialDaily() {
 
   return (
       <div style={{flex:'1', display:'flex', flexDirection:'column'}}>
-        <Header userName={user.name}></Header>
+        <Header token={token} userName={user.name}></Header>
         <div className="body-padding" style={{display:'flex', justifyContent:'space-around',flex:'1', gap:'25px', flexWrap:'wrap'}}>
           <div className=" column" style={{flex:'1', justifyContent:'flex-start', gap:'25px'}}>
             <div>

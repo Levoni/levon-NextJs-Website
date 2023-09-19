@@ -24,13 +24,13 @@ export default function TotGameOverview(props:any) {
     const handleAcceptClick = (e:any) => {
         e.stopPropagation();
         if(props.acceptGameCallback) {
-            props.acceptGameCallback(props.item.tot_id)
+            props.acceptGameCallback(props.item.id)
         }
     }
 
     const handleDetailsClick = (e:any) => {
         e.stopPropagation();
-        // router.push(`/future Game Page/list?id=${props.item.id}`)
+        router.push(`/game/totGames/game?id=${props.item.id}`)
     }
 
     const getAcceptDeleteButton = () => {

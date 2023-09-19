@@ -21,12 +21,13 @@ export default async function GuessPage() {
 
     return (
         <div style={{display:'flex', flexDirection:'column', flex:'1'}}>
-            <Header userName={user['name']}></Header>
+            <Header token={token} userName={user['name']}></Header>
             <div className='body-padding' style={{display:'flex', flex:'1', gap:'25px', flexFlow:'wrap'}}>
                <div style={{ gap:'25px', flex:'3', display:'flex', flexFlow:'row wrap', justifyContent:'space-around'}}>
                    <Link href='/game/dailyGuess'><div className='activity-card'>Daily Guess</div></Link>
                    <Link href='/game/guess'><div className='activity-card'>Number Guess Minigame</div></Link>
                    <Link href='/game/clubHouseGames'><div className='activity-card'>Clubhouse Games</div></Link>
+                   <Link href='/game/totGames'><div className='activity-card'>Turn Over Time Games</div></Link>
                    <Link href='/social/picker'><div className='activity-card'>Game List</div></Link>
                    <Link href='/social/daily'><div className='activity-card'>Daily Result</div></Link>
                    <Link href='/tools/listManager'><div className='activity-card'>List Manager</div></Link>

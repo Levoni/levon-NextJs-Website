@@ -13,9 +13,12 @@ export default function SocialSettings(props:any) {
     }
 
     return (
+    <div className="column">
+        <div className="card-header">Social</div>
         <div className="row">
-        <div>Allow Others Viewers to See your User</div>
-        <input checked={shared} onChange={handleSharedChange} type="checkbox"/>
+            <div style={{paddingLeft:'5px'}}>Allow Others Viewers to See your User</div>
+            <input checked={shared} onChange={handleSharedChange} type="checkbox"/>
+        </div>
     </div>
     )
 }

@@ -9,12 +9,13 @@ export default async function TOTGamePage() {
     const token = cookieStore.get('loginToken')?.value
     var user:User = await retriveUser(token);
     var users:Array<User> = await GetOrderedUsers(token)
+    users = users.filter((item) => {return item.name != user.name})
     let originalTotGames = await GetTotGameOverview(token,user.name)
     console.log(originalTotGames)
 
     return (
         <div style={{display:'flex',flexDirection:'column', flex:'1'}}>
-            <Header userName={user['name']}></Header>
+            <Header token={token} userName={user['name']}></Header>
             <div className="body-padding">
                 <div>
                     <div className="header">Turns over time (TOT) Games</div>

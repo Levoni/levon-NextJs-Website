@@ -32,12 +32,21 @@ import img21 from '../public/21.png'
 import img1 from '../public/Blue Base.png'
 import img2 from '../public/Red Base.png'
 import blank from '../public/blank.png'
+import Collapse from "./collapse";
 
 export default function Stratego(props:any) {
 
     useEffect(() => {
         handleRecieveMessage(props.lastMessage)
     },[props.lastMessage])
+
+    useEffect(() => {
+        console.log('player num effect')
+        if(props.playerNum != null) {
+            console.log('props player num: ' + props.playerNum)
+            setPlayer(props.playerNum)
+        }
+    },[props.playerNum])
 
     let ImgImportArray:any = {
         img112,
@@ -133,12 +142,12 @@ export default function Stratego(props:any) {
         return graveyard
     }
 
-    const [gameState, setGameState] = useState(new StrategoGame('','',[],0,createStratigoBasicBoard(),createGraveyard(),'stopped',''))
+    const [gameState, setGameState] = useState<StrategoGame>(props.initialState != null ? props.initialState : new StrategoGame('','',[],0,createStratigoBasicBoard(),createGraveyard(),'stopped',''))
     const [focusedPiece,setFocusedPiece] = useState<any>(null)
     const [focusedLocation, setFocusedLocation] = useState<any>(null)
-    const [player,setPlayer] = useState(0)
+    const [player,setPlayer] = useState(props.playerNum != null ? props.playerNum : 0)
     const [battleInfo,setBattleInfo] = useState<any>({attacker:null,defender:null})
-    const [lastMove, setLastMove] = useState<any>(null)
+    const [lastMove, setLastMove] = useState<any>(props.lastMove ? props.lastMove : null)
 
     const handleRecieveMessage = (message:MessageEvent<any>) => {
         if(!message) {
@@ -150,6 +159,7 @@ export default function Stratego(props:any) {
                 ...prevState,
                 state:'placing',
                 board: createStratigoBasicBoard(),
+                graveyard: createGraveyard(),
                 current_Turn: 0
             }})
         } else if(object.action == 'piecePlaced') {
@@ -193,7 +203,9 @@ export default function Stratego(props:any) {
                     board: board
             }}) 
         } else if (object.action == 'movePiece') {
+            console.log(gameState.board)
             let movingPiece = gameState.board[object.xStart][object.yStart].piece
+            console.log(movingPiece)
             setGameState((prevState)=>{
                 prevState.board[object.xStart][object.yStart].piece = null
                 prevState.board[object.x][object.y].piece = movingPiece
@@ -202,7 +214,7 @@ export default function Stratego(props:any) {
                     current_Turn: gameState.current_Turn == 1 ? 2 : 1,
                 }
             }) 
-            setLastMove(`${object.xStart}${object.yStart},${object.x}${object.y}:${movingPiece.owner}${movingPiece.power}:`)
+            setLastMove(`${object.xStart}${object.yStart},${object.x}${object.y}:${movingPiece.owner},${movingPiece.power}:`)
         } else if (object.action == 'battle') {
             setBattleInfo({
                     attacker:{
@@ -316,7 +328,7 @@ export default function Stratego(props:any) {
             attacker:null,
             defender:null
         })
-        setLastMove(`${battleInfo.attacker.x}${battleInfo.attacker.y},${battleInfo.defender.x}${battleInfo.defender.y}:${piece.owner}${piece.power}:${endPiece.owner}${endPiece.power}`)
+        setLastMove(`${battleInfo.attacker.x}${battleInfo.attacker.y},${battleInfo.defender.x}${battleInfo.defender.y}:${piece.owner},${piece.power}:${endPiece.owner},${endPiece.power}`)
     }
 
     const handleBoxCLick = (x:number,y:number) => {
@@ -336,18 +348,12 @@ export default function Stratego(props:any) {
                 setFocusedPiece(null)
             }
         } else if(gameState.state == 'started' && player == gameState.current_Turn) {
-            console.log('click while started')
-            console.log(gameState.board[x][y].piece)
-            console.log(x.toString() + y.toString())
             if(focusedPiece == null && gameState.board[x][y].piece != null
                 && gameState.board[x][y].piece.owner == player) {
                 console.log('selected piece ' + x.toString() + y.toString())
                 setFocusedPiece(gameState.board[x][y].piece)
                 setFocusedLocation({x:x,y:y})
             } else if(focusedPiece != null) {
-                    console.log('click while piece selected')
-                    console.log(focusedPiece)
-                    console.log(focusedLocation)
                     if(gameState.board[x][y].piece != null && gameState.board[x][y].piece.owner == player) {
                         console.log('selected piece ' + x.toString() + y.toString())
                         setFocusedPiece(gameState.board[x][y].piece)
@@ -366,7 +372,7 @@ export default function Stratego(props:any) {
                                     return
                                 }
                             }
-                            if(totalDifference == 1) {
+                            else if(totalDifference == 1) {
                                 props.SendMessageCallback(`{"action":"movePiece","xStart":"${focusedLocation.x}","yStart":"${focusedLocation.y}","x":"${x}","y":"${y}"}`)
                                 setFocusedPiece(null)
                                 setFocusedLocation(null)  
@@ -398,7 +404,6 @@ export default function Stratego(props:any) {
         if(piece.owner == player)
         {
             setFocusedPiece(piece)
-            console.log(piece)
         }
     }
 
@@ -425,10 +430,6 @@ export default function Stratego(props:any) {
 
     const getBoardClass = (x:number,y:number) => {
         if(gameState.state=='started') {
-            console.log('board class')
-            console.log(x)
-            console.log(y)
-            console.log(lastMove)
             if(focusedLocation != null && focusedLocation.x == x && focusedLocation.y == y) {
                 return 'focused'
             } else if (lastMove != null && lastMove[0] == x && lastMove[1] == y) {
@@ -440,13 +441,36 @@ export default function Stratego(props:any) {
         return ''
     }
 
-    //Do this so useEffect can refresh the method so we get the latest State for the GaseState
-    let handleRecieveCallback = handleRecieveMessage
+    const getLastMoveJSX = () => {
+        if(!lastMove) {
+            return <div>No Last Move</div>
+        }
+        let splitLastMove = lastMove.split(':')
+        console.log(splitLastMove)
+        return (
+            <div>
+                <div style={{width:'50px',height:'50px'}}>
+                    <img style={{maxWidth:'100%',maxHeight:'auto'}} src={getStrategoSymbol({owner:splitLastMove[1].split(',')[0],power:splitLastMove[1].split(',')[1]},(splitLastMove[2]? true : false))}/>
+                </div>
+                <div>
+                    <div>{`Y${splitLastMove[0].split(',')[0][0]} X${splitLastMove[0].split(',')[0][1]} -----> Y${splitLastMove[0].split(',')[1][0]} X${splitLastMove[0].split(',')[1][1]}`}</div>
+                </div>
+                {splitLastMove[2] ? <div style={{width:'50px',height:'50px'}}>
+                    <img style={{maxWidth:'100%',maxHeight:'auto'}} src={getStrategoSymbol({owner:splitLastMove[2].split(',')[0],power:splitLastMove[2].split(',')[1]},true)}/>
+                </div> : null}
+            </div>
+        )
+    }
 
     return (
     <div className="body-padding row" style={{flexWrap:'wrap'}}>
         <div className="column" style={{flex:'1'}}>
-            {(gameState.state == 'placing' || gameState.state == 'started') &&<div className="graveyard">
+        <Collapse title='LastMove'>
+            <div>
+                {getLastMoveJSX()}
+            </div>
+        </Collapse>
+            {(gameState.state == 'placing' || gameState.state == 'started') && <div className="graveyard">
                 <div>{gameState.state == 'placing' ? 'Place Pieces' : 'Graveyard'}</div>
                 <div style={{display:'flex',flexWrap:'wrap'}} className="stratego-graveyard">
                     {gameState && gameState.graveyard.map((element,index) => {

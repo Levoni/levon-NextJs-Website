@@ -68,6 +68,10 @@ export async function GetUserGuess(token:any) {
     }
 }
 
+export async function GetUserNotificationPreference(token:any,) {
+    return await sendGet('/user/notification/preference',token)
+}
+
 export async function GetSite(token:any) {
     const data = await fetch(process.env.API_URL + '/site',{
       method: 'GET',
@@ -202,8 +206,16 @@ export async function GetTotGameOverview(token:any, userName: string) {
     return await sendGet('/totGame/overview',token,`/${userName}`)
 }
 
-export async function GetTotGame(token:any, id: number) {
-    return await sendGet('/totGame/game',token,`/${id}`)
+export async function GetTotGame(token:any, id: number,userName: string) {
+    return await sendGet('/totGame/game',token,`?id=${id}&userName=${userName}`)
+}
+
+export async function sendTotGameAction(token:any, action:string, id:number) {
+    return await sendPost(`/totGame/action`, token, {action:action,id:id})
+}
+
+export async function GetNotifications(token:any, userName:string){
+    return await sendGet('/notifications',token,`?userName=${userName}`)
 }
 
 export async function sendAddRequestMessage(token:any, body:any) {
@@ -240,6 +252,10 @@ export async function SendDeleteListItem(token:any, itemId:number) {
 
 export async function SendUserSocialupdate(token:any, isPublic:boolean) {
     return await sendPost('/user/update/social', token, {public:isPublic})
+}
+
+export async function SendUserNotificationPreferenceUpdate(token:any, body:any) {
+    return await sendPost('/user/update/notificationPreference',token,{daily_guess:body.daily_guess,tot_game:body.tot_game})
 }
 
 export async function SendAddTotGame(token:any, type:string,challangedUser:string,CreatorUser:string) {

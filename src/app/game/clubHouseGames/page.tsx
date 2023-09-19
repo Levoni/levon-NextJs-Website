@@ -12,7 +12,7 @@ export default async function clubhouseGamesPage() {
 
     return (
         <div style={{display:'flex',flexDirection:'column', flex:'1'}}>
-            <Header userName={user['name']}></Header>
+            <Header token={token} userName={user['name']}></Header>
             <div className="body-padding">
                 <div>
                     <div className="header">Clubhouse Games</div>
