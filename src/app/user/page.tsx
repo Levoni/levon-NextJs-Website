@@ -13,7 +13,7 @@ export default async function UserPage() {
 
     return (
         <div style={{flex:'1', display:'flex',flexDirection:'column'}}>
-            <Header userName={user.name}></Header>
+            <Header token={token} userName={user.name}></Header>
             <div className="body-padding">
                 <div className="header">Settings</div>
                 <PageUserWrapper notificationPreference={notificationPreference} token={token} user={user}></PageUserWrapper>

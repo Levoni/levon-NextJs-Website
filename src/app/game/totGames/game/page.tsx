@@ -24,7 +24,7 @@ export default async function ListPage(props:Props) {
             return (
                 <div style={{display:'flex',flexDirection:'column', flex:'1'}}>
                     <Header token={token} userName={user['name']}></Header>
-                    <PageTotGameWrapper game={game[0]}></PageTotGameWrapper>
+                    <PageTotGameWrapper token={token} game={game[0]}></PageTotGameWrapper>
                 </div>
             )
         } else {
