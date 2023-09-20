@@ -21,7 +21,7 @@ export default async function TOTGamePage() {
                     <div className="header">Turns over time (TOT) Games</div>
                     <div className="body-text">This is a collection of multiplayer games in which each turn can be taken when the player has time.</div>
                 </div>
-                <PageTotGameOverviewWrapper originalGames={originalTotGames} users={users} user={user}></PageTotGameOverviewWrapper>
+                <PageTotGameOverviewWrapper originalGames={originalTotGames} token={token} users={users} user={user}></PageTotGameOverviewWrapper>
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ export default function TotGameOverview(props:any) {
         e.stopPropagation();
         if(props.DeleteGameCallback) {
             console.log('delete callback')
-            props.DeleteGameCallback(props.item.tot_id)
+            props.DeleteGameCallback(props.item.id)
         }
     }
 
@@ -17,7 +17,7 @@ export default function TotGameOverview(props:any) {
         e.stopPropagation();
         if(props.selectGameCallback) {
             console.log('accept callback')
-            props.selectGameCallback(props.item.tot_id)
+            props.selectGameCallback(props.item.id)
         }
     }
 
@@ -51,7 +51,7 @@ export default function TotGameOverview(props:any) {
             <div className="row" style={{justifyContent:'space-between'}}>
                 <div className="row card-header" style={{alignItems:'center'}}>
                     <div>{props.item.type}</div>
-                    <button onClick={handleDetailsClick} className="small-button">Details</button>
+                    {props.item.status != 'pending' && <button onClick={handleDetailsClick} className="small-button">Details</button>}
                 </div>
                 {getAcceptDeleteButton()}    
             </div>

@@ -24,7 +24,7 @@ export default function NotificationMenu(props:any) {
     },[])
 
     return <div className="header-bar-item" style={{paddingRight:'10px', position:'relative'}}>
-            <div style={{width:'25px',height:'25px', backgroundSize:'cover', backgroundImage:`url(${notificationImage.src})`}}></div>
+            <div style={{width:'1rem',height:'1rem', backgroundSize:'cover', backgroundImage:`url(${notificationImage.src})`}}></div>
             <div>
                 {notifications.length > 0 && <div style={{position:'absolute', top:'-5px', right:'0px', color:'white', backgroundColor:'red',borderRadius:'25px', fontSize:'1rem', fontWeight:'bold'}}>{notifications.length}</div>}
                 {(notifications && notifications.length > 0) && <div className="card notification-menu header-bar-item-options" style={{minWidth:'200px', backgroundColor:'#222526', position:'absolute', top:'100%',right:'0px'}}>

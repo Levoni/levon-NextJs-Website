@@ -3,9 +3,10 @@ import { useEffect, useState } from "react"
 import AddTotGame from "./add_tot_game";
 import TotGameOverview from "./tot_game_overview";
 import { SendAcceptTotGame, SendAddTotGame, SendDeleteTotGame } from "./service_fetch";
+import TotGames from "@/data/tot_game";
 
 export default function PageTotGameOverviewWrapper(props:any) {
-    const [totGames, setTotGames] = useState([])
+    const [totGames, setTotGames] = useState<Array<any>>([])
 
     useEffect(() => {
         if(totGames.length != props.originalGames.length) {
@@ -15,8 +16,16 @@ export default function PageTotGameOverviewWrapper(props:any) {
 
 
     const HandleDelete = async (id:number) => {
+        console.log(id)
         if(id) {
-            await SendDeleteTotGame(props.token,id)
+            let result = await SendDeleteTotGame(props.token,id)
+            if(result.success) {
+                setTotGames((prev) => {
+                    return prev.filter((item) => {
+                        return item.id != id
+                    })
+                })
+            }
         }
     }
 
@@ -28,7 +37,14 @@ export default function PageTotGameOverviewWrapper(props:any) {
 
     const HandleAdd = async (addData:any) => {
         if(addData.user_names && addData.user_names.length > 0) {
-            await SendAddTotGame(props.token,addData.type, addData.user_names[0],props.user.name)
+            let response = await SendAddTotGame(props.token,addData.type, addData.user_names[0],props.user.name)
+            let game = new TotGames(response.responseObject.id,addData.type,`${addData.user_names[0]},${props.user.name}`,'','pending','')
+            setTotGames((prev) => {
+                return [
+                    ...prev,
+                    game
+                ]
+            })
         }
     }
 
