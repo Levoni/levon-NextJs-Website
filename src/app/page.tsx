@@ -30,8 +30,10 @@ export default async function GuessPage() {
                    <Link href='/game/totGames'><div className='activity-card'>Turn Over Time Games</div></Link>
                    <Link href='/social/picker'><div className='activity-card'>Game List</div></Link>
                    <Link href='/social/daily'><div className='activity-card'>Daily Result</div></Link>
+                   <Link href='/social/highScore'><div className='activity-card'>Leaderboard</div></Link>
                    <Link href='/tools/listManager'><div className='activity-card'>List Manager</div></Link>
                    <Link href='/tools/requests'><div className='activity-card'>Requests</div></Link>
+                   <Link href='/tools/changeLog'><div className='activity-card'>Changelog</div></Link>
                    <Link href='/user'><div className='activity-card'>Settings</div></Link>
                </div>
                <div style={{display:'flex', flex:'1', justifyContent:'space-around'}}>

@@ -13,8 +13,8 @@ export default function AddDailyResult(props:any) {
         return dateString
     }
     
-    const [userSiteLink, setUserSiteLink] = useState(new UserSiteLink('','',GetMMDDYYYY(new Date()),0,false))
-    const [currentSite, setCurrentSite] = useState(new DailySite('',0,''))
+    const [userSiteLink, setUserSiteLink] = useState(new UserSiteLink('','',GetMMDDYYYY(new Date()),0,true))
+    const [currentSite, setCurrentSite] = useState(new DailySite('',0,'',0,false))
     const [isToday,setIsToday] = useState(true)
     const [statusMessage, setStatusMessaage] = useState('')
 
@@ -31,10 +31,18 @@ export default function AddDailyResult(props:any) {
 
     const updateSiteNmae = (e:any) => {
         let site = props.initialSites[e.target.value]
-        setUserSiteLink({
+        let nextLink = {
             ...userSiteLink,
             daily_site_name:site.name
-        })
+        }
+        if(site.is_multiple) {
+            nextLink.correct = true
+        }
+        if(!nextLink.correct) {
+            nextLink.guess_count = site.attempt_count
+        }
+        console.log(site)
+        setUserSiteLink(nextLink)
         setCurrentSite(site)
     }
 
@@ -46,10 +54,15 @@ export default function AddDailyResult(props:any) {
     }
 
     const updateCorrect = (e:any) => {
-        setUserSiteLink({
+        let nextLink = {
             ...userSiteLink,
-            correct:e.target.checked
-        })
+            correct:e.target.checked,
+        }
+        if(!e.target.checked) {
+            console.log(currentSite.attempt_count)
+            nextLink.guess_count = currentSite.attempt_count
+        }
+        setUserSiteLink(nextLink)
     }
 
     const updateDate = (e:any) => {
@@ -70,6 +83,17 @@ export default function AddDailyResult(props:any) {
     }
 
     const submitResult = async () => {
+        let body = {
+            ...userSiteLink,
+        }
+        if(currentSite.is_multiple) {
+            body.correct = true
+        }
+        if(!body.correct) {
+            userSiteLink.guess_count = currentSite.attempt_count
+        }
+
+
         const data = await fetch(process.env.API_URL + '/userSiteLink/add',{
             method: 'POST',
             headers: {
@@ -77,7 +101,7 @@ export default function AddDailyResult(props:any) {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${localStorage.getItem('numberGuessToken')}`
             },
-            body: JSON.stringify(userSiteLink),
+            body: JSON.stringify(body),
             mode: 'cors'
         })
         if(data.status == 200) {
@@ -116,11 +140,11 @@ export default function AddDailyResult(props:any) {
         </div>
         <div className="row">
           <div>Guesses</div>
-          <input onChange={updateGuesses} type="number"/>
+          <input disabled={!userSiteLink.correct} value={userSiteLink.guess_count.toString()} onChange={updateGuesses} type="number"/>
         </div>
         <div className="row">
           <div>Guessed Correctly</div>
-          <input onChange={updateCorrect} className="big-checkbox" type="checkbox"/>
+          <input disabled={currentSite.is_multiple} checked={userSiteLink.correct} onChange={updateCorrect} className="big-checkbox" type="checkbox"/>
         </div>
         <div>
           <div>{'Date Guessed - ' + `Reset: ${getResetTimeForSite()}` }</div>

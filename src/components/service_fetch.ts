@@ -32,6 +32,36 @@ export async function retriveUser(token: any) {
     }
 }
 
+export async function retriveUserOrGuest(token: any) {
+    if(token) {
+        var data = null;
+        try{
+            data = await fetch(process.env.API_URL + '/user',{
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                mode: 'cors'
+            })
+        } catch(error:any) {
+            console.log(error)
+            redirect('/error?' + error.toString())
+        }
+        if(data.status == 200) {
+            const content = await data.json()
+            return content;
+        } else {
+            console.log('failed to get user')
+            return new User('Guest',0,0,0,'',false,false)
+        }
+    } else {
+        console.log('no token')
+        return new User('Guest',0,0,0,'',false,false)
+    }
+}
+
 export async function retriveWonNumbers(token: any) {
     const numberData = await fetch(process.env.API_URL + '/numberWins',{
         method: 'GET',
@@ -268,6 +298,10 @@ export async function SendAcceptTotGame(token:any, totId:number,userName:string)
 
 export async function SendDeleteTotGame(token:any, id:number) {
     return await sendPost(`/totGame/delete/${id}`, token, {})
+}
+
+export async function GetHighScores(token:any, game:string) {
+    return await sendGet('/highscore',token,'',`?game=${game}`)
 }
 
 export async function sendGet(url:string,token:any, routeParam:string = '', queryString:string = '') {

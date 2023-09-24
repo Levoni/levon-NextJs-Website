@@ -57,7 +57,7 @@ export default function Guesser(props) {
             setState(1)
             setPastGuesses([
                 ...pastGuesses,
-                {guess:guess, result: 'Congradulations! You guessed Corectly'}
+                {guess:guess, result: 'Congratulations! You guessed Corectly'}
             ])
         } else if (guess < minigameObject.number) {
             setPastGuesses([
