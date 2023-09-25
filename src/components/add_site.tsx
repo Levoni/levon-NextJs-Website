@@ -3,7 +3,7 @@ import DailySite from "@/data/daily_site"
 import { useState } from "react"
 
 export default function AddSite(props:any) {
-    const [site, setSite] = useState(new DailySite('',0,''))
+    const [site, setSite] = useState(new DailySite('',0,'',6,false))
     const [statusMessage, setStatusMessaage] = useState('')
 
     const updateName = (e:any) => {
