@@ -29,7 +29,7 @@ export default async function ListPage(props:Props) {
             <div style={{display:'flex', flexDirection:'column', flex:'1'}}>
                 <Header token={token} userName={user.name}></Header>
                 <div className="body-padding">
-                <PageListWrapper templates={templates} list={list}></PageListWrapper>
+                <PageListWrapper token={token} templates={templates} list={list}></PageListWrapper>
                 </div>
             </div>
         )
