@@ -300,8 +300,9 @@ export async function SendDeleteTotGame(token:any, id:number) {
     return await sendPost(`/totGame/delete/${id}`, token, {})
 }
 
-export async function GetHighScores(token:any, game:string) {
-    return await sendGet('/highscore',token,'',`?game=${game}`)
+export async function GetHighScores(token:any, game:string, daily:boolean) {
+    var paramters = daily ? `?game=${game}&date=${new Date().toDateString()}` : `?game=${game}`
+    return await sendGet('/highscore',token,'',paramters)
 }
 
 export async function sendGet(url:string,token:any, routeParam:string = '', queryString:string = '') {

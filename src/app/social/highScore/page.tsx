@@ -9,7 +9,7 @@ export default async function HighScorePage() {
     const cookieStore = cookies()
     const token = cookieStore.get('loginToken')?.value
     var user:User = await retriveUser(token);
-    let highScoresResult = await GetHighScores(token,'yahtzee')
+    let highScoresResult = await GetHighScores(token,'yahtzee',false)
     let highScores:Array<any> = []
 
     if(highScoresResult.success) {
