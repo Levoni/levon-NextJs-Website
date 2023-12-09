@@ -61,7 +61,7 @@ export default function PageRequestWrapper(props:any) {
     return (
     <div style={{paddingTop:'0px'}} className="body-padding">
         <div>
-            <AddRequest submitRequestCallback={handleRequestAddHook} user={props.user}></AddRequest>
+            <AddRequest submitRequestCallback={handleRequestAddHook} token={props.token} user={props.user}></AddRequest>
         </div>
         <div className="column" style={{gap:'25px'}}>
             <div style={{marginTop:'25px', borderBottom:'5px solid #2d3436',alignItems:'center'}} className="row">

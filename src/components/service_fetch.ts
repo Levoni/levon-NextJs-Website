@@ -305,6 +305,65 @@ export async function GetHighScores(token:any, game:string, daily:boolean) {
     return await sendGet('/highscore',token,'',paramters)
 }
 
+export async function GetFileList(token:any, drive:string, page:number, withPreview:boolean) {
+    var paramters = `?drive=${drive}&size=20&page=${page}&withPreview=${withPreview}`
+    return await sendGet('/FileList',token,'',paramters)
+}
+
+export async function GetFile(token:any, drive:string, name:string) {
+    var paramters = `?drive=${drive}&name=${name}`
+    return await sendGet('/File',token,'',paramters)
+}
+
+export async function uploadFile(token:any, drive:string, name:string, data:any) {
+    var body = {
+        drive:drive,
+        name:name,
+        data:data
+    }
+    return await sendPost('/PostFile',token,body)
+}
+
+export async function deleteFile(token:any, drive:string, name:string) {
+    var body = {
+        drive:drive,
+        name:name
+    }
+    return await sendPost('/DeleteFile',token,body)
+}
+
+export async function GetDriveList(token:any) {
+    let result = await sendGet('/Drive',token,'','')
+    return result
+}
+
+export async function CreateDrive(token:any, drive:string) {
+    let body = {
+        drive:drive
+    }
+    return await sendPost('/Drive/create',token,body)
+}
+
+export async function DeleteDrive(token:any, driveId:number) {
+    let body = {
+        driveId:driveId
+    }
+    return await sendPost('/Drive/delete',token,body)
+}
+
+export async function GetDriveUsers(token:any, driveId:number) {
+    let queryString = `?driveid=${driveId}`
+    return await sendGet('/Drive/users',token,'',queryString)
+}
+
+export async function UpdateDriveUsers(token:any,users:Array<string>,driveId:number) {
+    let body = {
+        users:users,
+        driveId:driveId
+    }
+    return await sendPost('/Drive/users/update',token,body)
+}
+
 export async function sendGet(url:string,token:any, routeParam:string = '', queryString:string = '') {
     const data = await fetch(process.env.API_URL + url + routeParam + queryString,{
         method: 'GET',

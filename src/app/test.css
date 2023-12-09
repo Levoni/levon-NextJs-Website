@@ -392,6 +392,11 @@ textarea {
   border-bottom: none;
 }
 
+.highlight:hover {
+  background-color: #2d3436;
+  cursor: pointer;
+}
+
 /* Mobile */
 @media (max-width: 500px) {
   .hide-on-mobile {

@@ -7,10 +7,11 @@ export default function MultiSelect(props: any) {
     const [optionValues, setOptionValues] = useState(new Array<any>)
 
     useEffect(() => {
-        if(props.options.length !=optionValues.length) {
+        console.log(props.refresh)
+        if(props.options.length != optionValues.length || props.refresh) {
             setOptionValues(props.options)
         }
-    }, [props.options])
+    }, [props.options,props.refresh])
 
     function autofill():any  {
         return optionValues.filter((element:any) => {

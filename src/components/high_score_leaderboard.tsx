@@ -10,8 +10,8 @@ export default function HighScoreLeaderboard(props:any) {
 
     let getDataTable = () => {
         var orderedHighScores = highScores.sort((a:any, b:any) => {
-            if(a.score < b.score) return -1
-            if(a.score > b.score) return 1
+            if(a.score < b.score) return 1
+            if(a.score > b.score) return -1
             return 0
         })
         return {
