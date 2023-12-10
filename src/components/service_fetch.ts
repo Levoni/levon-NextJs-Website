@@ -288,6 +288,10 @@ export async function SendUserNotificationPreferenceUpdate(token:any, body:any) 
     return await sendPost('/user/update/notificationPreference',token,{daily_guess:body.daily_guess,tot_game:body.tot_game})
 }
 
+export async function SendUserEmailUpdate(token:any,email:string) {
+    return await sendPost('/user/update/email', token,{email:email})
+}
+
 export async function SendAddTotGame(token:any, type:string,challangedUser:string,CreatorUser:string) {
     return await sendPost('/totGame/add', token, {type:type,challangedUser:challangedUser,creatorUser:CreatorUser})
 }
@@ -364,6 +368,22 @@ export async function UpdateDriveUsers(token:any,users:Array<string>,driveId:num
     return await sendPost('/Drive/users/update',token,body)
 }
 
+export async function StartPasswordReset(token:any, username:string, email:string) {
+    let body = {
+        username:username,
+        email:email
+    }
+    return await sendPost('/startPasswordReset',token,body)
+}
+
+export async function ResetPassword(password:string, resetCode:string) {
+    let body = {
+        password:password,
+        resetCode:resetCode
+    }
+    return await sendNonAuthPost('/resetPassword',body)
+}
+
 export async function sendGet(url:string,token:any, routeParam:string = '', queryString:string = '') {
     const data = await fetch(process.env.API_URL + url + routeParam + queryString,{
         method: 'GET',
@@ -389,6 +409,25 @@ export async function sendPost(url: string, token:any, body:any):Promise<PostRes
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
+        },
+        body:JSON.stringify(body),
+        mode: 'cors'
+    })
+    if(data.status  == 200) {
+        const request = await data.json();
+        return new PostResponse(true,request.success,request)
+    } else {
+        const request = await data.json();
+        return new PostResponse(false,request.error,request)
+    }
+}
+
+export async function sendNonAuthPost(url: string, body:any):Promise<PostResponse> {
+    const data = await fetch(process.env.API_URL + url,{
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
         },
         body:JSON.stringify(body),
         mode: 'cors'

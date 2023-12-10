@@ -62,6 +62,9 @@ export default function Login() {
                     <input className="big-input" id="password" name="password" type="password"/>
                 </div>
                 <button className="big-button" >Login</button>
+                <div className="body-text" style={{paddingTop:'10px', display:'flex',flex:'.1'}}>
+                    <a href="/reset/start">Forgot Password?</a>
+                </div>
                 <div className="body-text" style={{paddingTop:'10px', display:'flex', flex:'.5',flexDirection:'row'}}>
                     <div style={{paddingRight:'5px', alignSelf:'center'}}>New User</div>
                     <input className="big-checkbox" id="signUp" name="signUp" type="checkbox"/>
