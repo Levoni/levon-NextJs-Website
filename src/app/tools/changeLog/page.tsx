@@ -14,6 +14,7 @@ export default async function ChangeLogPage() {
                 <div>Version 0.7</div>
                 <ul>
                     <li>Added person file drive page/feature</li>
+                    <li>Added loader and added to some pages</li>
                 </ul>
                 <div>Version 0.6</div>
                 <ul>
