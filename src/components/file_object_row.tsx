@@ -22,7 +22,7 @@ export default function FileObjectRow(props:any) {
 
     let getFullFile = async () => {
         if(!hasFullFile) {
-            var newfile = await GetFile(props.token,props.drive.name,props.file.name)
+            var newfile = await GetFile(props.token,props.drive.path,props.file.name)
             setfile({
                 ...file,
                 buffer: newfile.data.data
