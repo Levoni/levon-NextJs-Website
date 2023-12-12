@@ -14,6 +14,7 @@ export default function FileExplorer(props:any) {
     const [prevEnabled,setPrevEnabled] = useState<boolean>(false)
     const [nextEnabled,setNextEnabled] = useState<boolean>(false)
     const [loading,setLoading] = useState(false)
+    const [uploading,setUploading] = useState(false)
     const [page,setPage] = useState(0)
 
     useEffect(() => {
@@ -77,8 +78,10 @@ export default function FileExplorer(props:any) {
 
     let handleUploadClick = async () => {
         if(uFile) {
+            setUploading(true)
             let result = await uploadFile(props.token,drive!!.path,uFile.name,Buffer.from(await uFile.arrayBuffer()))
             setUFile(null)
+            setUploading(false)
         }
     }
 
@@ -103,7 +106,8 @@ export default function FileExplorer(props:any) {
                 </div>
                 <div className="row" style={{justifyContent:'center',flex:1}}>
                     <input onChange={handleFileSelect} disabled={!drive} id="file" name="file" type="file"/>
-                    <button onClick={handleUploadClick} disabled={!uFile || !drive} className="small-button">Upload</button>
+                    <button onClick={handleUploadClick} disabled={!uFile || !drive} className="small-button">
+                        {uploading ? <Loader local={true}></Loader> : 'Upload'}</button>
                 </div>
             </div>
         )
