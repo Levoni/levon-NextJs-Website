@@ -2,7 +2,6 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AddLoginCookie } from '@/components/server_actions'
-import '../app/test.css'
 
 
 export default function Login() {

@@ -34,6 +34,7 @@ export default async function GuessPage() {
                    <Link href='/social/photoShare'><div className='activity-card'>Photo Share</div></Link>
                    <Link href='/tools/listManager'><div className='activity-card'>List Manager</div></Link>
                    <Link href='/tools/requests'><div className='activity-card'>Requests</div></Link>
+                   <Link href='/tools/drive'><div className='activity-card'>Drive</div></Link>
                    <Link href='/tools/changeLog'><div className='activity-card'>Changelog</div></Link>
                    <Link href='/user'><div className='activity-card'>Settings</div></Link>
                </div>

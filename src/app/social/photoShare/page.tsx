@@ -1,8 +1,6 @@
-import FileObjectRow from "@/components/file_object_row";
 import Header from "@/components/header";
 import PageFileExplorer from "@/components/page_file_explorer";
-import { GetDriveList, GetFileList, GetHighScores, GetOrderedUsers, retriveUser } from "@/components/service_fetch";
-import FileObject from "@/data/FileObject";
+import { GetDriveList, GetOrderedUsers, retriveUser } from "@/components/service_fetch";
 import Drive from "@/data/drive";
 import User from "@/data/user";
 import { cookies } from "next/headers";

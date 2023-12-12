@@ -11,6 +11,10 @@ export default async function ChangeLogPage() {
         <div style={{flex:'1', display:'flex', flexDirection:'column'}}>
             <Header userName={user.name}></Header>
             <div className="body-padding">
+                <div>Version 0.7</div>
+                <ul>
+                    <li>Added person file drive page/feature</li>
+                </ul>
                 <div>Version 0.6</div>
                 <ul>
                     <li>Added password reset feature</li>

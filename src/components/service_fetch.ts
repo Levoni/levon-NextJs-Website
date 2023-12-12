@@ -336,6 +336,10 @@ export async function deleteFile(token:any, drive:string, name:string) {
     return await sendPost('/DeleteFile',token,body)
 }
 
+export async function createDirectory(token:any) {
+    return await sendPost('/directory/create',token,{})
+}
+
 export async function GetDriveList(token:any) {
     let result = await sendGet('/Drive',token,'','')
     return result
