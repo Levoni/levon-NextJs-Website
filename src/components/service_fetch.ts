@@ -407,22 +407,27 @@ export async function sendGet(url:string,token:any, routeParam:string = '', quer
 }
 
 export async function sendPost(url: string, token:any, body:any):Promise<PostResponse> {
-    const data = await fetch(process.env.API_URL + url,{
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body:JSON.stringify(body),
-        mode: 'cors'
-    })
-    if(data.status  == 200) {
-        const request = await data.json();
-        return new PostResponse(true,request.success,request)
-    } else {
-        const request = await data.json();
-        return new PostResponse(false,request.error,request)
+    try {
+        const data = await fetch(process.env.API_URL + url,{
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body:JSON.stringify(body),
+            mode: 'cors'
+        })
+        if(data.status  == 200) {
+            const request = await data.json();
+            return new PostResponse(true,request.success,request)
+        } else {
+            const request = await data.json();
+            return new PostResponse(false,request.error,request)
+        }
+    }
+    catch(exception) {
+        return new PostResponse(false,'Threw error',{error:exception})
     }
 }
 

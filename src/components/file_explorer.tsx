@@ -80,8 +80,12 @@ export default function FileExplorer(props:any) {
         if(uFile) {
             setUploading(true)
             let result = await uploadFile(props.token,drive!!.path,uFile.name,Buffer.from(await uFile.arrayBuffer()))
-            setUFile(null)
             setUploading(false)
+            if(result.success) {
+                setUFile(null)
+            } else {
+                console.log('file too large')
+            }
         }
     }
 
