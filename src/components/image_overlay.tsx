@@ -1,9 +1,6 @@
-import { useState } from 'react'
 import fileImg from '../public/file icon.png'
-import Loader from './loader'
-export default function ImageOverlay(props:any) {
-    const [isLoading, setIsLoading] = useState(true)
-    
+
+export default function ImageOverlay(props:any) {    
         let download = (e:any) => {
             e.stopPropagation()
             let buffer =  Buffer.from(props.file.buffer)
