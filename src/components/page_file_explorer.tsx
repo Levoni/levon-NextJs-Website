@@ -6,6 +6,7 @@ import MultiSelect from "./multi-select";
 import Drive from "@/data/drive";
 import User from "@/data/user";
 import FileExplorer from "./file_explorer";
+import Confirm from "./confirm";
 
 export default function PageFileExplorer(props:any) {
     const [drives, setDrives] = useState<Array<Drive>>(props.drives)
@@ -14,6 +15,7 @@ export default function PageFileExplorer(props:any) {
     const [users,setUsers] = useState<Array<User>>(props.users)
     const [driveUsers,setDriveUsers] = useState([])
     const [refreshUsers,setRefreshUsers] = useState(false)
+    const [showConfirm,setShowConfirm] = useState(false)
 
 
     let handleChangeDrive = async (e:any) => {
@@ -50,16 +52,7 @@ export default function PageFileExplorer(props:any) {
     }
 
     let handleDeleteDrive = async (e:any) => {
-        if (drive != null) {
-            let result = await DeleteDrive(props.token,drive!!.id)
-            if(result.success) {
-                let newDrives = drives.filter(x => {
-                    return x.id != drive.id
-                })
-                setDrives(newDrives)
-                handleChangeDrive({target:{value:''}})
-            }
-        }
+        setShowConfirm(true)
     }
 
     let handleUserChange = async (e:any) => {
@@ -91,6 +84,20 @@ export default function PageFileExplorer(props:any) {
         if(!result.success) {
             console.log(result.responseMessage)
         }
+    }
+
+    let handleConfirm = async (result:boolean) => {
+        if (drive != null && result) {
+            let result = await DeleteDrive(props.token,drive!!.id)
+            if(result.success) {
+                let newDrives = drives.filter(x => {
+                    return x.id != drive.id
+                })
+                setDrives(newDrives)
+                handleChangeDrive({target:{value:''}})
+            }
+        }
+        setShowConfirm(false)
     }
 
     let getShareSetting = () => {
@@ -133,6 +140,7 @@ export default function PageFileExplorer(props:any) {
                 {getShareSetting()}
                 <FileExplorer drive={drive} token={props.token}></FileExplorer>
             </div>
+            {showConfirm ? <Confirm clickCallback={handleConfirm}></Confirm> : null}
         </div>
     )
 }

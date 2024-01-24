@@ -1,15 +1,16 @@
 'use client';
 
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Confirm from "./confirm";
 
 export default function ListResults(props:any) {
     const router = useRouter();
+    const [showConfirm,setShowConfirm] = useState(false)
 
     const handleDeleteClick = (e:any) => {
         e.stopPropagation();
-        if(props.DeleteListCallback) {
-            props.DeleteListCallback(props.item.id)
-        }
+        setShowConfirm(true)
     }
 
     const handleSelectClick = () => {
@@ -21,6 +22,13 @@ export default function ListResults(props:any) {
     const handleDetailsClick = (e:any) => {
         e.stopPropagation();
         router.push(`/tools/list?id=${props.item.id}`)
+    }
+
+    const handleConfirm = (result:boolean) => {  
+        if(result && props.DeleteListCallback) {
+            props.DeleteListCallback(props.item.id)
+        }
+        setShowConfirm(false)
     }
 
     return (
@@ -39,6 +47,7 @@ export default function ListResults(props:any) {
                 <div>Template:</div>
                 <div>{props.item.is_template ? 'Yes' : 'No'}</div>
             </div>
+            {showConfirm ? <Confirm clickCallback={handleConfirm}></Confirm> : null}
         </div>
     )
 }

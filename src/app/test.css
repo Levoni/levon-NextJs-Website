@@ -417,6 +417,28 @@ textarea {
   }
   } 
 
+  .dialog {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+    /* height: 200px; */
+    left: 35%;
+    top:40%;
+    background-color: #111415;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border: 1px solid #222526;
+  }
+  .dialog-title {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .dialog-buttons {
+    display: flex;
+    justify-content: space-around;
+  }
+
 /* Mobile */
 @media (max-width: 500px) {
   .hide-on-mobile {
