@@ -10,7 +10,6 @@ export default async function UserPage() {
     let user:User = await retriveUser(token)
     let notificationPreference:any = await GetUserNotificationPreference(token)
     notificationPreference = notificationPreference.rows.length == 0 ? [] : notificationPreference.rows[0]
-    console.log(user)
 
     return (
         <div style={{flex:'1', display:'flex',flexDirection:'column'}}>

@@ -417,6 +417,15 @@ textarea {
   }
   } 
 
+  @keyframes fadeout {
+    0% {
+      opacity: 1
+    }
+    100% {
+      opacity: 0
+    }
+  }
+
   .dialog {
     position: fixed;
     display: flex;
@@ -437,6 +446,27 @@ textarea {
   .dialog-buttons {
     display: flex;
     justify-content: space-around;
+  }
+  .toaster {
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    opacity: 1;
+    align-items: center;
+    justify-content: center;
+    animation-name: fadeout;
+    animation-duration: 5s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+
+  .toaster:hover {
+    animation-play-state: paused;
+    opacity: 1 !important;
+  }
+
+  .toaster-success {
+    background-color:#2c8263;
   }
 
 /* Mobile */

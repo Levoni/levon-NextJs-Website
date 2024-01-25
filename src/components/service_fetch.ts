@@ -285,7 +285,7 @@ export async function SendUserSocialupdate(token:any, isPublic:boolean) {
 }
 
 export async function SendUserNotificationPreferenceUpdate(token:any, body:any) {
-    return await sendPost('/user/update/notificationPreference',token,{daily_guess:body.daily_guess,tot_game:body.tot_game})
+    return await sendPost('/user/update/notificationPreference',token,{daily_guess:body.daily_guess,tot_game:body.tot_game,request_preference:body.request})
 }
 
 export async function SendUserEmailUpdate(token:any,email:string) {

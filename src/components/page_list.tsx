@@ -4,6 +4,8 @@ import { GetListQuickView, SendAddListItem, SendAddTemplateItems, SendDeleteList
 import List from "@/data/list"
 import ListItem from "@/data/list_item"
 import Collapse from "./collapse";
+import Toaster from "./toaster";
+import ToasterData from "@/data/toaster";
 
 export default function PageListWrapper(props:any) {
     useEffect(() => {
@@ -15,10 +17,12 @@ export default function PageListWrapper(props:any) {
     const [addName,setAddName] = useState<string>('')
     const [list, setList] = useState<List>(new List(0,'','',false,[],[],''))
     const [templateId, setTemplateId] = useState<number>(-1)
+    const [toaster,setToaster] = useState<ToasterData>()
 
     const handleAddClick = async () => {
         let result = await SendAddListItem(props.token, addName ,props.list.id,1)
         if(result.success) {
+            setToaster(new ToasterData('success','List created'))
             setList({
                 ...list,
                 items: [
@@ -109,6 +113,7 @@ export default function PageListWrapper(props:any) {
             <input onKeyDown={handleGuessKeyPress} onChange={handleAddNameChange} value={addName} type="text"/>
             <button onClick={handleAddClick}>Add</button>
         </div>
+        <Toaster newToaster={toaster}></Toaster>
     </div>
     )
 }

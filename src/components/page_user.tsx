@@ -32,11 +32,11 @@ export default function PageUserWrapper(props:any) {
     }
 
     const notificationUpdateCallback = (preference:NotificationPreferece) => {
-        console.log(preference)
         setNotificationPreference({
             ...notificationPreference,
             daily_guess:preference.daily_guess,
-            tot_game:preference.tot_game
+            tot_game:preference.tot_game,
+            request:preference.requests
         })
     }
 

@@ -1,3 +1,4 @@
+'use client';
 export default function Confirm(props:any) {
 
     let defaultTitle = 'Are you sure you want to delete this item?'
