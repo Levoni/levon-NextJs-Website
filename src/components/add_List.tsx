@@ -67,6 +67,10 @@ export default function AddList(props:any) {
                 let TemplateAddResult = await SendAddTemplateItems(props.token, newListId.responseObject.id,selectedTemplate)
                 setStatus(status + TemplateAddResult.responseMessage)
             }
+        } else {
+            if(props.AddListCallback) {
+                props.AddListCallback(null)
+            }
         }
     }
 

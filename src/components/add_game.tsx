@@ -1,10 +1,13 @@
 'use client';
 import GameLink from "@/data/game_link"
 import { useState } from "react"
+import Toaster from "./toaster";
+import ToasterData from "@/data/toaster";
 
 export default function AddGame(props:any) {
     const [gameLink, setGameLink] = useState(new GameLink('','',false))
     const [statusMessage, setStatusMessaage] = useState('')
+    const [newToaster,setNewToaster] = useState<ToasterData>()
 
 
     function handleGameListChange(e:any) {
@@ -38,11 +41,14 @@ export default function AddGame(props:any) {
         if(data.status == 200) {
             let content = await data.json()
             setStatusMessaage('Success: ' + content.success)
+            setNewToaster(new ToasterData('success','Added/updated game for user',2000))
         } else if (data.status == 400 || data.status == 401) {
             let content = await data.json()
+            setNewToaster(new ToasterData('fail','Failed to add/update game for user',2000))
             setStatusMessaage(content.error)
         } else {
             setStatusMessaage('Error: Failed to add game')
+            setNewToaster(new ToasterData('fail','Failed to add/update game for user',2000))
         }
     }
 
@@ -65,6 +71,7 @@ export default function AddGame(props:any) {
                 <button className="small-button" onClick={handleButtonClick}>Add/Update</button>
                 <div style={{paddingLeft:'10px'}}>{statusMessage}</div>
             </div>
+            <Toaster newToaster={newToaster}></Toaster>
         </div>
     )
 }

@@ -1,16 +1,25 @@
 'use client';
 
 import { useRouter } from "next/navigation";
+import Confirm from "./confirm";
+import { useState } from "react";
 
 export default function TotGameOverview(props:any) {
     const router = useRouter();
+    const [showConfirm,setShowConfirm] = useState<boolean>(false)
 
     const handleDeleteClick = (e:any) => {
         e.stopPropagation();
-        if(props.DeleteGameCallback) {
-            console.log('delete callback')
-            props.DeleteGameCallback(props.item.id)
+        setShowConfirm(true)
+    }
+
+    const handleDelete = (result:boolean) => {
+        if(result) {
+            if(props.DeleteGameCallback) {
+                props.DeleteGameCallback(props.item.id)
+            }
         }
+        setShowConfirm(false)
     }
 
     const handleSelectClick = (e:any) => {
@@ -66,6 +75,7 @@ export default function TotGameOverview(props:any) {
                 <div>Winner:</div>
                 <div>{props.item.winner}</div>
             </div>}
+            {showConfirm ?<Confirm clickCallback={handleDelete}></Confirm> : null}
         </div>
     )
 }

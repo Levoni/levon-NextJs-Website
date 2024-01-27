@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Collapse from "./collapse"
+import Toaster from "./toaster";
+import ToasterData from "@/data/toaster";
 
 export default function Guesser(props) {
     var [pastGuesses, setPastGuesses] = useState([])
@@ -9,6 +11,7 @@ export default function Guesser(props) {
     const [state, setState] = useState(0)
     const [lastGuessDate,setLastGuessDate] = useState(props.lastGuessDate)
     var [minigameObject, setMinigameObject] = useState({number:Math.floor(Math.random() * 100), min:0, max:100})
+    const [newToaster,setNewToaster] = useState()
 
     useEffect(() => {
         if(props.previousGuess) {
@@ -33,22 +36,30 @@ export default function Guesser(props) {
 
     const handleDailySubmitClick = async event => {
         if(guess) {
-            const data = await fetch(process.env.API_URL + `/guess/${guess}`,{
-                method: 'POST',
-                mode:'cors',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${props.token}`
+            try {
+                const data = await fetch(process.env.API_URL + `/guess/${guess}`,{
+                    method: 'POST',
+                    mode:'cors',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${props.token}`
+                    }
+                })
+                if(data.status == 200) {
+                    const content = await data.json()
+                    setPastGuesses([
+                        ...pastGuesses,
+                        {guess:guess, result: content.Message}
+                    ])
+                    setLastGuessDate(new Date())
+                    setGuess('')
+                } else {
+                    setNewToaster(new ToasterData('fail','Failed to upload guess',2000))
                 }
-            })
-            const content = await data.json()
-            setPastGuesses([
-                ...pastGuesses,
-                {guess:guess, result: content.Message}
-            ])
-            setLastGuessDate(new Date())
-            setGuess('')
+            } catch(e) {
+                setNewToaster(new ToasterData('fail','Failed to upload guess',2000))
+            }
         }
     }
 
@@ -144,6 +155,7 @@ export default function Guesser(props) {
                     return <div style={{fontSize:'1rem'}} key={index}>{item.guess} {item.result}</div>
                 })}
             </div>
+            <Toaster newToaster={newToaster}></Toaster>
         </div>
     )
 }

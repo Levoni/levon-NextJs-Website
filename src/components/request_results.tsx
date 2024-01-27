@@ -42,6 +42,10 @@ export default function RequestResults(props:any) {
             if(props.ChangeStatusHook) {
                 props.ChangeStatusHook(props.item.id,!props.item.closed)
             }
+        } else {
+            if(props.ChangeStatusHook) {
+                props.ChangeStatusHook(null,null)
+            }
         }
     }
 

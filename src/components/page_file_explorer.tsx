@@ -7,6 +7,8 @@ import Drive from "@/data/drive";
 import User from "@/data/user";
 import FileExplorer from "./file_explorer";
 import Confirm from "./confirm";
+import Toaster from "./toaster";
+import ToasterData from "@/data/toaster";
 
 export default function PageFileExplorer(props:any) {
     const [drives, setDrives] = useState<Array<Drive>>(props.drives)
@@ -16,6 +18,7 @@ export default function PageFileExplorer(props:any) {
     const [driveUsers,setDriveUsers] = useState([])
     const [refreshUsers,setRefreshUsers] = useState(false)
     const [showConfirm,setShowConfirm] = useState(false)
+    const [newToaster,setNewToaster] = useState<ToasterData>()
 
 
     let handleChangeDrive = async (e:any) => {
@@ -40,6 +43,7 @@ export default function PageFileExplorer(props:any) {
         if(createDriveName != '') {
             let result = await CreateDrive(props.token,createDriveName)
             if(result.success) {
+                setNewToaster(new ToasterData('success','Drive Created',2000))
                 let newdrive = new Drive(result.responseObject.id,createDriveName,createDriveName,true)
                 setCreateDriveName('')
                 setDrives([
@@ -47,6 +51,8 @@ export default function PageFileExplorer(props:any) {
                     newdrive
                 ])
                 handleChangeDrive({target:{value:''}})
+            } else {
+                setNewToaster(new ToasterData('fail','Drive failed to be Created',2000))
             }
         }
     }
@@ -82,7 +88,10 @@ export default function PageFileExplorer(props:any) {
 
         let result = await UpdateDriveUsers(props.token, allowedUsers,drive!!.id)
         if(!result.success) {
+            setNewToaster(new ToasterData('fail','Users failed to update',2000))
             console.log(result.responseMessage)
+        } else {
+            setNewToaster(new ToasterData('success','Users Updated',2000))
         }
     }
 
@@ -90,11 +99,14 @@ export default function PageFileExplorer(props:any) {
         if (drive != null && result) {
             let result = await DeleteDrive(props.token,drive!!.id)
             if(result.success) {
+                setNewToaster(new ToasterData('success','Drive Deleted',2000))
                 let newDrives = drives.filter(x => {
                     return x.id != drive.id
                 })
                 setDrives(newDrives)
                 handleChangeDrive({target:{value:''}})
+            } else {
+                setNewToaster(new ToasterData('fail','Drive failed to be deleted',2000))
             }
         }
         setShowConfirm(false)
@@ -141,6 +153,7 @@ export default function PageFileExplorer(props:any) {
                 <FileExplorer drive={drive} token={props.token}></FileExplorer>
             </div>
             {showConfirm ? <Confirm clickCallback={handleConfirm}></Confirm> : null}
+            <Toaster newToaster={newToaster}></Toaster>
         </div>
     )
 }

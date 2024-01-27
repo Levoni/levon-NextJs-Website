@@ -29,6 +29,8 @@ export default function AddRequest(props:any) {
             let newRequest = new Request(result.responseObject.id,request.type, request.message,request.user_name, new Date(), false)
             console.log(newRequest)
             props.submitRequestCallback(newRequest)
+        } else {
+            props.submitRequestCallback(null)
         }
     }
 

@@ -1,10 +1,13 @@
 'use client';
 import Game from '@/data/game';
 import { useState } from 'react';
+import Toaster from './toaster';
+import ToasterData from '@/data/toaster';
 
 export default function CreateGame(props:any) {
     var [createGame, setCreateGame] = useState(new Game('','',0,0,''))
     const [statusMessage, setStatusMessaage] = useState('')
+    const [newToaster,setNewToaster] = useState<ToasterData>()
 
     function handleNameInput(e: any) {
         createGame.name
@@ -56,10 +59,13 @@ export default function CreateGame(props:any) {
         if(data.status == 200) {
             let content = await data.json()
             setStatusMessaage('Success: ' + content.success)
+            setNewToaster(new ToasterData('success','Game Created',2000))
         } else if (data.status == 400 || data.status == 401) {
             let content = await data.json()
+            setNewToaster(new ToasterData('fail','Failed to create game',2000))
             setStatusMessaage(content.error)
         } else {
+            setNewToaster(new ToasterData('fail','Failed to create game',2000))
             setStatusMessaage('Error: Failed to create game')
         }
     }
@@ -91,6 +97,7 @@ export default function CreateGame(props:any) {
                 <button onClick={handleCreate}>Create/Update</button>
                 <div style={{paddingLeft:'10px'}}>{statusMessage}</div>
             </div>
+            <Toaster newToaster={newToaster}></Toaster>
         </div>
     )
 }

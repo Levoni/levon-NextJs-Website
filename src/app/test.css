@@ -421,6 +421,9 @@ textarea {
     0% {
       opacity: 1
     }
+    80% {
+      opacity: 1
+    }
     100% {
       opacity: 0
     }
@@ -455,9 +458,10 @@ textarea {
     align-items: center;
     justify-content: center;
     animation-name: fadeout;
-    animation-duration: 5s;
+    animation-duration: 3s;
     animation-timing-function: ease-in;
     animation-fill-mode: forwards;
+    animation-play-state:initial;
   }
 
   .toaster:hover {
@@ -467,6 +471,9 @@ textarea {
 
   .toaster-success {
     background-color:#2c8263;
+  }
+  .toaster-fail {
+    background-color: red;
   }
 
 /* Mobile */

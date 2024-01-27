@@ -4,9 +4,11 @@ import AddTotGame from "./add_tot_game";
 import TotGameOverview from "./tot_game_overview";
 import { SendAcceptTotGame, SendAddTotGame, SendDeleteTotGame } from "./service_fetch";
 import TotGames from "@/data/tot_game";
+import ToasterData from "@/data/toaster";
 
 export default function PageTotGameOverviewWrapper(props:any) {
     const [totGames, setTotGames] = useState<Array<any>>([])
+    const [toaster,setNewToaster] = useState<ToasterData>()
 
     useEffect(() => {
         if(totGames.length != props.originalGames.length) {
@@ -16,7 +18,6 @@ export default function PageTotGameOverviewWrapper(props:any) {
 
 
     const HandleDelete = async (id:number) => {
-        console.log(id)
         if(id) {
             let result = await SendDeleteTotGame(props.token,id)
             if(result.success) {
@@ -25,26 +26,35 @@ export default function PageTotGameOverviewWrapper(props:any) {
                         return item.id != id
                     })
                 })
+            } else {
+                setNewToaster(new ToasterData('fail','Failed to delete tot game',2000))
             }
         }
     }
 
     const HandleAccept = async (id:number) => {
         if(id) {
-            await SendAcceptTotGame(props.token,id,props.user.name)
+            let result = await SendAcceptTotGame(props.token,id,props.user.name)
+            if(!result.success) {
+                setNewToaster(new ToasterData('fail','Failed to accept game',2000))
+            }
         }
     }
 
     const HandleAdd = async (addData:any) => {
         if(addData.user_names && addData.user_names.length > 0) {
             let response = await SendAddTotGame(props.token,addData.type, addData.user_names[0],props.user.name)
-            let game = new TotGames(response.responseObject.id,addData.type,`${addData.user_names[0]},${props.user.name}`,'','pending','')
-            setTotGames((prev) => {
-                return [
-                    ...prev,
-                    game
-                ]
-            })
+            if(!response.success) {
+                setNewToaster(new ToasterData('fail','Failed to accept game',2000))
+            } else {
+                let game = new TotGames(response.responseObject.id,addData.type,`${addData.user_names[0]},${props.user.name}`,'','pending','')
+                setTotGames((prev) => {
+                    return [
+                        ...prev,
+                        game
+                    ]
+                })
+            }
         }
     }
 

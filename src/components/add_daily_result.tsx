@@ -2,6 +2,8 @@
 import DailySite from "@/data/daily_site"
 import UserSiteLink from "@/data/user_site_link"
 import { useEffect, useState } from "react"
+import Toaster from "./toaster"
+import ToasterData from "@/data/toaster"
 
 export default function AddDailyResult(props:any) {
     
@@ -17,6 +19,7 @@ export default function AddDailyResult(props:any) {
     const [currentSite, setCurrentSite] = useState(new DailySite('',0,'',0,false))
     const [isToday,setIsToday] = useState(true)
     const [statusMessage, setStatusMessaage] = useState('')
+    const [newToaster,setNewToaster] = useState<ToasterData>()
 
     useEffect(() => {
         if(props.initialSites && props.initialSites.length > 0
@@ -106,11 +109,14 @@ export default function AddDailyResult(props:any) {
         })
         if(data.status == 200) {
             let content = await data.json()
+            setNewToaster(new ToasterData('success',`${body.daily_site_name} result added/updated`,2000))
             setStatusMessaage('Success: ' + content.success)
         } else if (data.status == 400 || data.status == 401) {
             let content = await data.json()
+            setNewToaster(new ToasterData('fail',`${body.daily_site_name} result failed to be added/updated`,2000))
             setStatusMessaage(content.error)
         } else {
+            setNewToaster(new ToasterData('fail',`${body.daily_site_name} result failed to be added/updated`,2000))
             setStatusMessaage('Error: Failed to add game')
         }
     }
@@ -161,6 +167,7 @@ export default function AddDailyResult(props:any) {
             <div></div>
             <div>{statusMessage}</div>
         </div>
+        <Toaster newToaster={newToaster}></Toaster>
       </div>
     )
 

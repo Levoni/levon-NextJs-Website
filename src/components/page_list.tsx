@@ -22,7 +22,7 @@ export default function PageListWrapper(props:any) {
     const handleAddClick = async () => {
         let result = await SendAddListItem(props.token, addName ,props.list.id,1)
         if(result.success) {
-            setToaster(new ToasterData('success','List created'))
+            setToaster(new ToasterData('success','List item created',2000))
             setList({
                 ...list,
                 items: [
@@ -31,6 +31,8 @@ export default function PageListWrapper(props:any) {
                 ]
             })
             setAddName('')
+        } else {
+            setToaster(new ToasterData('fail','List item failed to be created',2000))
         }
     }
     const handleAddNameChange = async (e:any) => {

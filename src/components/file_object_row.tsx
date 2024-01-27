@@ -7,6 +7,7 @@ import FileObject from "@/data/FileObject";
 import fileImg from '../public/file icon.png'
 import imageImg from '../public/image icon.png'
 import Loader from "./loader";
+import Confirm from "./confirm";
 
 export default function FileObjectRow(props:any) {
 
@@ -14,6 +15,7 @@ export default function FileObjectRow(props:any) {
     const [showFullImage,setShowFullImage] = useState(false)
     const [hasFullFile, setHasFullFile] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
+    const [showDialog,setShowDialog] = useState(false)
 
     useEffect(() => {
         if(props.file.buffer) {
@@ -55,7 +57,14 @@ export default function FileObjectRow(props:any) {
 
     let deleteF = async (e:any) => {
         e.stopPropagation();
-        props.deleteCallback(file.name)
+        setShowDialog(true)
+    }
+
+    let handleConfirm = (result:boolean) => {
+        if(result) {
+            props.deleteCallback(file.name)
+        }
+        setShowDialog(false)
     }
 
     return (
@@ -73,6 +82,7 @@ export default function FileObjectRow(props:any) {
                 <button onClick={deleteF} style={{flex:2}} className="big-button">Delete</button>
             </div>
             {showFullImage && <ImageOverlay file={file}></ImageOverlay>}
+            {showDialog ? <Confirm clickCallback={handleConfirm}></Confirm> : null}
         </div>
     )
 }

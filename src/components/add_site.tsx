@@ -1,10 +1,13 @@
 'use client'
 import DailySite from "@/data/daily_site"
+import ToasterData from "@/data/toaster"
 import { useState } from "react"
+import Toaster from "./toaster"
 
 export default function AddSite(props:any) {
     const [site, setSite] = useState(new DailySite('',0,'',6,false))
     const [statusMessage, setStatusMessaage] = useState('')
+    const [newToaster,setNewToaster] = useState<ToasterData>()
 
     const updateName = (e:any) => {
         setSite({
@@ -40,6 +43,7 @@ export default function AddSite(props:any) {
             let content = await data.json()
             setStatusMessaage('Success: ' + content.success)
         } else {
+            setNewToaster(new ToasterData('fail','failed to create site',2000))
             setStatusMessaage('Error: Failed to add game')
         }
     }
@@ -64,6 +68,7 @@ export default function AddSite(props:any) {
             <div></div>
             <div>{statusMessage}</div>
         </div>
+        <Toaster newToaster={newToaster}></Toaster>
       </div>
     )
 }

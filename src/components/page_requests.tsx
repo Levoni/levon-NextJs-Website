@@ -5,6 +5,8 @@ import AddRequest from "./add_request";
 import RequestResults from "./request_results";
 import Request from "@/data/request";
 import { retriveAllRequest, retriveRequest } from "./service_fetch";
+import ToasterData from "@/data/toaster";
+import Toaster from "./toaster";
 
 export default function PageRequestWrapper(props:any) {
 
@@ -16,8 +18,14 @@ export default function PageRequestWrapper(props:any) {
 
     const [requests,setRequests] = useState<Array<Request>>([])
     const [onlyOpen,setOnlyOpen] = useState<boolean>(true)
+    const [toaster, setToaster] = useState<ToasterData>()
 
     const handleRequestAddHook = (request:Request) => {
+        if(request == null) {
+            setToaster(new ToasterData('fail','Failed to add request',2000))
+            return
+        }
+        setToaster(new ToasterData('success','Added request',2000))
         setRequests([...requests,request])
     }
 
@@ -39,7 +47,6 @@ export default function PageRequestWrapper(props:any) {
                 }
             })
         }
-
         setRequests(nextRequests)
     }
     
@@ -74,6 +81,7 @@ export default function PageRequestWrapper(props:any) {
                 return(<RequestResults ChangeStatusHook={handleRequestStatusUpdateHook}  user={props.user} key={element.id} token={props.token} item={element}></RequestResults>)
             })}
         </div>
+        <Toaster newToaster={toaster}></Toaster>
     </div>
     )
 }

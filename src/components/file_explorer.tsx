@@ -5,6 +5,9 @@ import { useEffect, useState } from "react";
 import Drive from "@/data/drive";
 import FileObjectRow from "./file_object_row";
 import Loader from "./loader";
+import ToasterData from "@/data/toaster";
+import Toaster from "./toaster";
+import Confirm from "./confirm";
 
 export default function FileExplorer(props:any) {
     const [drive, setDrive] = useState<Drive|null>(null)
@@ -16,6 +19,7 @@ export default function FileExplorer(props:any) {
     const [loading,setLoading] = useState(false)
     const [uploading,setUploading] = useState(false)
     const [page,setPage] = useState(0)
+    const [toaster,setToaster] = useState<ToasterData>()
 
     useEffect(() => {
         if(props.drive != drive) {
@@ -32,6 +36,7 @@ export default function FileExplorer(props:any) {
             setPrevEnabled(false)
             return
         }
+        setToaster(new ToasterData('success',`drive: ${drive.name} selected`, 5000))
         setLoading(true)
         let newFiles = await GetFileList(props.token,drive.path,0,showPreviews)
         setFiles(newFiles)
@@ -44,10 +49,13 @@ export default function FileExplorer(props:any) {
     let handleDeleteCallback = async (fileName:string) => {
         var result = await deleteFile(props.token,drive!!.path,fileName)
         if(result.success) {
+            setToaster(new ToasterData('success',`File: ${fileName} deleted`, 5000))
             let newFiles = files.filter(x => {
                 return x.name != fileName
             })
             setFiles(newFiles)
+        } else {
+            setToaster(new ToasterData('fail',result.responseMessage, 5000))
         }
     }
 
@@ -82,8 +90,10 @@ export default function FileExplorer(props:any) {
             let result = await uploadFile(props.token,drive!!.path,uFile.name,Buffer.from(await uFile.arrayBuffer()))
             setUploading(false)
             if(result.success) {
+                setToaster(new ToasterData('success',`file: ${uFile.name} uploaded`, 5000))
                 setUFile(null)
             } else {
+                setToaster(new ToasterData('fail',result.responseMessage, 5000))
                 console.log('file too large')
             }
         }
@@ -138,6 +148,7 @@ export default function FileExplorer(props:any) {
                     <div style={{paddingLeft:'5px',paddingRight:'5px'}}>{page + 1}</div>
                     <button disabled={!nextEnabled} onClick={() => {changePage(1)}} className="small-button">Next</button>
                 </div>
+                <Toaster newToaster={toaster}></Toaster>
             </div>
         )
     }
