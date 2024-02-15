@@ -11,6 +11,20 @@ export default async function ChangeLogPage() {
         <div style={{flex:'1', display:'flex', flexDirection:'column'}}>
             <Header userName={user.name}></Header>
             <div className="body-padding">
+                <div>Version 0.9</div>
+                <ul>
+                    <li>Added request notification</li>
+                    <li>Bug fixes for password reset, Tot Games, saving preferences, and more</li>
+                    <li>updated toaster layout for mobile</li>
+                </ul>
+                <div>Version 0.8</div>
+                <ul>
+                    <li>Fixed issue with new accounts signing up</li>
+                    <li>Fixed Password Reset issue</li>
+                    <li>Added confirm dialog for most delete options</li>
+                    <li>Added toaster messages for some actions</li>
+                    <li>Updated mobile UI on several pages</li>
+                </ul>
                 <div>Version 0.7</div>
                 <ul>
                     <li>Added person file drive page/feature</li>

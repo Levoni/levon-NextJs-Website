@@ -10,7 +10,7 @@ export default async function PhotoSHare() {
     const token = cookieStore.get('loginToken')?.value
     var user:User = await retriveUser(token);
     await createDirectory(token)
-    let userDrive = new Drive(0,'levon','users/levon',true)
+    let userDrive = new Drive(0,user.name,`users/${user.name}`,true)
     userDrive = Object.assign({}, userDrive);
     console.log(userDrive)
 

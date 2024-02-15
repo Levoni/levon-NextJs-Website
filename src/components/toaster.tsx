@@ -43,7 +43,7 @@ export default function Toaster(props:any) {
         <div>
             {toasters.map((x,index) => {
                 return (
-                    <div  onMouseOver={() => {resetTime(x.time)}} className={'toaster toaster-' + x.type} key={x.time.toString()} style={{animationDuration:Math.ceil(x.duration / 1000).toString() + 's', position:'fixed',right:'100px',bottom:(100 + 100 * index).toString() + 'px'}}>
+                    <div  onMouseOver={() => {resetTime(x.time)}} className={'toaster toaster-' + x.type} key={x.time.toString()} style={{animationDuration:Math.ceil(x.duration / 1000).toString() + 's', position:'fixed',bottom:(5 + 10 * index).toString() + '%'}}>
                         <div>{x.message}</div>
                     </div>
                 )

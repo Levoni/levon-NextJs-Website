@@ -3,7 +3,7 @@ import { useEffect, useState } from "react"
 import AddTotGame from "./add_tot_game";
 import TotGameOverview from "./tot_game_overview";
 import { SendAcceptTotGame, SendAddTotGame, SendDeleteTotGame } from "./service_fetch";
-import TotGames from "@/data/tot_game";
+import TotGame from "@/data/tot_game";
 import ToasterData from "@/data/toaster";
 
 export default function PageTotGameOverviewWrapper(props:any) {
@@ -43,11 +43,11 @@ export default function PageTotGameOverviewWrapper(props:any) {
 
     const HandleAdd = async (addData:any) => {
         if(addData.user_names && addData.user_names.length > 0) {
-            let response = await SendAddTotGame(props.token,addData.type, addData.user_names[0],props.user.name)
+            let response = await SendAddTotGame(props.token,addData.type, addData.user_names[0],props.user.name)//TODO: add variant difference
             if(!response.success) {
                 setNewToaster(new ToasterData('fail','Failed to accept game',2000))
             } else {
-                let game = new TotGames(response.responseObject.id,addData.type,`${addData.user_names[0]},${props.user.name}`,'','pending','')
+                let game = new TotGame(response.responseObject.id,addData.type,`${addData.user_names[0]},${props.user.name}`,'','pending','',1,true,true)
                 setTotGames((prev) => {
                     return [
                         ...prev,
@@ -60,7 +60,7 @@ export default function PageTotGameOverviewWrapper(props:any) {
 
 
     return (
-        <div className="row">
+        <div className="row" style={{flexWrap:'wrap-reverse'}}>
             <div style={{flex:'1'}}>
                 <div>game list</div>
                 {totGames && totGames.map((element:any,index) => {

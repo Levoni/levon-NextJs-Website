@@ -34,7 +34,7 @@ export default function PasswordReset(props:any) {
                     <div style={{paddingBottom:'10px'}}>Re-Type Password</div>
                     <input className="big-input" id="password2" name="password2" type="password"/>
                 </div>
-                <button className="big-button" >Login</button>
+                <button className="big-button" >Reset</button>
                 <div className="body-text" style={{paddingTop:'10px', display:'flex',flex:'.1'}}>
                     <a href="/login">Login Page</a>
                 </div>

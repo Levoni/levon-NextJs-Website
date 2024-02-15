@@ -112,14 +112,14 @@ export default function FileExplorer(props:any) {
 
     let getHeaderUI = () => {
         return (
-            <div className="row" style={{borderBottom:'2px solid white', justifyContent:'space-between', alignItems:'center'}}>
+            <div className="row" style={{flexWrap:'wrap-reverse', gap:'10px', borderBottom:'2px solid white', justifyContent:'space-between', alignItems:'center'}}>
                 <div className="row" style={{justifyContent:'flex-start', alignItems:'center',flex:3}}>
                     <div style={{marginRight:10}} className="header">{drive?.name}</div>
                     <input type="checkbox" onChange={handlePreviewChange} value={showPreviews.toString()} />
                     <div>Show Preview</div>
                 </div>
                 <div className="row" style={{justifyContent:'center',flex:1}}>
-                    <input onChange={handleFileSelect} disabled={!drive} id="file" name="file" type="file"/>
+                    <input className="file-upload" onChange={handleFileSelect} disabled={!drive} id="file" name="file" type="file"/>
                     <button onClick={handleUploadClick} disabled={!uFile || !drive} className="small-button">
                         {uploading ? <Loader local={true}></Loader> : 'Upload'}</button>
                 </div>

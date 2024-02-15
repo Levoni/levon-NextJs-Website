@@ -453,6 +453,7 @@ textarea {
   .toaster {
     border-radius: 10px;
     padding: 20px;
+    right:100px;
     display: flex;
     opacity: 1;
     align-items: center;
@@ -474,6 +475,23 @@ textarea {
   }
   .toaster-fail {
     background-color: red;
+  }
+
+  .thumbnail {
+    height:100px;
+    width:100px;
+    display:flex;
+    justify-content:center;
+  }
+
+  .thumbnail-img {
+    align-self:center;
+    max-width:100px;
+    max-height:100px;
+  }
+
+  .file-upload {
+    padding-right: 5px;
   }
 
 /* Mobile */
@@ -509,6 +527,10 @@ textarea {
     width: auto;
   }
 
+  .multiselect-input input{
+    width: 50px;
+  }
+
   .chart-width {
     max-width: 250px;
   }
@@ -516,5 +538,25 @@ textarea {
   textarea {
     width: 200px;
     height: 100px;
+  }
+  .thumbnail {
+    height:50px;
+    width:50px;
+    display:flex;
+    justify-content:center;
+  }
+  .thumbnail-img {
+    align-self:center;
+    max-width:50px;
+    max-height:50px;
+  }
+  .file-upload {
+    width: 200px;
+  }
+  .toaster {
+    border-radius: 10px;
+    padding: 10px;
+    right: 50%;
+    transform: translateX(50%);
   }
 }

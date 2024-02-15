@@ -38,7 +38,7 @@ export default function PageTotGameWrapper(props:any) {
     },[props.game])
     
     const handleRecieveMessage = (message:string) => {
-        console.log('handling recieve')
+        console.log('handling receive')
         console.log(message)
         if(message) {
             let object = JSON.parse(message)
@@ -56,12 +56,12 @@ export default function PageTotGameWrapper(props:any) {
     }
 
     const handleStart = () => {
-        console.log('start occured')
+        console.log('start occurred')
         SendMessageCallback(`{"action":"start"}`)
     }
 
     const handleSendMessage = () => {
-        console.log('send message occured')
+        console.log('send message occurred')
         SendMessageCallback(`{"action":"message","message":"${message}"}`)
         setMessage('')
     }
@@ -70,7 +70,7 @@ export default function PageTotGameWrapper(props:any) {
     let handleRecieveCallback = handleRecieveMessage
 
     let SendMessageCallback = async (actionJson: string) => {
-        console.log('action callback occured')
+        console.log('action callback occurred')
         console.log(actionJson)
         let returnItems = await sendTotGameAction(props.token,actionJson,props.game.id)
         console.log(returnItems)
@@ -84,7 +84,7 @@ export default function PageTotGameWrapper(props:any) {
 
     let GetStartDisabled = () => {
         let gameState = JSON.parse(props.game.game_json)
-        return gameState.state != 'stopped' || props.game.status == 'complete'
+        return gameState.state != 'stopped' || props.game.status == 'complete' || props.game.status == 'pending'
     }
 
     let CreateTicTacToeGameState= () => {

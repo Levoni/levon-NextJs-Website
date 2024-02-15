@@ -163,7 +163,7 @@ export default function Stratego(props:any) {
                 current_Turn: 0
             }})
         } else if(object.action == 'piecePlaced') {
-            console.log('recieved place piece')
+            console.log('received place piece')
             setGameState((prevState)=>{
                 let board = prevState.board
                 let graveyard = prevState.graveyard
@@ -235,7 +235,7 @@ export default function Stratego(props:any) {
                 }
             }) 
         } else if (object.action == 'allPiecesPlayed') {
-            console.log('recieved all pieces placed')
+            console.log('received all pieces placed')
             setGameState((prevState) => { return {
                 ...prevState,
                 state:'started',
@@ -413,7 +413,7 @@ export default function Stratego(props:any) {
 
     const getStrategoSymbol = (data:any, ignorePlayer:boolean=false) => {
         if(data) {
-            if(data.owner != player && !ignorePlayer) {
+            if(data.owner != player && !ignorePlayer && !data.shown) { //TODO: only use shown if varient is active
                 return ImgImportArray['img'+data.owner].src
             } else {
                 return ImgImportArray['img'+data.owner+data.power].src

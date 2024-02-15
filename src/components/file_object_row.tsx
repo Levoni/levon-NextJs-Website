@@ -71,8 +71,8 @@ export default function FileObjectRow(props:any) {
         <div onClick={getFullFile} className="row highlight" style={{justifyContent:'space-between', borderBottom:'1px solid white'}}>
             {isLoading ? <Loader></Loader> : null}
             <div  className="row" style={{flex:8, alignItems:"center"}}>
-                <div  style={{height:100,width:100, display:'flex', justifyContent:'center'}}>
-                    <img style={{alignSelf:'center', maxWidth:100,maxHeight:100}} src={CreatePreview()}></img>
+                <div className="thumbnail">
+                    <img className="thumbnail-img" src={CreatePreview()}></img>
                 </div>
                 <div>
                     {props.file.name}

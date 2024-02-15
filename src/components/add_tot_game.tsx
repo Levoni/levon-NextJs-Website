@@ -5,11 +5,12 @@ import MultiSelect from "./multi-select";
 
 export default function AddTotGame(props:any) {
     const [statusMessage, setStatusMessaage] = useState('')
+    
     let typeList = [
         'tic-tac-toe',
         'stratego'
     ]
-    const [paramList,setParamList] = useState<any>({type:'tic-tac-toe', user_names:[]})
+    const [paramList,setParamList] = useState<any>({type:'tic-tac-toe', user_names:[],variants:{shown:false}})
 
     function handleGameListChange(e:any) {
         setParamList({
@@ -38,6 +39,15 @@ export default function AddTotGame(props:any) {
             })
         }
     }
+    const handleShowChange = (e:any) => {
+        setParamList({
+            ...paramList,
+            variants: {
+                ...paramList.variants,
+                shown: e.target.checked
+            }
+        })
+    }
 
     return(
         <div className="card virtical-div-list">
@@ -49,6 +59,17 @@ export default function AddTotGame(props:any) {
                         return <option key={index}  value={element}>{element}</option>
                     })}
                 </select>
+            </div>
+            <div className="row">
+                <div>variants:</div>
+                <div className="row">
+                    <div>Show face on battle</div>
+                    <input onChange={handleShowChange} value={paramList.variants.shown} type="checkbox"/>
+                </div>
+                {/* <div className="row">
+                    <div>Resurrection</div>
+                    <input type="checkbox"/>
+                </div>   */}
             </div>
             <div className="row">
                 <div>Users:</div>

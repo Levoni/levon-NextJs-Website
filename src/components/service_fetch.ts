@@ -260,6 +260,10 @@ export async function sendUpdateRequestStatus(token:any, body:any):Promise<PostR
     return await sendPost('/request_message/updateStatus',token,body)
 }
 
+export async function sendUpdateRequestViewStatus(token:any, body:any) {
+    return await sendPost('/request/view_status/update',token,body)
+}
+
 export async function SendAddList(token:any, body:List, userName:string) {
     return await sendPost('/list/add',token,{name:body.name, type: body.type,is_template:body.is_template,user_name:userName,user_names: body.user_names})
 }

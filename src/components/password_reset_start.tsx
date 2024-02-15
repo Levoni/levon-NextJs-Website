@@ -30,7 +30,7 @@ export default function ResetStart(props:any) {
                     <div style={{paddingBottom:'10px'}}>Email</div>
                     <input className="big-input" id="email" name="email" type="email"/>
                 </div>
-                <button className="big-button" >Login</button>
+                <button className="big-button" >Send Email</button>
                 <div className="body-text" style={{paddingTop:'10px', display:'flex', flex:'.5',flexDirection:'row'}}>
                     <div style={{paddingLeft:'20px', flex:'1', alignSelf:'center'}}>{statusMessage}</div>
                 </div>

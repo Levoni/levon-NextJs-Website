@@ -116,8 +116,8 @@ export default function PageFileExplorer(props:any) {
         return (
             <div>
                 <Collapse maxHeight={'500px'} title={'Drive Settings'}>
-                    <div className="row" style={{justifyContent:'space-between'}}>
-                        <div>
+                    <div className="row" style={{justifyContent:'space-between',flexWrap:'wrap',gap:'10px'}}>
+                        <div className="row" style={{flexWrap:'wrap', gap:'10px',}}>
                             <div className="row">
                                 <div>Drive:</div>
                                 <select onChange={handleChangeDrive} value={drive?.name}>

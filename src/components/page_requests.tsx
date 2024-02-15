@@ -4,21 +4,28 @@ import { useEffect, useState } from "react";
 import AddRequest from "./add_request";
 import RequestResults from "./request_results";
 import Request from "@/data/request";
-import { retriveAllRequest, retriveRequest } from "./service_fetch";
+import { retriveAllRequest, retriveRequest, sendUpdateRequestViewStatus } from "./service_fetch";
 import ToasterData from "@/data/toaster";
 import Toaster from "./toaster";
 
 export default function PageRequestWrapper(props:any) {
 
-    useEffect(() => {
-        if(!requests || requests.length == 0) {
-            setRequests(props.initialRequests)
-        }
-    },[props.initialRequests])
-
     const [requests,setRequests] = useState<Array<Request>>([])
     const [onlyOpen,setOnlyOpen] = useState<boolean>(true)
     const [toaster, setToaster] = useState<ToasterData>()
+
+    useEffect(() => {
+        if(!requests || requests.length == 0) {
+            setRequests(props.initialRequests)
+            props.initialRequests.forEach((element:Request) => {
+                if(element.to_view == 1 && !props.user.is_admin) {
+                    sendUpdateRequestViewStatus(props.token,{id:element.id,is_admin:false,include_messages:false})
+                } else if (element.to_view == 2 && props.user.is_admin) {
+                    sendUpdateRequestViewStatus(props.token,{id:element.id,is_admin:true,include_messages:false})
+                }
+            });
+        }
+    },[props.initialRequests])
 
     const handleRequestAddHook = (request:Request) => {
         if(request == null) {

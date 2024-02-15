@@ -2,6 +2,16 @@ export default function DataTable(props:any) {
 //Takes data in form of key [{key:'',values:[]}]
 //Title
 
+let trimDecimal = (num:number) => {
+    if(num && isNumber(num) && num.toString().indexOf('.') != -1)
+        return num.toFixed(2);
+    return num
+}
+
+function isNumber(value:any) {
+    return typeof value === 'number';
+  }
+
 return (
     <div className="small-text" style={{overflowX:'auto'}}>
         {props.title && <div className="card-header">{props.title}</div>}
@@ -15,7 +25,7 @@ return (
                         {props.data.values.map((value:any, index:Number) => {
                             return(
                                 <div key={index.toString()} style={{height: '20px', alignSelf:'center'}}>
-                                    {value[header.value]}
+                                    {trimDecimal(value[header.value])}
                                 </div>
                             )
                         })}

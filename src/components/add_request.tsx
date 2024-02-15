@@ -26,7 +26,7 @@ export default function AddRequest(props:any) {
         setStatus(result.responseMessage)
         if(result.success && props.submitRequestCallback) {
             console.log(result)
-            let newRequest = new Request(result.responseObject.id,request.type, request.message,request.user_name, new Date(), false)
+            let newRequest = new Request(result.responseObject.id,request.type, request.message,request.user_name, new Date(), false,0)
             console.log(newRequest)
             props.submitRequestCallback(newRequest)
         } else {

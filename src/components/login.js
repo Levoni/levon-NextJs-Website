@@ -2,11 +2,14 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AddLoginCookie } from '@/components/server_actions'
+import Toaster from "./toaster";
+import ToasterData from "@/data/toaster";
 
 
 export default function Login() {
     const router = useRouter();
     const [statusMessage, setStatusMessage] = useState('')
+    const [toaster,setToaster] = useState();
 
     //Make server end call out to api by giving submit function prop to this component
     const handleSubmit = async event => {
@@ -37,8 +40,11 @@ export default function Login() {
             return
         } else if(data.status == 400) {
             setStatusMessage(content.error)
+            setToaster(new ToasterData('fail','Login failed',2000))
         } else if (data.status== 500) {
             setStatusMessage(`Error occurred: ${content.error}`)
+            setToaster(new ToasterData('fail','Login failed',2000))
+
         }
         else {
             setStatusMessage(`Error occurred`)
@@ -71,6 +77,7 @@ export default function Login() {
                 </div>
             </div>
         </form>
+        <Toaster newToaster={toaster}></Toaster>
     </div>
     )
 }
