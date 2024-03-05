@@ -1,5 +1,3 @@
-import MultiplayerGame from "./mutiplayer_game"
-
 export default class TicTacToeGame {
 
     game_id: string

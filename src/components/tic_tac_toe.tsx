@@ -10,14 +10,6 @@ export default function TicTacToe(props:any) {
     useEffect(() => {
         handleRecieveMessage(props.lastMessage)
     },[props.lastMessage])
-
-    // useEffect(() => {
-    //     console.log('player num effect')
-    //     if(props.playerNum != null) {
-    //         console.log('props player num: ' + props.playerNum)
-    //         setPlayer(props.playerNum)
-    //     }
-    // },[props.playerNum])
     
     const handleRecieveMessage = (message:any) => {
         if(message == null) {
