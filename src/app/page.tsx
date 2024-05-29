@@ -38,7 +38,7 @@ export default async function GuessPage() {
                    <Link href='/site/tools/drive'><div className='activity-card'>Drive</div></Link>
                    <Link href='/site/tools/changeLog'><div className='activity-card'>Changelog</div></Link>
                    <Link href='/site/user'><div className='activity-card'>Settings</div></Link>
-                   <Link href='/guest/game/numberPuzzle'><div className='activity-card'>Number Puzzle</div></Link>
+                   <Link href='/guest/daily/numberPuzzle'><div className='activity-card'>Number Puzzle</div></Link>
                </div>
                <div style={{display:'flex', flex:'1', justifyContent:'space-around'}}>
                   <InfoColumn title='User Info' info={tempInfo}></InfoColumn>
