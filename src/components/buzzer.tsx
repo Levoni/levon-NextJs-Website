@@ -43,6 +43,7 @@ export default function Buzzer(props:any) {
                 state:'stopped'
             }})
         } else if(object.action == 'sync') {
+            console.log(object)
             setGameState((prevState) => {
                 return {
                     game_id:object.room.pin,

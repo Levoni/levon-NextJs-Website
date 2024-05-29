@@ -138,7 +138,7 @@ export default function FileExplorer(props:any) {
         )
     } else {
         return (
-            <div className="column">
+            <div className="column" style={{width:'100%'}}>
                 {getHeaderUI()}
                 {files && files.map((x:FileObject) => {
                     return <FileObjectRow key={x.name} deleteCallback={handleDeleteCallback} drive={drive} file={x}></FileObjectRow>

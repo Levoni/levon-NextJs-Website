@@ -11,16 +11,16 @@ export default function Header(props) {
             <div style={{display:'flex',flex:'1',alignItems:'center', flexDirection:'row'}}>
                 <div className="text-hover" style={{cursor:'pointer', }}><Link href={'/'}>{userName ? userName : 'Guest'}</Link></div>
                 <div className='header-bar-divider'></div>
-                <HeaderItem title={'Game'} items={[{name:'Daily Guess', link:'/game/dailyGuess'},{name:'Guess',link:'/game/guess'},{name:'Clubhouse Games',link:'/game/clubHouseGames'},{name:'TOT Games',link:'/game/totGames'}]}></HeaderItem>
+                <HeaderItem title={'Game'} items={[{name:'Daily Guess', link:'/site/game/dailyGuess'},{name:'Guess',link:'/site/game/guess'},{name:'Clubhouse Games',link:'/guest/game/clubHouseGames'},{name:'TOT Games',link:'/site/game/totGames'},{name:'Graduation Sim', link:'/site/game/graduationSim'},{name:'Number Puzzle', link:'/guest/daily/numberPuzzle'}]}></HeaderItem>
                 <div className='header-bar-divider'></div>
-                <HeaderItem title={'Social'} items={[{name:'Game Picker', link:'/social/picker'},{name:'Daily Quiz Result',link:'/social/daily'},{name:'Photo Share', link:'/social/photoShare'},{name:'Leaderboard',link:'/social/highScore'}]}></HeaderItem>
+                <HeaderItem title={'Social'} items={[{name:'Game Picker', link:'/site/social/picker'},{name:'Daily Quiz Result',link:'/site/social/daily'},{name:'Photo Share', link:'/site/social/photoShare'},{name:'Leaderboard',link:'/site/social/highScore'}]}></HeaderItem>
                 <div className='header-bar-divider'></div>
-                <HeaderItem title={'Tools'} items={[{name:'Requests', link:'/tools/requests'},{name:'List Manager',link:'/tools/listManager'},{name:'Drive',link:'/tools/drive'},{name:'Changelog',link:'/tools/changeLog'}]}></HeaderItem>
+                <HeaderItem title={'Tools'} items={[{name:'Requests', link:'/site/tools/requests'},{name:'List Manager',link:'/site/tools/listManager'},{name:'Drive',link:'/site/tools/drive'},{name:'Changelog',link:'/site/tools/changeLog'}]}></HeaderItem>
             </div>
             <div style={{display:'flex', alignItems:'center', justifyContent:'flex-end', flex:'.2'}}>
-                <NotificationMenu token={props.token} userName={props.userName}></NotificationMenu>
+                <NotificationMenu token={props.token} userName={userName}></NotificationMenu>
                 <div style={{alignSelf:'center', borderRight:"1px solid black", marginLeft:'5px', marginRight:'5px', height:'75%'}}></div>
-                <div className="text-hover" style={{cursor:'pointer', }}><Link href={'/user'}>Settings</Link></div>
+                <div className="text-hover" style={{cursor:'pointer', }}><Link href={'/site/user'}>Settings</Link></div>
                 <div style={{alignSelf:'center', borderRight:"1px solid black", marginLeft:'5px', marginRight:'5px', height:'75%'}}></div>
                 <Logout></Logout>
             </div>

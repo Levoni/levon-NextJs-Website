@@ -14,6 +14,8 @@ export default function PageClubhouseWrapper(props:any) {
     const [message, setMessage] = useState('')
     const [lastSocketMessage, setLastSocketMessage] = useState<any>(null)
     const [state, setState] = useState('not connected')
+    const [name,setName] = useState(props.user.name)
+    const [tempName,setTempName] = useState(props.user.name)
 
     useEffect(() => {
         handleRecieveCallback = handleRecieveMessage
@@ -34,7 +36,7 @@ export default function PageClubhouseWrapper(props:any) {
         } else if (object.action == 'start') {
             setState('started')
         }
-        setLastSocketMessage(message)
+        setLastSocketMessage((n:any) => message)
     }
 
     const handlemessageChange = (e:any) => {
@@ -65,41 +67,59 @@ export default function PageClubhouseWrapper(props:any) {
         }
     }
 
+    const handleTempNameChange =(e:any) => {
+        setTempName(e.target.value)
+    }
+
+    const selectName =  (e:any) => {
+        setName(tempName)
+    }
+
     //Do this so useEffect can refresh the method so we get the latest State for the GaseState
     let handleRecieveCallback = handleRecieveMessage
     let SendMessageCallback = handleSendMessagecallback
 
-    return (
-    <div className="body-padding row" style={{flexWrap:'wrap'}}>
-        <div className="column" style={{flex:'1'}}>
-            {state == 'not connected' ? <div className="row">
-                <div>Game Type</div>
-                <select value={selectedGameType} onChange={handleTypeChange}>
-                    <option value={''}>None</option>
-                    <option value={'ttt'}>tic-tac-toe</option>
-                    <option value={'stratego'}>stratego</option>
-                    <option value={'buzzer'}>buzzer</option>
-                </select>
-            </div> : null}
-            {selectedGameType != '' && <WebSocketConnection nextMessage={clientMessage} recieveCallback={handleRecieveCallback} type={selectedGameType} user={props.user} ></WebSocketConnection>}
-            {state != 'not connected' ? <div className="column" style={{flex:1}}>
-                <div>Chat</div>
-                <div>
-                    <textarea className="body-text"  id="textArea"  value={messages.join('\r\n')} disabled={true}></textarea>
-                </div>
-                <div>
-                    <div>Message:</div>
-                    <input value={message} onKeyDown={handleKeyPress} onChange={handlemessageChange}/>
-                    <button onClick={handleSendMessage}>Send</button>
-                </div>
-                <div>
-                    <button disabled={state == 'started'} onClick={handleStart}>Start</button>
-                </div>
-            </div> : null}
+    
+    if(name == 'Guest' || name == '') {
+        return <div>
+            <div>Enter name</div>
+            <input onChange={handleTempNameChange} value={tempName}/>
+            <button disabled={tempName == 'Guest' || tempName == ''} onClick={selectName}>Select</button>
         </div>
-        {selectedGameType == 'ttt' && <TicTacToe SendMessageCallback={SendMessageCallback} lastMessage={lastSocketMessage}></TicTacToe>}
-        {selectedGameType == 'stratego' && <Stratego SendMessageCallback={SendMessageCallback} lastMessage={lastSocketMessage}></Stratego>}
-        {selectedGameType == 'buzzer' && <Buzzer SendMessageCallback={SendMessageCallback} lastMessage={lastSocketMessage}></Buzzer>}
-    </div>
-    )
+    } else {
+        return (
+            <div className="body-padding row" style={{flexWrap:'wrap'}}>
+                <div className="column" style={{flex:'1'}}>
+                    <div>Name: {name}</div>
+                    {state == 'not connected' ? <div className="row">
+                        <div>Game Type</div>
+                        <select value={selectedGameType} onChange={handleTypeChange}>
+                            <option value={''}>None</option>
+                            <option value={'ttt'}>tic-tac-toe</option>
+                            <option value={'stratego'}>stratego</option>
+                            <option value={'buzzer'}>buzzer</option>
+                        </select>
+                    </div> : null}
+                    {selectedGameType != '' && <WebSocketConnection nextMessage={clientMessage} recieveCallback={handleRecieveCallback} type={selectedGameType} name={name} ></WebSocketConnection>}
+                    {state != 'not connected' ? <div className="column" style={{flex:1}}>
+                        <div>Chat</div>
+                        <div>
+                            <textarea className="body-text"  id="textArea"  value={messages.join('\r\n')} disabled={true}></textarea>
+                        </div>
+                        <div>
+                            <div>Message:</div>
+                            <input value={message} onKeyDown={handleKeyPress} onChange={handlemessageChange}/>
+                            <button onClick={handleSendMessage}>Send</button>
+                        </div>
+                        <div>
+                            <button disabled={state == 'started'} onClick={handleStart}>Start</button>
+                        </div>
+                    </div> : null}
+                </div>
+                {selectedGameType == 'ttt' && <TicTacToe SendMessageCallback={SendMessageCallback} lastMessage={lastSocketMessage}></TicTacToe>}
+                {selectedGameType == 'stratego' && <Stratego SendMessageCallback={SendMessageCallback} lastMessage={lastSocketMessage}></Stratego>}
+                {selectedGameType == 'buzzer' && <Buzzer key={lastSocketMessage} SendMessageCallback={SendMessageCallback} lastMessage={lastSocketMessage}></Buzzer>}
+            </div>
+        )
+    }
 }

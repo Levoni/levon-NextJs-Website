@@ -86,6 +86,11 @@ input.small-input {
   font-size: 1rem;
 }
 
+input.short-input {
+  height: 25px;
+  width: 50px;
+}
+
 input.big-checkbox {
   width: 1.5rem;
 }
@@ -494,6 +499,56 @@ textarea {
     padding-right: 5px;
   }
 
+  
+/* Grad screen */
+.stage {
+  position: fixed;
+  width: 1000px;
+  height: 500px;
+  left: 0; 
+  right: 0; 
+  top: 0;
+  bottom: 0;
+  margin:auto;
+}
+
+.student {
+  position: fixed;
+  width: 100px;
+  height: 140px;
+  left:50%;
+  top:50%;
+  margin-left:350px;
+  margin-top: -40px;
+  animation: studentMove 3s linear forwards;
+}
+
+.chancellor {
+  position: fixed;
+  width: 120px;
+  height: 160px;
+  left:50%;
+  top:50%;
+  margin-left:-350px;
+  margin-top: -60px;
+}
+
+.diploma {
+  animation: diplomaMove 4s linear forwards;
+  position: fixed;
+  width: 50px;
+  height: 50px;
+  left:50%;
+  top: 50%;
+  margin-top:10px;
+}
+
+.congrats {
+  width: 300px;
+  height: 200px;
+}
+
+
 /* Mobile */
 @media (max-width: 500px) {
   .hide-on-mobile {
@@ -559,4 +614,62 @@ textarea {
     right: 50%;
     transform: translateX(50%);
   }
+  /* Grad Screen */
+  .stage {
+    width: 400px;
+    height: 200px;
+  }
+  
+  .student {
+    width: 30px;
+    height: 80px;
+    margin-top: -40px;
+    margin-left: 110px;
+    animation: studentMoveMobile 3s linear forwards;
+  }
+  
+  .chancellor {
+    width: 40px;
+    height: 90px;
+    margin-top: -50px;
+    margin-left:-150px;
+  }
+  
+  .diploma {
+    animation: diplomaMoveMobile 4s linear forwards;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+  }
+  
+  .congrats {
+    width: 210px;
+    height: 140px;
+  }
+
+}
+
+/* Keyframes */
+@keyframes studentMove {
+  0%   {margin-left: 350px;}
+  100% {margin-left: -230px;}
+}
+
+@keyframes diplomaMove {
+  0%   {margin-left: -325px; opacity: 0%;}
+  74%   {margin-left: -325px; opacity: 0%;}
+  75%   {margin-left: -325px; opacity: 100%;}
+  100% {margin-left: -205px;}
+}
+
+@keyframes studentMoveMobile {
+  0%   {margin-left: 110px;}
+  100% {margin-left: -105px;}
+}
+
+@keyframes diplomaMoveMobile {
+  0%   {margin-left: -130px; opacity: 0%;}
+  74%   {margin-left: -130px; opacity: 0%;}
+  75%   {margin-left: -130px; opacity: 100%;}
+  100% {margin-left: -100px;}
 }

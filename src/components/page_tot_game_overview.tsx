@@ -60,9 +60,9 @@ export default function PageTotGameOverviewWrapper(props:any) {
 
 
     return (
-        <div className="row" style={{flexWrap:'wrap-reverse'}}>
+        <div className="row" style={{flexWrap:'wrap-reverse',gap:'50px'}}>
             <div style={{flex:'1'}}>
-                <div>game list</div>
+                <div className="header">Game List</div>
                 {totGames && totGames.map((element:any,index) => {
                     return (
                         <TotGameOverview key={index} item={element} acceptGameCallback={HandleAccept} DeleteGameCallback={HandleDelete}></TotGameOverview>

@@ -80,7 +80,7 @@ export default function PageListWrapper(props:any) {
     }
 
     return (
-    <div>
+    <div style={{width:'100%'}}>
         <div className="header">
             <div>{list.name}</div>
             <div className="body-text">Type: {list.type}</div>

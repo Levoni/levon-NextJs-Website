@@ -25,7 +25,6 @@ export default function TotGameOverview(props:any) {
     const handleSelectClick = (e:any) => {
         e.stopPropagation();
         if(props.selectGameCallback) {
-            console.log('accept callback')
             props.selectGameCallback(props.item.id)
         }
     }

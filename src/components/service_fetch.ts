@@ -392,6 +392,14 @@ export async function ResetPassword(password:string, resetCode:string) {
     return await sendNonAuthPost('/resetPassword',body)
 }
 
+export async function GetCurrentNumberPuzzle(token:any) {
+    return await sendGet('/getCurrentNumPuzzle',token)
+}
+
+export async function SendCurrentNumberPuzzleGuess(token:any, guess:Array<number>) {
+    return await sendPost('/guessCurrentNumPuzzle',token,{guess:guess})
+}
+
 export async function sendGet(url:string,token:any, routeParam:string = '', queryString:string = '') {
     const data = await fetch(process.env.API_URL + url + routeParam + queryString,{
         method: 'GET',

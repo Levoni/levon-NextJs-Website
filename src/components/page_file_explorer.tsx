@@ -147,7 +147,7 @@ export default function PageFileExplorer(props:any) {
     }
 
     return (
-        <div className="body-padding">
+        <div style={{width:'100%'}}>
             <div className="column">
                 {getShareSetting()}
                 <FileExplorer drive={drive} token={props.token}></FileExplorer>

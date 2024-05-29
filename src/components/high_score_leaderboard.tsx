@@ -42,7 +42,7 @@ export default function HighScoreLeaderboard(props:any) {
     }
 
     return (
-        <div className="body-padding">
+        <div style={{width:'100%'}}>
             <div className="row" style={{alignItems:'center'}}>
                 <div className="header">Leaderboard</div>
                 <select onChange={handleGameChange} value={game} style={{maxHeight:'25px', marginBottom:'25px'}}>

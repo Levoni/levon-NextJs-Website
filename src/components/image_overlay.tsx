@@ -23,7 +23,6 @@ export default function ImageOverlay(props:any) {
 
         return (
             <div style={{backgroundColor:'rgba(0, 0, 0, 0.5)', position:'fixed',inset:0}}>
-                <button onClick={download} className="big-button" style={{position:'fixed',right:10,top:10}}>Download</button>
                 {props.file.name.toLowerCase().includes('.pdf') ?  
                 <div style={{
                     display:'flex',
@@ -44,6 +43,7 @@ export default function ImageOverlay(props:any) {
                     justifyContent:'center'}}>
                     <img style={{maxWidth:'80%',maxHeight:'80%',position:'relative'}} src={getView()}></img>
                 </div>}
+                <button onClick={download} className="big-button" style={{position:'fixed',right:10,top:10}}>Download</button>
             </div>
         )
 }

@@ -21,7 +21,7 @@ export default function ListResults(props:any) {
 
     const handleDetailsClick = (e:any) => {
         e.stopPropagation();
-        router.push(`/tools/list?id=${props.item.id}`)
+        router.push(`/site/tools/list?id=${props.item.id}`)
     }
 
     const handleConfirm = (result:boolean) => {  

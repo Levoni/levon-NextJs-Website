@@ -28,7 +28,7 @@ export default function WebSocketConnection(props:any) {
         wss.current.onopen = (event:any) => {
             console.log('connection with ws made')
             setConnectionStatus(1)
-            wss.current?.send(`{"action":"join","type":"${props.type}","pin":"${joinPin}","name":"${props.user.name}"}`)
+            wss.current?.send(`{"action":"join","type":"${props.type}","pin":"${joinPin}","name":"${props.name}"}`)
         }
 
         wss.current.onerror = (error:any) => {

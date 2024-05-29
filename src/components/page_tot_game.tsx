@@ -31,15 +31,12 @@ export default function PageTotGameWrapper(props:any) {
         if(messages.length == 0 && props.game) {
             let gameState = JSON.parse(props.game.game_json)
             if(gameState.messages.length>0) {
-                console.log(gameState.messages)
                 setMessages(gameState.messages)
             }
         }
     },[props.game])
     
     const handleRecieveMessage = (message:string) => {
-        console.log('handling receive')
-        console.log(message)
         if(message) {
             let object = JSON.parse(message)
             if(object.action == 'message') {
@@ -70,10 +67,7 @@ export default function PageTotGameWrapper(props:any) {
     let handleRecieveCallback = handleRecieveMessage
 
     let SendMessageCallback = async (actionJson: string) => {
-        console.log('action callback occurred')
-        console.log(actionJson)
         let returnItems = await sendTotGameAction(props.token,actionJson,props.game.id)
-        console.log(returnItems)
         if(returnItems.responseObject) {
             handleRecieveMessage(returnItems.responseObject[0])
             if(returnItems.responseObject.length > 1) {
