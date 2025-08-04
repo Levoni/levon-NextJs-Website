@@ -7,7 +7,7 @@ import FileObjectRow from "./file_object_row";
 import Loader from "./loader";
 import ToasterData from "@/data/toaster";
 import Toaster from "./toaster";
-import Confirm from "./confirm";
+import ContextButton from "./context_menu";
 
 export default function FileExplorer(props:any) {
     const [drive, setDrive] = useState<Drive|null>(null)
@@ -19,6 +19,7 @@ export default function FileExplorer(props:any) {
     const [loading,setLoading] = useState(false)
     const [uploading,setUploading] = useState(false)
     const [page,setPage] = useState(0)
+    const [curentDirectoryId, setCurrentDirectoryId] = useState(0)
     const [toaster,setToaster] = useState<ToasterData>()
 
     useEffect(() => {
@@ -38,7 +39,8 @@ export default function FileExplorer(props:any) {
         }
         setToaster(new ToasterData('success',`drive: ${drive.name} selected`, 5000))
         setLoading(true)
-        let newFiles = await GetFileList(props.token,drive.path,0,showPreviews)
+        let newFiles = await GetFileList(props.token,drive.id,0,0,showPreviews)
+        console.log(newFiles)
         setFiles(newFiles)
         setNextEnabled(newFiles.length == 20)
         setPrevEnabled(false)
@@ -69,7 +71,7 @@ export default function FileExplorer(props:any) {
                 let loweredFileName = e.name.toLowerCase()
                 if(!e.preview && (loweredFileName.includes('.png') || loweredFileName.includes('.jpeg')
                 || loweredFileName.includes('.jpg'))) {
-                    let newFile = await GetFile(props.token,drive.path,e.name)
+                    let newFile = await GetFile(props.token,drive.id,curentDirectoryId,e.name)
                     return new FileObject(e.name,newFile.data.data,newFile.data.data)
                 } else {
                     return e
@@ -87,7 +89,7 @@ export default function FileExplorer(props:any) {
     let handleUploadClick = async () => {
         if(uFile) {
             setUploading(true)
-            let result = await uploadFile(props.token,drive!!.path,uFile.name,Buffer.from(await uFile.arrayBuffer()))
+            let result = await uploadFile(props.token,drive!!.id,curentDirectoryId,uFile.name,Buffer.from(await uFile.arrayBuffer()))
             setUploading(false)
             if(result.success) {
                 setToaster(new ToasterData('success',`file: ${uFile.name} uploaded`, 5000))
@@ -103,11 +105,15 @@ export default function FileExplorer(props:any) {
         let newPage = page + incriment
         setPage(newPage)
         setLoading(true)
-        let newFiles = await GetFileList(props.token,drive!!.path,newPage,showPreviews)
+        let newFiles = await GetFileList(props.token,drive!!.id,0,newPage,showPreviews)
         setFiles(newFiles)
         setNextEnabled(newFiles.length == 20)
         setPrevEnabled(newPage!=0)
         setLoading(false)
+    }
+
+    let addContextHandler = async (action:string) => {
+        console.log(action)
     }
 
     let getHeaderUI = () => {
@@ -119,6 +125,7 @@ export default function FileExplorer(props:any) {
                     <div>Show Preview</div>
                 </div>
                 <div className="row" style={{justifyContent:'center',flex:1}}>
+                    <ContextButton options={['Add File', 'Add Directory']} selectionCallback={addContextHandler} ></ContextButton>
                     <input className="file-upload" onChange={handleFileSelect} disabled={!drive} id="file" name="file" type="file"/>
                     <button onClick={handleUploadClick} disabled={!uFile || !drive} className="small-button">
                         {uploading ? <Loader local={true}></Loader> : 'Upload'}</button>
@@ -141,7 +148,7 @@ export default function FileExplorer(props:any) {
             <div className="column" style={{width:'100%'}}>
                 {getHeaderUI()}
                 {files && files.map((x:FileObject) => {
-                    return <FileObjectRow key={x.name} deleteCallback={handleDeleteCallback} drive={drive} file={x}></FileObjectRow>
+                    return <FileObjectRow key={x.name} deleteCallback={handleDeleteCallback} currentDirectoryId={curentDirectoryId} drive={drive} file={x}></FileObjectRow>
                 })}
                 <div className="row" style={{justifyContent:'flex-end',alignItems:'center'}}>
                     <button disabled={!prevEnabled} onClick={() => {changePage(-1)}} className="small-button">Back</button>

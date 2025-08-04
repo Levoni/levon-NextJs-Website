@@ -21,7 +21,15 @@
 }
 
 .text-hover:hover {
-  color: blue;
+  color: rgb(88, 260, 200);
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: rgb(44, 130, 99);
 }
 
 .header-bar a {
@@ -29,7 +37,7 @@
   text-decoration: none;
 }
 .header-bar a:hover {
-  color: blue;
+  color: rgb(88, 260, 200);
 }
 
 .header-bar-item:hover .header-bar-item-options   {
@@ -548,6 +556,18 @@ textarea {
   height: 200px;
 }
 
+.code {
+  background-color:#424141cc;
+  padding:10px;
+  border:solid 1px white;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.code > code {
+  white-space:pre;
+  text-wrap:pretty;
+}
 
 /* Mobile */
 @media (max-width: 500px) {

@@ -5,6 +5,7 @@ const nextConfig = {
         SITE_URL:process.env.SITE_URL,
         SOCKET_URL:process.env.SOCKET_URL
     },
+    reactStrictMode: false
 }
 
 module.exports = nextConfig

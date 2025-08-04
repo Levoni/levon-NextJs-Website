@@ -27,7 +27,7 @@ export default function FileObjectRow(props:any) {
     let getFullFile = async () => {
         setIsLoading(true)
         if(!hasFullFile) {
-            var newfile = await GetFile(props.token,props.drive.path,props.file.name)
+            var newfile = await GetFile(props.token,props.drive.id,props.currentDirectoryId ,props.file.name)
             setfile({
                 ...file,
                 buffer: newfile.data.data
@@ -45,9 +45,9 @@ export default function FileObjectRow(props:any) {
     let CreatePreview = () => {
         let loweredFile = file.name.toLowerCase();
         if(file.preview != null) {
-            return `data:image/png;base64,${Buffer.from(file.preview as Buffer).toString('base64')}`
+            return `data:image/png;base64,${file.preview.toString('base64')}`
         } else {
-            if(loweredFile.includes('.png') || loweredFile.includes('.jpg' || loweredFile.includes('.jpeg'))) {
+            if(loweredFile.includes('.png') || loweredFile.includes('.jpg') || loweredFile.includes('.jpeg')) {
                 return imageImg.src
             } else {
                 return fileImg.src
