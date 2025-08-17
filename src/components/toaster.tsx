@@ -8,7 +8,6 @@ export default function Toaster(props:any) {
 
     useEffect(() => {
         if(props.newToaster) {
-            console.log('added')
             setToasters(prev => [
                 ...prev,
                 props.newToaster
@@ -20,14 +19,12 @@ export default function Toaster(props:any) {
         setInterval(() => {
             setToasters(prev => prev.filter(x => {
                 let difference = new Date().getTime() - x.time 
-                console.log('difference: ' + difference)
                 return difference < x.duration 
             }))
         },1000)
     },[])
 
     const resetTime = (time:number) => {
-        console.log(toasters)
         setToasters(prev => {
             return prev.map(x => {
                 if(x.time == time) {

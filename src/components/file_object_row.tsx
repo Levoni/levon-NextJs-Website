@@ -6,31 +6,41 @@ import FileObject from "@/data/FileObject";
 
 import fileImg from '../public/file icon.png'
 import imageImg from '../public/image icon.png'
+import folderImg from '../public/folder icon.png'
 import Loader from "./loader";
 import Confirm from "./confirm";
+import { filesize } from "filesize";
 
-export default function FileObjectRow(props:any) {
+export default function FileObjectRow(props: any) {
 
-    const [file,setfile] = useState<FileObject>(props.file)
-    const [showFullImage,setShowFullImage] = useState(false)
+    const [file, setfile] = useState<FileObject>(props.file)
+    const [showFullImage, setShowFullImage] = useState(false)
     const [hasFullFile, setHasFullFile] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const [showDialog,setShowDialog] = useState(false)
+    const [showDialog, setShowDialog] = useState(false)
 
     useEffect(() => {
-        if(props.file.buffer) {
+        if (props.file.buffer) {
             setHasFullFile(true)
         }
         setfile(props.file)
-    },[props.file])
+    }, [props.file])
+
+    let handleRowClick = async () => {
+        if (file.metaData.type === 0) {
+            props.directorySelectedCallback(file)
+        } else {
+            getFullFile()
+        }
+    }
 
     let getFullFile = async () => {
         setIsLoading(true)
-        if(!hasFullFile) {
-            var newfile = await GetFile(props.token,props.drive.id,props.currentDirectoryId ,props.file.name)
+        if (!hasFullFile) {
+            var newfile = await GetFile(props.token, props.drive.id, props.file.metaData.parentRecordId, props.file.name, false)
             setfile({
                 ...file,
-                buffer: newfile.data.data
+                buffer: newfile.buffer
             })
             setHasFullFile(true)
         }
@@ -43,46 +53,57 @@ export default function FileObjectRow(props:any) {
     }
 
     let CreatePreview = () => {
-        let loweredFile = file.name.toLowerCase();
-        if(file.preview != null) {
-            return `data:image/png;base64,${file.preview.toString('base64')}`
+        if (file.preview != null) {
+            return `data:image/png;base64,${Buffer.from(file.preview).toString('base64')}`
         } else {
-            if(loweredFile.includes('.png') || loweredFile.includes('.jpg') || loweredFile.includes('.jpeg')) {
+            if (file.metaData.type === 1) {
                 return imageImg.src
-            } else {
+            } else if (file.metaData.type === 0) {
+                return folderImg.src
+            }
+            else {
                 return fileImg.src
             }
         }
     }
 
-    let deleteF = async (e:any) => {
+    let deleteF = async (e: any) => {
         e.stopPropagation();
         setShowDialog(true)
     }
 
-    let handleConfirm = (result:boolean) => {
-        if(result) {
-            props.deleteCallback(file.name)
+    let handleConfirm = (result: boolean) => {
+        if (result) {
+            props.deleteCallback(file.id, file.name)
         }
         setShowDialog(false)
     }
 
     return (
-        <div onClick={getFullFile} className="row highlight" style={{justifyContent:'space-between', borderBottom:'1px solid white'}}>
-            {isLoading ? <Loader></Loader> : null}
-            <div  className="row" style={{flex:8, alignItems:"center"}}>
+        <tr onClick={handleRowClick} className="highlight" style={{ borderBottom: '1px solid white' }}>
+            <td>
                 <div className="thumbnail">
                     <img className="thumbnail-img" src={CreatePreview()}></img>
                 </div>
-                <div>
-                    {props.file.name}
-                </div>
-            </div>
-            <div className="row" style={{alignItems:'center'}}>
-                <button onClick={deleteF} style={{flex:2}} className="big-button">Delete</button>
-            </div>
+            </td>
+            <td>
+                {props.file.name}
+            </td>
+            <td>
+                {props.file.metaData.owner}
+            </td>
+            <td>
+                {props.file.metaData.createdOn}
+            </td>
+            <td>
+                {filesize(props.file.metaData.fileSize)}
+            </td>
+            <td>
+                <button onClick={deleteF} style={{ flex: 2 }} className="big-button">Delete</button>
+            </td>
             {showFullImage && <ImageOverlay file={file}></ImageOverlay>}
             {showDialog ? <Confirm clickCallback={handleConfirm}></Confirm> : null}
-        </div>
+            {isLoading ? <Loader></Loader> : null}
+        </tr>
     )
 }

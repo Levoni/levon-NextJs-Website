@@ -33,32 +33,33 @@ a:hover {
 }
 
 .header-bar a {
-  color:white;
+  color: white;
   text-decoration: none;
 }
+
 .header-bar a:hover {
   color: rgb(88, 260, 200);
 }
 
-.header-bar-item:hover .header-bar-item-options   {
-  display:flex;
+.header-bar-item:hover .header-bar-item-options {
+  display: flex;
 }
 
 .header-bar-item-options {
-  display:none;
+  display: none;
   flex-direction: column;
 }
 
 .header-bar-item-options:hover {
-  display:flex;
+  display: flex;
 }
 
 .header-bar-divider {
-  align-self:center;
-  border-right:1px solid black;
-  margin-left:5px;
-  margin-right:5px;
-  height:75%
+  align-self: center;
+  border-right: 1px solid black;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 75%
 }
 
 textarea {
@@ -115,6 +116,12 @@ button {
   border-radius: 10px;
 }
 
+button.flat {
+  color: white;
+  border: none;
+  background: none;
+}
+
 button:hover {
   background-color: #49b88f;
   cursor: pointer;
@@ -134,6 +141,26 @@ button.big-button {
 
 button.small-button {
   height: 25px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+table th {
+  white-space: nowrap;
+  font-size: 1.25rem;
+}
+
+table th span {
+  cursor: pointer;
+}
+
+table td {
+  text-align: center;
+  vertical-align: middle;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 .activity-card {
@@ -158,12 +185,12 @@ button.small-button {
   padding: 10px;
 }
 
-.virtical-div-list > div {
+.virtical-div-list>div {
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
-.virtical-div-list > div.card-header {
+.virtical-div-list>div.card-header {
   padding-bottom: 20px;
 }
 
@@ -175,7 +202,7 @@ button.small-button {
   display: flex;
 }
 
-.row > div {
+.row>div {
   padding-right: 10px;
 }
 
@@ -184,9 +211,9 @@ button.small-button {
   flex-direction: column;
 }
 
-.column > div {
-   padding-top: 5px;
-   padding-bottom: 5px;
+.column>div {
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 /* MultiSelect area */
@@ -196,7 +223,7 @@ button.small-button {
 }
 
 .multiselect-popup {
-  background-color:  rgb(34, 37, 38);
+  background-color: rgb(34, 37, 38);
   color: white;
   border: 1px solid #2d3436;
   max-height: 500px;
@@ -230,8 +257,8 @@ button.small-button {
   border-radius: 5px;
 }
 
-.multiselect:focus-within .multiselect-popup{
-  display:block;
+.multiselect:focus-within .multiselect-popup {
+  display: block;
   flex-direction: column;
   position: fixed;
   width: 500px;
@@ -239,7 +266,7 @@ button.small-button {
 }
 
 .multiselect .multiselect-popup:hover {
-  display:block;
+  display: block;
   flex-direction: column;
   position: fixed;
   width: 500px;
@@ -254,12 +281,12 @@ i {
 }
 
 i.cheveron {
-    width: 0.2em;
-    height: 0.2em;
-    border-right: 0.2em solid white;
-    border-top: 0.2em solid white;
-    transform: rotate(45deg);
-    transition-duration: .2s;
+  width: 0.2em;
+  height: 0.2em;
+  border-right: 0.2em solid white;
+  border-top: 0.2em solid white;
+  transform: rotate(45deg);
+  transition-duration: .2s;
 }
 
 i.cheveron.open {
@@ -284,31 +311,32 @@ i.cheveron.open {
 }
 
 .login-card {
-  border-radius:5px;
-  background-color:#111415;
-  display:flex;
-  flex:.33;
-  flex-direction:column;
-  min-width:500px;
-  min-height:500px;
-  height:50%;
-  align-self:center;
-  padding:25px;
-  border:1px solid #222526;
+  border-radius: 5px;
+  background-color: #111415;
+  display: flex;
+  flex: .33;
+  flex-direction: column;
+  min-width: 500px;
+  min-height: 500px;
+  height: 50%;
+  align-self: center;
+  padding: 25px;
+  border: 1px solid #222526;
 }
 
 .stat-card {
-  flex:1;
-  flex-direction:column;
-  display:flex;
-  min-Width:5rem;
-  max-width:20rem;
-  padding:20px;
+  flex: 1;
+  flex-direction: column;
+  display: flex;
+  min-Width: 5rem;
+  max-width: 20rem;
+  padding: 20px;
 }
 
 .body-padding {
   padding: 50px;
 }
+
 .select-fill {
   width: 100%;
 }
@@ -317,7 +345,7 @@ i.cheveron.open {
   margin: 500px;
 } */
 
-.tic-tac-toe-board > div {
+.tic-tac-toe-board>div {
   padding: 0px;
   align-items: center;
   justify-content: center;
@@ -337,7 +365,7 @@ i.cheveron.open {
   cursor: pointer;
 }
 
-.stratego-board > div {
+.stratego-board>div {
   padding: 0px;
 }
 
@@ -354,14 +382,14 @@ textarea {
 }
 
 .flip {
-  transform:scaleX(0);
+  transform: scaleX(0);
   transition-duration: 1s;
-  transition-property:all;
-  transform: rotate3d(0,1,0, 360deg);
+  transition-property: all;
+  transform: rotate3d(0, 1, 0, 360deg);
 }
 
 .flip-setup {
-  transition-property:all;
+  transition-property: all;
   transition-duration: 1s;
 }
 
@@ -382,7 +410,7 @@ textarea {
 
 /* Notifications */
 .notification-menu {
-  cursor:inherit;
+  cursor: inherit;
 }
 
 .notification-menu:hover {
@@ -401,6 +429,7 @@ textarea {
   background-color: #2d3436;
   color: inherit;
 }
+
 .notification-menu .notification:last-child {
   border-bottom: none;
 }
@@ -408,6 +437,11 @@ textarea {
 .highlight:hover {
   background-color: #2d3436;
   cursor: pointer;
+}
+
+.sort-img {
+  padding: 2px;
+  width: 16px;
 }
 
 .loader {
@@ -419,114 +453,131 @@ textarea {
   display: inline-block;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
-  }
+}
 
-  @keyframes rotation {
+.clickable:hover {
+  background-color: #49b88f;
+  cursor: pointer;
+}
+
+@keyframes rotation {
   0% {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
+
   100% {
-      transform: rotate(360deg);
+    transform: rotate(360deg);
   }
-  } 
+}
 
-  @keyframes fadeout {
-    0% {
-      opacity: 1
-    }
-    80% {
-      opacity: 1
-    }
-    100% {
-      opacity: 0
-    }
+@keyframes fadeout {
+  0% {
+    opacity: 1
   }
 
-  .dialog {
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    width: 30%;
-    /* height: 200px; */
-    left: 35%;
-    top:40%;
-    background-color: #111415;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border: 1px solid #222526;
-  }
-  .dialog-title {
-    text-align: center;
-    margin-bottom: 50px;
-  }
-  .dialog-buttons {
-    display: flex;
-    justify-content: space-around;
-  }
-  .toaster {
-    border-radius: 10px;
-    padding: 20px;
-    right:100px;
-    display: flex;
-    opacity: 1;
-    align-items: center;
-    justify-content: center;
-    animation-name: fadeout;
-    animation-duration: 3s;
-    animation-timing-function: ease-in;
-    animation-fill-mode: forwards;
-    animation-play-state:initial;
+  80% {
+    opacity: 1
   }
 
-  .toaster:hover {
-    animation-play-state: paused;
-    opacity: 1 !important;
+  100% {
+    opacity: 0
   }
+}
 
-  .toaster-success {
-    background-color:#2c8263;
-  }
-  .toaster-fail {
-    background-color: red;
-  }
+.dialog {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  /* height: 200px; */
+  left: 35%;
+  top: 40%;
+  background-color: #111415;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border: 1px solid #222526;
+}
 
-  .thumbnail {
-    height:100px;
-    width:100px;
-    display:flex;
-    justify-content:center;
-  }
+.dialog-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
 
-  .thumbnail-img {
-    align-self:center;
-    max-width:100px;
-    max-height:100px;
-  }
+.dialog-buttons {
+  display: flex;
+  justify-content: space-around;
+}
 
-  .file-upload {
-    padding-right: 5px;
-  }
+.dialog .dialog-exit {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
 
-  
+.toaster {
+  border-radius: 10px;
+  padding: 20px;
+  right: 100px;
+  display: flex;
+  opacity: 1;
+  align-items: center;
+  justify-content: center;
+  animation-name: fadeout;
+  animation-duration: 3s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+  animation-play-state: initial;
+}
+
+.toaster:hover {
+  animation-play-state: paused;
+  opacity: 1 !important;
+}
+
+.toaster-success {
+  background-color: #2c8263;
+}
+
+.toaster-fail {
+  background-color: red;
+}
+
+.thumbnail {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+}
+
+.thumbnail-img {
+  align-self: center;
+  max-width: 100%;
+  max-height: 64px;
+}
+
+.file-upload {
+  padding-right: 5px;
+}
+
+
 /* Grad screen */
 .stage {
   position: fixed;
   width: 1000px;
   height: 500px;
-  left: 0; 
-  right: 0; 
+  left: 0;
+  right: 0;
   top: 0;
   bottom: 0;
-  margin:auto;
+  margin: auto;
 }
 
 .student {
   position: fixed;
   width: 100px;
   height: 140px;
-  left:50%;
-  top:50%;
-  margin-left:350px;
+  left: 50%;
+  top: 50%;
+  margin-left: 350px;
   margin-top: -40px;
   animation: studentMove 3s linear forwards;
 }
@@ -535,9 +586,9 @@ textarea {
   position: fixed;
   width: 120px;
   height: 160px;
-  left:50%;
-  top:50%;
-  margin-left:-350px;
+  left: 50%;
+  top: 50%;
+  margin-left: -350px;
   margin-top: -60px;
 }
 
@@ -546,9 +597,9 @@ textarea {
   position: fixed;
   width: 50px;
   height: 50px;
-  left:50%;
+  left: 50%;
   top: 50%;
-  margin-top:10px;
+  margin-top: 10px;
 }
 
 .congrats {
@@ -557,16 +608,16 @@ textarea {
 }
 
 .code {
-  background-color:#424141cc;
-  padding:10px;
-  border:solid 1px white;
+  background-color: #424141cc;
+  padding: 10px;
+  border: solid 1px white;
   margin-top: 10px;
   margin-bottom: 30px;
 }
 
-.code > code {
-  white-space:pre;
-  text-wrap:pretty;
+.code>code {
+  white-space: pre;
+  text-wrap: pretty;
 }
 
 /* Mobile */
@@ -581,17 +632,17 @@ textarea {
   }
 
   .login-card {
-    min-width:300px;
-    min-height:400px;
+    min-width: 300px;
+    min-height: 400px;
   }
-  
+
   .body-padding {
     padding: 20px;
   }
 
   .stat-card {
-    min-width:inherit;
-    max-width:inherit;
+    min-width: inherit;
+    max-width: inherit;
   }
 
   .input-label-medium {
@@ -602,7 +653,7 @@ textarea {
     width: auto;
   }
 
-  .multiselect-input input{
+  .multiselect-input input {
     width: 50px;
   }
 
@@ -614,32 +665,37 @@ textarea {
     width: 200px;
     height: 100px;
   }
+
   .thumbnail {
-    height:50px;
-    width:50px;
-    display:flex;
-    justify-content:center;
+    height: 50px;
+    width: 50px;
+    display: flex;
+    justify-content: center;
   }
+
   .thumbnail-img {
-    align-self:center;
-    max-width:50px;
-    max-height:50px;
+    align-self: center;
+    max-width: 50px;
+    max-height: 50px;
   }
+
   .file-upload {
     width: 200px;
   }
+
   .toaster {
     border-radius: 10px;
     padding: 10px;
     right: 50%;
     transform: translateX(50%);
   }
+
   /* Grad Screen */
   .stage {
     width: 400px;
     height: 200px;
   }
-  
+
   .student {
     width: 30px;
     height: 80px;
@@ -647,49 +703,91 @@ textarea {
     margin-left: 110px;
     animation: studentMoveMobile 3s linear forwards;
   }
-  
+
   .chancellor {
     width: 40px;
     height: 90px;
     margin-top: -50px;
-    margin-left:-150px;
+    margin-left: -150px;
   }
-  
+
   .diploma {
     animation: diplomaMoveMobile 4s linear forwards;
     width: 20px;
     height: 20px;
     margin-top: -10px;
   }
-  
+
   .congrats {
     width: 210px;
     height: 140px;
+  }
+
+  .sort-img {
+    width: 8px;
   }
 
 }
 
 /* Keyframes */
 @keyframes studentMove {
-  0%   {margin-left: 350px;}
-  100% {margin-left: -230px;}
+  0% {
+    margin-left: 350px;
+  }
+
+  100% {
+    margin-left: -230px;
+  }
 }
 
 @keyframes diplomaMove {
-  0%   {margin-left: -325px; opacity: 0%;}
-  74%   {margin-left: -325px; opacity: 0%;}
-  75%   {margin-left: -325px; opacity: 100%;}
-  100% {margin-left: -205px;}
+  0% {
+    margin-left: -325px;
+    opacity: 0%;
+  }
+
+  74% {
+    margin-left: -325px;
+    opacity: 0%;
+  }
+
+  75% {
+    margin-left: -325px;
+    opacity: 100%;
+  }
+
+  100% {
+    margin-left: -205px;
+  }
 }
 
 @keyframes studentMoveMobile {
-  0%   {margin-left: 110px;}
-  100% {margin-left: -105px;}
+  0% {
+    margin-left: 110px;
+  }
+
+  100% {
+    margin-left: -105px;
+  }
 }
 
 @keyframes diplomaMoveMobile {
-  0%   {margin-left: -130px; opacity: 0%;}
-  74%   {margin-left: -130px; opacity: 0%;}
-  75%   {margin-left: -130px; opacity: 100%;}
-  100% {margin-left: -100px;}
+  0% {
+    margin-left: -130px;
+    opacity: 0%;
+  }
+
+  74% {
+    margin-left: -130px;
+    opacity: 0%;
+  }
+
+  75% {
+    margin-left: -130px;
+    opacity: 100%;
+  }
+
+  100% {
+    margin-left: -100px;
+  }
 }
