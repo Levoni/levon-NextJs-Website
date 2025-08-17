@@ -80,13 +80,13 @@ export default function PageNumberPuzzle(props: any) {
                 <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '25px' }}>
                     <div>Congratulations on finding a correct answer!</div>
                     <div>Guess: {guess.toString()}, Points: {guessResults.points}</div>
-                    <div>Best Answer: {puzzle?.nums}</div>
+                    <div>Best Answer: {puzzle?.nums.join(',')}</div>
                 </div>)
         } else if (questionState == 'prevAnswered') {
             return (
                 <div style={{ display: 'flex', flex: 1, flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '25px' }}>
                     <div>You have already answered the puzzle correctly today.</div>
-                    <div>Best Answer: {puzzle?.nums.toString()}</div>
+                    <div>Best Answer: {puzzle?.nums.join(',')}</div>
                 </div>)
         } else if (questionState == 'noPuzzle') {
             return (

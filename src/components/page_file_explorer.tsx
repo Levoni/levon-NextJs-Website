@@ -41,7 +41,7 @@ export default function PageFileExplorer(props:any) {
 
     let handleCreateDrive = async (e:any) => {
         if(createDriveName != '') {
-            let result = await CreateDrive(props.token,createDriveName)
+            let result = await CreateDrive(props.token,createDriveName,'share')
             if(result.success) {
                 setNewToaster(new ToasterData('success','Drive Created',2000))
                 let newdrive = new Drive(result.responseObject.id,createDriveName,createDriveName,true)

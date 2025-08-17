@@ -309,33 +309,48 @@ export async function SendDeleteTotGame(token:any, id:number) {
 }
 
 export async function GetHighScores(token:any, game:string, daily:boolean) {
-    var paramters = daily ? `?game=${game}&date=${new Date().toDateString()}` : `?game=${game}`
-    return await sendGet('/highscore',token,'',paramters)
+    var parameters = daily ? `?game=${game}&date=${new Date().toDateString()}` : `?game=${game}`
+    return await sendGet('/highscore',token,'',parameters)
 }
 
-export async function GetFileList(token:any, drive:string, page:number, withPreview:boolean) {
-    var paramters = `?drive=${drive}&size=20&page=${page}&withPreview=${withPreview}`
-    return await sendGet('/FileList',token,'',paramters)
+export async function GetFileList(token:any, driveId:number, parentId: number, page:number, withPreview:boolean, sortBy:string, sortDirection:string) {
+    var parameters = `?driveId=${driveId}&parentId=${parentId}&size=20&page=${page}&withPreview=${withPreview}&sortBy=${sortBy}&sortDirection=${sortDirection}`
+    console.log(parameters)
+    return await sendGet('/Files',token,'',parameters)
 }
 
-export async function GetFile(token:any, drive:string, name:string) {
-    var paramters = `?drive=${drive}&name=${name}`
-    return await sendGet('/File',token,'',paramters)
+export async function GetFile(token:any, driveId:number, parentId:number, name:string, withPreview: boolean = false) {
+    var parameters = `?driveId=${driveId}&name=${name}&parentId=${parentId}&withPreview=${withPreview}`
+    return await sendGet('/FileInfo',token,'',parameters)
 }
 
-export async function uploadFile(token:any, drive:string, name:string, data:any) {
+export async function SearchFiles(token:any, driveId:number, searchText:string, withPreview: boolean) {
+    var parameters = `?driveId=${driveId}&searchText=${searchText}&withPreview=${withPreview}`
+    return await sendGet('/File/search',token,'',parameters)
+}
+
+export async function uploadFile(token:any, driveId:number, parentId: number, name:string, data:any) {
     var body = {
-        drive:drive,
+        driveId:driveId,
+        parentId:parentId,
         name:name,
         data:data
     }
     return await sendPost('/PostFile',token,body)
 }
 
-export async function deleteFile(token:any, drive:string, name:string) {
+export async function uploadFolder(token:any, driveId:number, parentId: number, name:string) {
     var body = {
-        drive:drive,
-        name:name
+        driveId,
+        parentId,
+        name
+    }
+    return await sendPost('/directory/create', token, body)
+}
+
+export async function deleteFile(token:any, driveRecordId:number) {
+    var body = {
+        driveRecordId:driveRecordId
     }
     return await sendPost('/DeleteFile',token,body)
 }
@@ -344,14 +359,21 @@ export async function createDirectory(token:any) {
     return await sendPost('/directory/create',token,{})
 }
 
-export async function GetDriveList(token:any) {
-    let result = await sendGet('/Drive',token,'','')
+export async function GetUserDriveList(token:any) {
+    let result = await sendGet('/Drives',token,'','')
     return result
 }
 
-export async function CreateDrive(token:any, drive:string) {
+export async function GetDrive(token:any, driveId:number) {
+    let queryString = `?driveId=${driveId}`
+    let result = await sendGet('/Drive',token,'',queryString)
+    return result
+}
+
+export async function CreateDrive(token:any, drive:string, path:string) {
     let body = {
-        drive:drive
+        driveName:drive,
+        path:path
     }
     return await sendPost('/Drive/create',token,body)
 }

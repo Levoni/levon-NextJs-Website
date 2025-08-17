@@ -1,18 +1,29 @@
 import FileExplorer from "@/components/file_explorer";
 import Header from "@/components/header";
-import {createDirectory, retriveUser } from "@/components/service_fetch";
+import {CreateDrive, GetDrive, GetUserDriveList, retriveUser } from "@/components/service_fetch";
 import Drive from "@/data/drive";
 import User from "@/data/user";
 import { cookies } from "next/headers";
 
-export default async function PhotoSHare() {
+export default async function PhotoShare() {
     const cookieStore = cookies()
     const token = cookieStore.get('loginToken')?.value
     var user:User = await retriveUser(token);
-    await createDirectory(token)
-    let userDrive = new Drive(0,user.name,`users/${user.name}`,true)
-    userDrive = Object.assign({}, userDrive);
-    console.log(userDrive)
+    let driveList:Drive[] = await GetUserDriveList(token);
+    let drive = driveList.filter(x => x.name == user.name)
+    let userDrive
+    if(drive.length == 0) {
+        console.log('not found')
+        let response = await CreateDrive(token,user.name,'users')
+        if(response.success) {
+            let userDriveResponse = await GetDrive(token,response.responseObject.id)
+            userDrive = userDriveResponse
+            userDrive = Object.assign({}, userDrive);
+        }
+    } else {
+        console.log('found')
+        userDrive = drive[0]
+    }
 
     return (
         <>
