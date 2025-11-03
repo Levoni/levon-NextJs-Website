@@ -37,7 +37,7 @@ export default function Guesser(props) {
     const handleDailySubmitClick = async event => {
         if(guess) {
             try {
-                const data = await fetch(process.env.API_URL + `/guess/${guess}`,{
+                const data = await fetch(process.env.CLIENT_API_URL + `/guess/${guess}`,{
                     method: 'POST',
                     mode:'cors',
                     headers: {

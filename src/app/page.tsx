@@ -9,6 +9,7 @@ import { retriveUser } from '@/components/service_fetch'
 export default async function GuessPage() {  
     const cookieStore = cookies()
     const token = cookieStore.get('loginToken')?.value
+    console.log('Token on main page:', token)
     var user:User = await retriveUser(token);
 
     var tempInfo: Array<object> = [
@@ -18,6 +19,8 @@ export default async function GuessPage() {
         {name:'Daily Guesses', value:user.guesses},
         {name:'Last Daily Guesses UTC', value:user.last_daily_guess},
     ]
+
+    console.log('Got here')
 
     return (
         <div style={{display:'flex', flexDirection:'column', flex:'1'}}>

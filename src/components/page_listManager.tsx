@@ -33,7 +33,7 @@ export default function PageListManagerWrapper(props:any) {
     }
 
     const handleDeleteListCallback = async (id:number) => {
-        let result = await SendDeleteList(props.token,id)
+    let result = await SendDeleteList(props.token,id, true)
         if(result.success) {
             setNewToaster(new ToasterData('success','List deleted',2000))
             let newList = lists.filter((element) => {
@@ -49,14 +49,14 @@ export default function PageListManagerWrapper(props:any) {
     }
 
     const handleSelectListCallback = async (id:number) => {
-        let results = await GetListQuickView(props.token, id)
+    let results = await GetListQuickView(props.token, id, true)
         if(results)  {
             setSelectedList(results)
         }
     }
 
     const handleQuickViewDeleteCallback = async(itemId:number) => {
-        let result = await SendDeleteListItem(props.token,itemId)
+    let result = await SendDeleteListItem(props.token,itemId, true)
         if(result.success) {
             setSelectedList({
                 ...selectedList,

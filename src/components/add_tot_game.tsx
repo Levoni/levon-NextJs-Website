@@ -1,5 +1,4 @@
 'use client';
-import GameLink from "@/data/game_link"
 import { useState } from "react"
 import MultiSelect from "./multi-select";
 

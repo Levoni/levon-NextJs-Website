@@ -12,7 +12,7 @@ export default function RequestResults(props:any) {
 
     useEffect(() => {
         const asyncFunction = async () => {
-            setMessages(await retriveRequestMessages(props.token,props.item.id))
+        setMessages(await retriveRequestMessages(props.token,props.item.id, true))
         }
         asyncFunction();
     },[])
@@ -39,7 +39,7 @@ export default function RequestResults(props:any) {
         let admin = user.is_admin
         let currentMessages = messages
         if(currentMessages.length == 0) {
-            let newMessages = await retriveRequestMessages(props.token,props.item.id)
+            let newMessages = await retriveRequestMessages(props.token,props.item.id, true)
             currentMessages = newMessages
         }
         currentMessages = currentMessages.map((x:any) => {
@@ -49,11 +49,11 @@ export default function RequestResults(props:any) {
             }
         })
         setMessages(currentMessages)
-        await sendUpdateRequestViewStatus(props.token,{id:props.item.id,is_admin:admin,include_messages:true})
+    await sendUpdateRequestViewStatus(props.token,{id:props.item.id,is_admin:admin,include_messages:true}, true)
     }
 
     const handleMessageSubmit = async (e:any) => {
-        let response = await sendAddRequestMessage(props.token, {id:requestMessageParams.request_id,message:requestMessageParams.message, user_name:requestMessageParams.user_name})
+    let response = await sendAddRequestMessage(props.token, {id:requestMessageParams.request_id,message:requestMessageParams.message, user_name:requestMessageParams.user_name}, true)
         if(response.success) {
             setStatus(response.responseMessage)
             setMessages([
@@ -72,7 +72,7 @@ export default function RequestResults(props:any) {
 
     const handleChangeStatusButtonClick = async (e:any) => {
         e.stopPropagation();
-        let result = await sendUpdateRequestStatus(props.token,{closed:!props.item.closed, id: props.item.id})
+    let result = await sendUpdateRequestStatus(props.token,{closed:!props.item.closed, id: props.item.id}, true)
         //TODO: figure out how to show updated closed status
         if(result.success) {
             if(props.ChangeStatusHook) {

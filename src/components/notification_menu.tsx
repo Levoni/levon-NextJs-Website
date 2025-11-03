@@ -1,7 +1,7 @@
 'use client';
 import  Notification  from "@/components/notification"
 import notificationImage from "@/public/notification.png"
-import { GetNotifications, GetOrderedUsers } from "./service_fetch";
+import { GetNotifications } from "./service_fetch";
 import { useEffect, useState } from "react";
 
 export default function NotificationMenu(props:any) {
@@ -10,7 +10,7 @@ export default function NotificationMenu(props:any) {
     useEffect(()=>{
         let getData = async () => {
             try{
-                let result = await GetNotifications(props.token,props.userName)
+                let result = await GetNotifications(props.token,props.userName, true)
                 if(result.success) {
                     if(notifications.length == 0){
                         setNotifications((prev:any) => {return result.rows})

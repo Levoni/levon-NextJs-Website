@@ -97,7 +97,7 @@ export default function AddDailyResult(props:any) {
         }
 
 
-        const data = await fetch(process.env.API_URL + '/userSiteLink/add',{
+        const data = await fetch(process.env.CLIENT_API_URL + '/userSiteLink/add',{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

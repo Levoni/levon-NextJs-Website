@@ -22,7 +22,7 @@ export default function AddRequest(props:any) {
     }
 
     const handleSubmit = async (e:any) => {
-        let result = await sendAddRequest(props.token,{...request})
+        let result = await sendAddRequest(props.token,{...request}, true)
         setStatus(result.responseMessage)
         if(result.success && props.submitRequestCallback) {
             console.log(result)

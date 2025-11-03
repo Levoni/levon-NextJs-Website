@@ -34,14 +34,14 @@ export default function PageFileExplorer(props:any) {
         setDrive(newDrive)
         //get files
         //get drive users
-        let newDriveUsers = await GetDriveUsers(props.token, newDrive!!.id)
+        let newDriveUsers = await GetDriveUsers(props.token, newDrive!!.id, true)
         setRefreshUsers(true)
         setDriveUsers(newDriveUsers.map((x:any) => x.user_name))
     }
 
     let handleCreateDrive = async (e:any) => {
         if(createDriveName != '') {
-            let result = await CreateDrive(props.token,createDriveName,'share')
+            let result = await CreateDrive(props.token,createDriveName,'share', true)
             if(result.success) {
                 setNewToaster(new ToasterData('success','Drive Created',2000))
                 let newdrive = new Drive(result.responseObject.id,createDriveName,createDriveName,true)
@@ -86,7 +86,7 @@ export default function PageFileExplorer(props:any) {
             setDriveUsers(allowedUsers)
         }
 
-        let result = await UpdateDriveUsers(props.token, allowedUsers,drive!!.id)
+        let result = await UpdateDriveUsers(props.token, allowedUsers,drive!!.id, true)
         if(!result.success) {
             setNewToaster(new ToasterData('fail','Users failed to update',2000))
             console.log(result.responseMessage)
@@ -97,7 +97,7 @@ export default function PageFileExplorer(props:any) {
 
     let handleConfirm = async (result:boolean) => {
         if (drive != null && result) {
-            let result = await DeleteDrive(props.token,drive!!.id)
+            let result = await DeleteDrive(props.token,drive!!.id, true)
             if(result.success) {
                 setNewToaster(new ToasterData('success','Drive Deleted',2000))
                 let newDrives = drives.filter(x => {

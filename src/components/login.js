@@ -17,7 +17,7 @@ export default function Login() {
         var name = event.target.name.value
         var password = event.target.password.value
         var newUser = event.target.signUp.checked
-        var url = process.env.API_URL
+        var url = process.env.CLIENT_API_URL
         url += newUser ? '/signup' : '/login'
         let body = {"name":name,"password":password}
         const data = await fetch(url,{

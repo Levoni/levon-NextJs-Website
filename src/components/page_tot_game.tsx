@@ -67,7 +67,7 @@ export default function PageTotGameWrapper(props:any) {
     let handleRecieveCallback = handleRecieveMessage
 
     let SendMessageCallback = async (actionJson: string) => {
-        let returnItems = await sendTotGameAction(props.token,actionJson,props.game.id)
+    let returnItems = await sendTotGameAction(props.token,actionJson,props.game.id, true)
         if(returnItems.responseObject) {
             handleRecieveMessage(returnItems.responseObject[0])
             if(returnItems.responseObject.length > 1) {

@@ -70,7 +70,7 @@ export default function PersonalStatistics(props:any) {
 
     const getResults = async (queryString:String = '') => {
         let qString = queryString ? queryString : getQueryParams(filterOptions)
-        const data = await fetch(process.env.API_URL + '/userSiteLink' + qString,{
+        const data = await fetch(process.env.CLIENT_API_URL + '/userSiteLink' + qString,{
           method: 'GET',
           headers: {
               'Accept': 'application/json',

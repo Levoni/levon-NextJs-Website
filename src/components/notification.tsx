@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 
 export default function Notification(props:any) {
     const router = useRouter()
-    var notification:Array<any> = []
 
     const handleClick = () => {
         router.push(props.link)

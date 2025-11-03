@@ -16,7 +16,7 @@ export default function PageNumberPuzzle(props: any) {
 
     let getPuzzle = async () => {
         try {
-            let p = await GetCurrentNumberPuzzle(props.token)
+            let p = await GetCurrentNumberPuzzle(props.token, true)
             console.log(p.generatedNum)
 
             let generatedNum: GenerationResult = numGenerator.convertObjectToNumber(p.generatedNum)
@@ -39,7 +39,7 @@ export default function PageNumberPuzzle(props: any) {
     let verifyPuzzle = async () => {
         //verify all guess numbers are actually numbers
         console.log('verifying')
-        let result = await SendCurrentNumberPuzzleGuess(props.token, guess.map<number>(x => parseInt(x)))
+    let result = await SendCurrentNumberPuzzleGuess(props.token, guess.map<number>(x => parseInt(x)), true)
         if (result.success && result.responseObject.valid) {
             setGuessResults(result.responseObject)
             setQuestionState('answered')
