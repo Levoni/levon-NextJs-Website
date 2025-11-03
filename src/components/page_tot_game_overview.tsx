@@ -19,7 +19,7 @@ export default function PageTotGameOverviewWrapper(props:any) {
 
     const HandleDelete = async (id:number) => {
         if(id) {
-            let result = await SendDeleteTotGame(props.token,id)
+            let result = await SendDeleteTotGame(props.token,id, true)
             if(result.success) {
                 setTotGames((prev) => {
                     return prev.filter((item) => {
@@ -34,7 +34,7 @@ export default function PageTotGameOverviewWrapper(props:any) {
 
     const HandleAccept = async (id:number) => {
         if(id) {
-            let result = await SendAcceptTotGame(props.token,id,props.user.name)
+            let result = await SendAcceptTotGame(props.token,id,props.user.name, true)
             if(!result.success) {
                 setNewToaster(new ToasterData('fail','Failed to accept game',2000))
             }
@@ -43,7 +43,7 @@ export default function PageTotGameOverviewWrapper(props:any) {
 
     const HandleAdd = async (addData:any) => {
         if(addData.user_names && addData.user_names.length > 0) {
-            let response = await SendAddTotGame(props.token,addData.type, addData.user_names[0],props.user.name)//TODO: add variant difference
+            let response = await SendAddTotGame(props.token,addData.type, addData.user_names[0],props.user.name, true)//TODO: add variant difference
             if(!response.success) {
                 setNewToaster(new ToasterData('fail','Failed to accept game',2000))
             } else {

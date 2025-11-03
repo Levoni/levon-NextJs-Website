@@ -13,9 +13,9 @@ export default function PageUserWrapper(props:any) {
     const [responseMessage, setResponseMessage] = useState('')
 
     const handleSave = async () => {
-        let resuts = await SendUserSocialupdate(props.token, user.public)
-        let notificationResults = await SendUserNotificationPreferenceUpdate(props.token,notificationPreference)
-        let emailResults = await SendUserEmailUpdate(props.token,user.email)
+        let resuts = await SendUserSocialupdate(props.token, user.public, true)
+        let notificationResults = await SendUserNotificationPreferenceUpdate(props.token,notificationPreference, true)
+        let emailResults = await SendUserEmailUpdate(props.token,user.email, true)
         if(resuts.success && notificationResults.success && emailResults.success) {
             setResponseMessage('Saved all preferences')
         } else {

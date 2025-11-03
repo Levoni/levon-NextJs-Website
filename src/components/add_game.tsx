@@ -28,7 +28,7 @@ export default function AddGame(props:any) {
             sendGameLink = new GameLink('',props.gameList[0].name,gameLink.installed)
             setGameLink(sendGameLink)
         }
-        const data = await fetch(process.env.API_URL + '/gamelink/add',{
+        const data = await fetch(process.env.CLIENT_API_URL + '/gamelink/add',{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

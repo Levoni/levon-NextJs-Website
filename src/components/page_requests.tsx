@@ -19,9 +19,9 @@ export default function PageRequestWrapper(props:any) {
             setRequests(props.initialRequests)
             props.initialRequests.forEach((element:Request) => {
                 if(element.to_view == 1 && !props.user.is_admin) {
-                    sendUpdateRequestViewStatus(props.token,{id:element.id,is_admin:false,include_messages:false})
+                    sendUpdateRequestViewStatus(props.token,{id:element.id,is_admin:false,include_messages:false}, true)
                 } else if (element.to_view == 2 && props.user.is_admin) {
-                    sendUpdateRequestViewStatus(props.token,{id:element.id,is_admin:true,include_messages:false})
+                    sendUpdateRequestViewStatus(props.token,{id:element.id,is_admin:true,include_messages:false}, true)
                 }
             });
         }
@@ -65,9 +65,9 @@ export default function PageRequestWrapper(props:any) {
         //TODO:track closed input state and use that
         var newRequests;
         if(props.user.is_admin) {
-            newRequests = await retriveAllRequest(props.token,onlyOpen ? 0 : null)
+            newRequests = await retriveAllRequest(props.token,onlyOpen ? 0 : null, true)
         } else {
-            newRequests = await retriveRequest(props.token,props.user.name, onlyOpen ? 0 : null)
+            newRequests = await retriveRequest(props.token,props.user.name, onlyOpen ? 0 : null, true)
         } 
         setRequests(newRequests)
     }

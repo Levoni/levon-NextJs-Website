@@ -29,7 +29,7 @@ export default function AddSite(props:any) {
     }
 
     const submitSite = async (e:any) => {
-        const data = await fetch(process.env.API_URL + '/site/add',{
+        const data = await fetch(process.env.CLIENT_API_URL + '/site/add',{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

@@ -23,7 +23,7 @@ export default function HighScoreLeaderboard(props:any) {
 
     let handleGameChange = async (e:any) => {
         setGame(e.target.value)
-        let result = await GetHighScores(props.token,e.target.value,daily == 'Today')
+        let result = await GetHighScores(props.token,e.target.value,daily == 'Today', true)
         let scores = []
         if(result.success) {
             scores = result.data
@@ -33,7 +33,7 @@ export default function HighScoreLeaderboard(props:any) {
 
     let handleDateChange = async (e:any) => {
         setDaily(e.target.value)
-        let result = await GetHighScores(props.token,game,e.target.value == 'Today')
+        let result = await GetHighScores(props.token,game,e.target.value == 'Today', true)
         let scores = []
         if(result.success) {
             scores = result.data

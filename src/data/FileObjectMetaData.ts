@@ -6,10 +6,10 @@ export default class FileObjectMetaData {
     fileSize: number|null
 
     constructor(metaData:any) {
-        this.type = metaData.type
+        this.type = metaData.type ? metaData.type : 0
         this.owner = metaData.created_by ? metaData.created_by : '',
         this.parentRecordId = metaData.parentRecordId
-        this.createdOn = metaData.created_on,
-        this.fileSize = metaData.file_size
+        this.createdOn = metaData.created_on ? new Date(metaData.created_on) : new Date(),
+        this.fileSize = metaData.file_size ? metaData.file_size : 0
     }
 }

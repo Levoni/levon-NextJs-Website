@@ -11,7 +11,7 @@ export default function PagePickerWrapper(props:any) {
     var [searchParams, setSearchParams] = useState(new GameSearch('','',0,'', false))
 
     const GetUsersGames = async () => {
-        const data = await fetch(process.env.API_URL + '/users/game' + getSearchQueryParamaters(),{
+        const data = await fetch(process.env.CLIENT_API_URL + '/users/game' + getSearchQueryParamaters(),{
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

@@ -4,7 +4,6 @@ import List from "@/data/list";
 import { useState } from "react";
 import Collapse from "./collapse";
 import MultiSelect from "./multi-select";
-import User from "@/data/user";
 import { SendAddList, SendAddTemplateItems } from "./service_fetch";
 
 export default function AddList(props:any) {
@@ -55,7 +54,7 @@ export default function AddList(props:any) {
 
     const handleSubmit = async () => {
         console.log(listParams)
-        let newListId = await SendAddList(props.token,listParams,props.user.name)
+        let newListId = await SendAddList(props.token,listParams,props.user.name, true)
         setStatus(newListId.responseMessage)
         if(newListId.success) {
             let newlistParams = {...listParams, id: newListId.responseObject.id}
@@ -64,7 +63,7 @@ export default function AddList(props:any) {
                 props.AddListCallback(newlistParams)
             }
             if(!listParams.is_template && selectedTemplate != -1) {
-                let TemplateAddResult = await SendAddTemplateItems(props.token, newListId.responseObject.id,selectedTemplate)
+                let TemplateAddResult = await SendAddTemplateItems(props.token, newListId.responseObject.id, selectedTemplate, true)
                 setStatus(status + TemplateAddResult.responseMessage)
             }
         } else {

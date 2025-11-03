@@ -12,6 +12,6 @@ export default class FileObject {
         this.id = id
         this.preview = preview
         this.buffer = buffer
-        this.metaData = new FileObjectMetaData(metaData)
+        this.metaData = metaData ? metaData : new FileObjectMetaData({type:10,parentRecordId:0,created_by:'',created_on:new Date(),file_size:0})
     }
 }

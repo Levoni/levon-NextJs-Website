@@ -49,7 +49,7 @@ export default function FileExplorer(props: any) {
         }
         setToaster(new ToasterData('success', `drive: ${drive.name} selected`, 5000))
         setLoading(true)
-        let newFiles = await GetFileList(props.token, drive.id, 0, 0, showPreviews, sortInfo.sortBy, sortInfo.sortDirection)
+        let newFiles = await GetFileList(props.token, drive.id, 0, 0, showPreviews, sortInfo.sortBy, sortInfo.sortDirection,true)
         setFiles(newFiles)
         setNextEnabled(newFiles.length == 20)
         setPrevEnabled(false)
@@ -58,7 +58,7 @@ export default function FileExplorer(props: any) {
     }
 
     let handleDeleteCallback = async (driveRecordId: number, driveRecordName: string) => {
-        var result = await deleteFile(props.token, driveRecordId)
+        var result = await deleteFile(props.token, driveRecordId, true)
         if (result.success) {
             setToaster(new ToasterData('success', `Record: ${driveRecordName} deleted`, 5000))
             let newFiles = files.filter(x => {
@@ -80,7 +80,7 @@ export default function FileExplorer(props: any) {
                 let loweredFileName = e.name.toLowerCase()
                 if (!e.preview && (loweredFileName.includes('.png') || loweredFileName.includes('.jpeg')
                     || loweredFileName.includes('.jpg'))) {
-                    let newFile = await GetFile(props.token, drive.id, e.metaData.parentRecordId!, e.name, showPreviews)
+                    let newFile = await GetFile(props.token, drive.id, e.metaData.parentRecordId!, e.name, showPreviews,true)
                     return newFile
                 } else {
                     return e
@@ -98,9 +98,16 @@ export default function FileExplorer(props: any) {
     let handleUploadClick = async () => {
         if (uFile) {
             setUploading(true)
-            let result = await uploadFile(props.token, drive!!.id, currentDirectoryId, uFile.name, Buffer.from(await uFile.arrayBuffer()))
+            let result = await uploadFile(props.token, drive!!.id, currentDirectoryId, uFile.name, Buffer.from(await uFile.arrayBuffer()), true)
             let imageBuffer = showPreviews ? Buffer.from(await uFile.arrayBuffer()) : null
-            let newFileObject = new FileObject(uFile.name, result.responseObject.id, imageBuffer, imageBuffer, result.responseObject)
+            let newFileObject = new FileObject(uFile.name, result.responseObject.id, imageBuffer, imageBuffer, new FileObjectMetaData({
+                 type: 10, 
+                 parentRecordId: currentDirectoryId,
+                 created_by: 'me',
+                 created_on: new Date().toISOString(),
+                 file_size: uFile.size
+            }))
+            console.log(newFileObject)
             setFiles([...files, newFileObject])
             handleDialogClose()
             setUploading(false)
@@ -115,7 +122,7 @@ export default function FileExplorer(props: any) {
     }
 
     let handleFolderCreationClick = async () => {
-        var result = await uploadFolder(props.token, drive!!.id, currentDirectoryId, folderName)
+        var result = await uploadFolder(props.token, drive!!.id, currentDirectoryId, folderName, true)
         if (result.success) {
             let newFileObject = new FileObject(folderName, result.responseObject.id, null, null, new FileObjectMetaData({ type: 0 }))
             setFiles([...files, newFileObject])
@@ -129,7 +136,7 @@ export default function FileExplorer(props: any) {
 
     let handleFolderChange = async (directoryInfo: FileObject, freshDirectory: boolean = false) => {
         setLoading(true)
-        let newFiles = await GetFileList(props.token, drive!!.id, directoryInfo.id!!, 0, showPreviews, sortInfo.sortBy, sortInfo.sortDirection)
+        let newFiles = await GetFileList(props.token, drive!!.id, directoryInfo.id!!, 0, showPreviews, sortInfo.sortBy, sortInfo.sortDirection,true)
         setFiles(newFiles)
         setCurrentDirectoryId(directoryInfo.id!!)
         if (!freshDirectory) {
@@ -157,7 +164,8 @@ export default function FileExplorer(props: any) {
     let handleSearchInput = async (e: any) => {
         if (e.keyCode == 13) {
             setLoading(true)
-            let newFiles = await SearchFiles(props.token, drive!!.id, searchText, showPreviews)
+            let newFiles = await SearchFiles(props.token, drive!!.id, searchText, showPreviews, true)
+            console.log(newFiles)
             setFiles(newFiles)
             setNextEnabled(newFiles.length == 20)
             setPrevEnabled(false)
@@ -170,7 +178,7 @@ export default function FileExplorer(props: any) {
         let newPage = page + incriment
         setPage(newPage)
         setLoading(true)
-        let newFiles = await GetFileList(props.token, drive!!.id, 0, newPage, showPreviews, sortInfo.sortBy, sortInfo.sortDirection)
+        let newFiles = await GetFileList(props.token, drive!!.id, 0, newPage, showPreviews, sortInfo.sortBy, sortInfo.sortDirection,true)
         setFiles(newFiles)
         setNextEnabled(newFiles.length == 20)
         setPrevEnabled(newPage != 0)
@@ -205,7 +213,7 @@ export default function FileExplorer(props: any) {
         setSortInfo(newSortInfo)
 
         setLoading(true)
-        let newFiles = await GetFileList(props.token, drive!!.id, currentDirectoryId, page, showPreviews, newSortInfo.sortBy, newSortInfo.sortDirection)
+        let newFiles = await GetFileList(props.token, drive!!.id, currentDirectoryId, page, showPreviews, newSortInfo.sortBy, newSortInfo.sortDirection, true)
         setFiles(newFiles)
         setNextEnabled(newFiles.length == 20)
         setPrevEnabled(false)

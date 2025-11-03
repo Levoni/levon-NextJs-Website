@@ -12,7 +12,7 @@ export default function ResetStart(props:any) {
         event.preventDefault()
         var name = event.target.name.value
         var email = event.target.email.value
-        var result = await StartPasswordReset('',name,email)
+    var result = await StartPasswordReset('',name,email, true)
         setStatusMessage(result.responseMessage)
     }
 

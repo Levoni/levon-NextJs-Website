@@ -16,7 +16,7 @@ export default function PasswordReset(props:any) {
             setStatusMessage('Passwords do not match')
             return
         }
-        var result = await ResetPassword(password,props.resetCode)
+    var result = await ResetPassword(password,props.resetCode, true)
         setStatusMessage(result.responseMessage)
     }
 

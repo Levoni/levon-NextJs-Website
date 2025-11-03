@@ -37,7 +37,7 @@ export default function FileObjectRow(props: any) {
     let getFullFile = async () => {
         setIsLoading(true)
         if (!hasFullFile) {
-            var newfile = await GetFile(props.token, props.drive.id, props.file.metaData.parentRecordId, props.file.name, false)
+            var newfile = await GetFile(props.token, props.drive.id, props.file.metaData.parentRecordId, props.file.name, false, true)
             setfile({
                 ...file,
                 buffer: newfile.buffer
@@ -93,7 +93,7 @@ export default function FileObjectRow(props: any) {
                 {props.file.metaData.owner}
             </td>
             <td>
-                {props.file.metaData.createdOn}
+                {props.file.metaData.createdOn.toDateString()}
             </td>
             <td>
                 {filesize(props.file.metaData.fileSize)}

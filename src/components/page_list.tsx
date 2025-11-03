@@ -20,7 +20,7 @@ export default function PageListWrapper(props:any) {
     const [toaster,setToaster] = useState<ToasterData>()
 
     const handleAddClick = async () => {
-        let result = await SendAddListItem(props.token, addName ,props.list.id,1)
+    let result = await SendAddListItem(props.token, addName ,props.list.id,1, true)
         if(result.success) {
             setToaster(new ToasterData('success','List item created',2000))
             setList({
@@ -40,7 +40,7 @@ export default function PageListWrapper(props:any) {
     }
 
     const handleDeleteClick = async (id:number) => {
-        let result = await SendDeleteListItem(props.token,id)
+    let result = await SendDeleteListItem(props.token,id, true)
         if(result.success) {
             setList({
                 ...list,
@@ -57,9 +57,9 @@ export default function PageListWrapper(props:any) {
 
     const handleAddTemplate = async () => {
         if(templateId != -1) {
-            let result = await SendAddTemplateItems(props.token,list.id,templateId)
+            let result = await SendAddTemplateItems(props.token,list.id,templateId, true)
             if(result.success) {
-                let listsResult = await GetListQuickView(props.token,list.id)
+                let listsResult = await GetListQuickView(props.token,list.id, true)
                 console.log(listsResult)
                 if(listsResult && listsResult.items.length > 0) {
                     setList(listsResult)

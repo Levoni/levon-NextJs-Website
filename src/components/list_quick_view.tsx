@@ -1,6 +1,3 @@
-import ListItem from "@/data/list_item";
-import { useState } from "react";
-
 export default function ListQuickView(props:any) {
 
     const handleDeleteClick = (id:number) => {

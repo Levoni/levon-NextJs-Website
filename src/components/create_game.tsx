@@ -45,7 +45,7 @@ export default function CreateGame(props:any) {
         })
     }
     const handleCreate = async (e:any) => {
-        const data = await fetch(process.env.API_URL + '/game/add',{
+        const data = await fetch(process.env.CLIENT_API_URL + '/game/add',{
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
